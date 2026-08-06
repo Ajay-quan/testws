@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 
 function Monogram() {
   // Four vertical geometric strokes = abstract AV mark
@@ -36,7 +37,7 @@ function NavLink({ label, target }) {
   );
 }
 
-export default function Header({ scrollPct, mode, onToggleMode }) {
+export default function Header({ scrollPct, mode, onToggleMode, soundOn, onToggleSound }) {
   const [now, setNow] = useState('');
   useEffect(() => {
     const t = setInterval(() => {
@@ -70,6 +71,18 @@ export default function Header({ scrollPct, mode, onToggleMode }) {
             <NavLink label="WORK" target="work" />
             <NavLink label="CONTACT" target="contact" />
           </nav>
+
+          <button
+            data-testid="sound-toggle"
+            data-cursor="hover"
+            onClick={onToggleSound}
+            aria-pressed={soundOn}
+            aria-label={soundOn ? 'Mute tunnel sound' : 'Enable tunnel sound'}
+            className="hairline-r focus-ring"
+            style={{ width: 56, background: soundOn ? 'var(--ink)' : 'transparent', color: soundOn ? 'var(--accent)' : 'var(--ink)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {soundOn ? <Volume2 size={16} strokeWidth={1.6} /> : <VolumeX size={16} strokeWidth={1.6} />}
+          </button>
 
           <button
             data-testid="contrast-toggle"

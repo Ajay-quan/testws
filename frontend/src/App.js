@@ -18,6 +18,7 @@ import EmailRibbon from '@/components/portfolio/EmailRibbon';
 import Footer from '@/components/portfolio/Footer';
 import ProjectOverlay from '@/components/portfolio/ProjectOverlay';
 import { usePrefersReducedMotion } from '@/components/portfolio/hooks';
+import { setEnabled as setAudioEnabled } from '@/components/portfolio/tunnelAudio';
 
 function App() {
   const reduced = usePrefersReducedMotion();
@@ -25,7 +26,9 @@ function App() {
   const [mode, setMode] = useState('paper'); // 'paper' | 'signal'
   const [scrollPct, setScrollPct] = useState(0);
   const [openProject, setOpenProject] = useState(null);
+  const [soundOn, setSoundOn] = useState(false);
   const handleLoaded = useCallback(() => setLoaded(true), []);
+  const toggleSound = useCallback(() => setSoundOn((s) => { const n = !s; setAudioEnabled(n); return n; }), []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-mode', mode);
@@ -65,7 +68,7 @@ function App() {
       <Pointer />
       <Toaster position="bottom-right" toastOptions={{ style: { background: '#110908', color: '#f2ece3', border: '1px solid #f2ece3', borderRadius: 0, fontFamily: 'JetBrains Mono', fontSize: 12 } }} />
 
-      <Header scrollPct={scrollPct} mode={mode} onToggleMode={() => setMode((m) => (m === 'paper' ? 'signal' : 'paper'))} />
+      <Header scrollPct={scrollPct} mode={mode} onToggleMode={() => setMode((m) => (m === 'paper' ? 'signal' : 'paper'))} soundOn={soundOn} onToggleSound={toggleSound} />
 
       <main id="main">
         <HeroField />

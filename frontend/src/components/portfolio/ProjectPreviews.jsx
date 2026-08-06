@@ -53,7 +53,7 @@ function useCanvas(drawFactory, deps = []) {
 const ink = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#110908';
 const accent = () => getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#f2ece3';
 
-export function ContextEngine() {
+export function ContextEngine({ tint = '#E34351' }) {
   const ref = useCanvas((ctx, size, p, clicks, s) => () => {
     const { W, H } = size();
     ctx.clearRect(0, 0, W, H);
@@ -71,10 +71,10 @@ export function ContextEngine() {
       const y = cy + Math.sin(ang) * rad;
       ctx.strokeStyle = accent(); ctx.lineWidth = 1; ctx.globalAlpha = 0.6;
       ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke();
-      ctx.globalAlpha = 1; ctx.fillStyle = i % 3 === 0 ? '#E34351' : accent();
+      ctx.globalAlpha = 1; ctx.fillStyle = i % 3 === 0 ? tint : accent();
       ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
     }
-    ctx.fillStyle = '#E34351'; ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = tint; ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
     for (let i = clicks.length - 1; i >= 0; i--) {
       const c = clicks[i]; c.r += 3; c.life -= 0.02;
       ctx.strokeStyle = accent(); ctx.globalAlpha = Math.max(c.life, 0);
@@ -86,7 +86,7 @@ export function ContextEngine() {
   return <canvas ref={ref} aria-hidden="true" style={{ width: '100%', height: '100%', display: 'block' }} />;
 }
 
-export function SonicField() {
+export function SonicField({ tint = '#E34351' }) {
   const ref = useCanvas((ctx, size, p, clicks, s) => () => {
     const { W, H } = size();
     ctx.clearRect(0, 0, W, H);
@@ -95,7 +95,7 @@ export function SonicField() {
     const bands = 22;
     for (let i = 0; i < bands; i++) {
       const off = (i / bands) * H * 2 + (s.t * 40 * rhythm) % (H * 2);
-      ctx.strokeStyle = i % 4 === 0 ? '#E34351' : accent();
+      ctx.strokeStyle = i % 4 === 0 ? tint : accent();
       ctx.globalAlpha = 0.55; ctx.lineWidth = 2;
       ctx.beginPath();
       for (let x = 0; x <= W; x += 8) {
@@ -112,12 +112,12 @@ export function SonicField() {
     ctx.save(); ctx.translate(cx, cy); ctx.rotate(s.t * 0.4);
     ctx.strokeRect(-24 * scale, -24 * scale, 48 * scale, 48 * scale);
     ctx.restore();
-    ctx.fillStyle = '#E34351'; ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = tint; ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
   });
   return <canvas ref={ref} aria-hidden="true" style={{ width: '100%', height: '100%', display: 'block' }} />;
 }
 
-export function QuietSignal() {
+export function QuietSignal({ tint = '#E34351' }) {
   const ref = useCanvas((ctx, size, p, clicks, s) => {
     let speed = 0.02;
     return () => {
@@ -132,7 +132,7 @@ export function QuietSignal() {
       for (let i = 0; i < 40; i++) {
         const a = (i / 40) * Math.PI * 2;
         const r1 = rmax * (0.5 + 0.5 * Math.sin(i + s.t));
-        ctx.strokeStyle = i % 5 === 0 ? '#E34351' : accent();
+        ctx.strokeStyle = i % 5 === 0 ? tint : accent();
         ctx.globalAlpha = 0.5; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(Math.cos(a) * (rmax * 0.3), Math.sin(a) * (rmax * 0.3));
         ctx.lineTo(Math.cos(a) * r1, Math.sin(a) * r1); ctx.stroke();
@@ -142,7 +142,7 @@ export function QuietSignal() {
       ctx.beginPath(); ctx.arc(cx, cy, rmax * 0.3, 0, Math.PI * 2); ctx.stroke();
       for (let i = clicks.length - 1; i >= 0; i--) {
         const c = clicks[i]; c.r += 4; c.life -= 0.03;
-        ctx.strokeStyle = '#E34351'; ctx.globalAlpha = Math.max(c.life, 0);
+        ctx.strokeStyle = tint; ctx.globalAlpha = Math.max(c.life, 0);
         ctx.beginPath(); ctx.arc(cx, cy, c.r, 0, Math.PI * 2); ctx.stroke();
         if (c.life <= 0) clicks.splice(i, 1);
       }

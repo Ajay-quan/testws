@@ -52,11 +52,21 @@ export default function ProjectOverlay({ project, onClose }) {
             className="surface-ink"
             style={{ width: 'min(560px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid var(--accent)' }}
           >
-            <div className="hairline-b" style={{ borderColor: 'var(--accent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--ink)' }}>
-              <span className="u-label" style={{ color: 'var(--accent)' }}>{project.serial}</span>
+            <div className="hairline-b" style={{ borderColor: 'var(--accent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--ink)', zIndex: 2 }}>
+              <span className="u-label" style={{ color: project.accent }}>{project.serial}</span>
               <button ref={closeRef} data-testid="overlay-close" data-cursor="hover" onClick={() => onClose()} aria-label="Close project" className="focus-ring"
-                style={{ background: 'transparent', border: '1px solid var(--accent)', color: 'var(--accent)', width: 34, height: 34, cursor: 'none' }}>✕</button>
+                style={{ background: 'transparent', border: `1px solid ${project.accent}`, color: project.accent, width: 34, height: 34, cursor: 'none' }}>✕</button>
             </div>
+
+            {project.media && project.media.length > 0 && (
+              <div style={{ padding: '20px 20px 0' }}>
+                <figure style={{ margin: 0, position: 'relative', border: `1px solid ${project.accent}`, aspectRatio: '3 / 2', overflow: 'hidden', background: '#000' }}>
+                  <img src={project.media[0]} alt={`${project.title} interface study`} loading="lazy"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <figcaption className="u-label" style={{ position: 'absolute', bottom: 8, left: 8, color: project.accent, background: 'rgba(17,9,8,0.72)', padding: '4px 8px' }}>FIG.01 / INTERFACE STUDY</figcaption>
+                </figure>
+              </div>
+            )}
 
             <div style={{ padding: '28px 20px 60px', color: 'var(--accent)' }}>
               <h2 id="ov-title" className="font-display" style={{ margin: 0, fontSize: 'clamp(40px, 8vw, 84px)', lineHeight: 0.86, letterSpacing: '-0.03em' }}>{project.title}</h2>
@@ -73,7 +83,7 @@ export default function ProjectOverlay({ project, onClose }) {
                 ['OUTCOME', project.outcome],
               ].map(([k, v]) => (
                 <div key={k} style={{ marginTop: 30 }}>
-                  <div className="u-label" style={{ opacity: 0.55, marginBottom: 8 }}>{k}</div>
+                  <div className="u-label" style={{ color: project.accent, opacity: 0.85, marginBottom: 8 }}>{k}</div>
                   <p className="font-serif-ed" style={{ margin: 0, fontSize: 17, lineHeight: 1.6, fontWeight: 350 }}>{v}</p>
                 </div>
               ))}
@@ -82,7 +92,7 @@ export default function ProjectOverlay({ project, onClose }) {
                 <div className="u-label" style={{ opacity: 0.55, marginBottom: 10 }}>TECHNOLOGY</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {project.tech.map((t) => (
-                    <span key={t} className="u-label" style={{ border: '1px solid var(--accent)', padding: '6px 10px' }}>{t}</span>
+                    <span key={t} className="u-label" style={{ border: `1px solid ${project.accent}`, color: project.accent, padding: '6px 10px' }}>{t}</span>
                   ))}
                 </div>
               </div>
