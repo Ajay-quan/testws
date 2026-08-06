@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #110908;
+  --paper: #f2ece3;
+  --red: #e34351;
+  --accent: var(--paper); /* bright signal surface */
+  --grid-line: rgba(17, 9, 8, 0.16);
+}
+
+html[data-mode='signal'] {
+  --accent: var(--red);
+  --grid-line: rgba(17, 9, 8, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--accent);
+}
+
+/* ---- type helpers ---- */
+.font-display { font-family: 'Anton', sans-serif; font-weight: 400; letter-spacing: -0.02em; }
+.font-serif-ed { font-family: 'Fraunces', serif; }
+.font-mono-u { font-family: 'JetBrains Mono', monospace; }
+
+.u-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- structural frame ---- */
+.hairline { border: 1px solid var(--ink); }
+.hairline-t { border-top: 1px solid var(--ink); }
+.hairline-b { border-bottom: 1px solid var(--ink); }
+.hairline-r { border-right: 1px solid var(--ink); }
+.hairline-l { border-left: 1px solid var(--ink); }
+
+.surface-accent { background: var(--accent); color: var(--ink); }
+.surface-ink { background: var(--ink); color: var(--accent); }
+
+/* dotted / halftone field */
+.dot-field {
+  background-image: radial-gradient(var(--accent) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  opacity: 0.14;
+}
+
+/* clip reveal line */
+.clip-line { display: block; overflow: hidden; }
+
+/* custom pointer */
+* { cursor: none; }
+@media (hover: none), (pointer: coarse) {
+  * { cursor: auto; }
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* marquee base */
+@keyframes marq-l { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@keyframes marq-r { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
+
+.reduce-static * { animation: none !important; transition-duration: 120ms !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rm-hide { display: none !important; }
+}
+
+/* skip link */
+.skip-link {
+  position: fixed; left: 8px; top: -60px; z-index: 200;
+  background: var(--ink); color: var(--accent); padding: 10px 14px;
+  transition: top 0.2s; font-size: 11px; letter-spacing: 0.1em;
+}
+.skip-link:focus { top: 8px; }
+
+/* remove shadcn base leftovers we don't want */
+#root { background: var(--ink); }

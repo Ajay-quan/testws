@@ -1,0 +1,35 @@
+export default function Footer() {
+  return (
+    <footer className="surface-accent" data-testid="site-footer">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }} className="hairline-t">
+        <div className="hairline-r" style={{ gridColumn: 'span 6', padding: '28px 20px' }}>
+          <div className="font-display" style={{ fontSize: 'clamp(40px, 8vw, 96px)', lineHeight: 0.86, letterSpacing: '-0.03em' }}>
+            AJAY<br />VARADA
+          </div>
+          <div className="u-label" style={{ marginTop: 14, opacity: 0.7 }}>
+            AI PRODUCT BUILDER / CREATIVE TECHNOLOGIST
+          </div>
+        </div>
+
+        <div style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(3, 1fr)' }}>
+          <a data-testid="footer-linkedin" data-cursor="hover" className="hairline-b focus-ring" href="https://www.linkedin.com/" target="_blank" rel="noreferrer"
+             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
+            <span className="u-label">LINKEDIN</span><span className="u-label">↗</span>
+          </a>
+          <a data-testid="footer-github" data-cursor="hover" className="hairline-b focus-ring" href="https://github.com/" target="_blank" rel="noreferrer"
+             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
+            <span className="u-label">GITHUB</span><span className="u-label">↗</span>
+          </a>
+          <button data-testid="back-to-top" data-cursor="hover" className="focus-ring" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'transparent', border: 'none', color: 'var(--ink)', textAlign: 'left', width: '100%' }}>
+            <span className="u-label">BACK TO TOP</span><span className="u-label">↑</span>
+          </button>
+        </div>
+      </div>
+      <div className="hairline-t" style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 20px' }}>
+        <span className="u-label" style={{ opacity: 0.6 }}>© 2026 — AV SIGNAL LABORATORY</span>
+        <span className="u-label" style={{ opacity: 0.6 }}>12.9716° N / 77.5946° E</span>
+      </div>
+    </footer>
+  );
+}
