@@ -62,12 +62,13 @@ export default function Header({ scrollPct, mode, onToggleMode, soundOn, onToggl
 
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4, padding: '0 18px' }} className="hairline-r">
           <div className="u-label" style={{ fontSize: 11 }}>{pct}% / SIGNAL</div>
-          <div className="u-label" style={{ opacity: 0.65 }}>BUILDING INTELLIGENT SYSTEMS · BENGALURU — 2026 · {now}</div>
+          <div className="u-label" style={{ opacity: 0.65 }}>AI / ML ENGINEER · ATLANTA — 2026 · {now}</div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'stretch' }}>
           <nav aria-label="Primary" style={{ display: 'flex', alignItems: 'center', gap: 22, padding: '0 24px' }} className="hairline-r nav-desk">
             <NavLink label="ABOUT" target="about" />
+            <NavLink label="EXPERIENCE" target="experience" />
             <NavLink label="WORK" target="work" />
             <NavLink label="CONTACT" target="contact" />
           </nav>

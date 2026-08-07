@@ -44,7 +44,7 @@ export default function PositioningTitle() {
           transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1)',
         }}
       >
-        AI PRODUCT <span style={{ fontSize: '0.42em', verticalAlign: 'middle', margin: '0 0.12em' }}>✦</span> BUILDER
+        AI / ML <span style={{ fontSize: '0.42em', verticalAlign: 'middle', margin: '0 0.12em' }}>✦</span> ENGINEER
       </motion.h1>
     </section>
   );

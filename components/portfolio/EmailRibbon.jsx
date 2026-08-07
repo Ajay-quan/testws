@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from './hooks';
 
-const EMAIL = 'hello@ajayvarada.com';
+const EMAIL = 'ajayvrda@gmail.com';
 
 export default function EmailRibbon() {
   const reduced = usePrefersReducedMotion();

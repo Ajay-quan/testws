@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 const CAPS = [
-  { id: '01', title: 'PRODUCT DIRECTION', note: 'Set the trajectory from ambiguous problem to shipped intelligence.', shape: 'square' },
-  { id: '02', title: 'AI EXPERIENCE DESIGN', note: 'Make model behaviour legible, controllable and trustworthy.', shape: 'circle' },
-  { id: '03', title: 'AGENTIC SYSTEMS', note: 'Design autonomous flows that stay accountable to the human.', shape: 'triangle' },
-  { id: '04', title: 'RAPID PROTOTYPING', note: 'Turn a hypothesis into a testable artifact within days.', shape: 'cross' },
-  { id: '05', title: 'CREATIVE TECHNOLOGY', note: 'Bend code, canvas and motion into expressive interfaces.', shape: 'ring' },
-  { id: '06', title: 'INTERACTION SYSTEMS', note: 'Build motion languages that scale across an entire product.', shape: 'bars' },
+  { id: '01', title: 'LLM & AGENT SYSTEMS', note: 'Persistent memory, hybrid retrieval, LangChain, MCP, RAG and LLM APIs.', shape: 'square' },
+  { id: '02', title: 'MACHINE LEARNING', note: 'Production ML pipelines with PyTorch, TensorFlow and scikit-learn.', shape: 'circle' },
+  { id: '03', title: 'COMPUTER VISION', note: 'Medical image classification, segmentation and object detection.', shape: 'triangle' },
+  { id: '04', title: 'BACKEND & CLOUD', note: 'Python services, REST APIs, AWS, SQL, NoSQL and distributed systems.', shape: 'cross' },
+  { id: '05', title: 'DATA SYSTEMS', note: 'ETL pipelines, vector databases, relational design and query optimization.', shape: 'ring' },
+  { id: '06', title: 'DEVOPS & RELIABILITY', note: 'Azure DevOps, CI/CD automation, testing, debugging and performance.', shape: 'bars' },
 ];
 
 function Glyph({ shape, active }) {

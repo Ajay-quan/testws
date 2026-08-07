@@ -2,17 +2,17 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const FACTS = [
-  ['FOCUS', 'AI × PRODUCT'],
-  ['MODE', 'STRATEGY → CODE'],
-  ['BASE', 'BENGALURU / GLOBAL'],
-  ['STATUS', 'OPEN TO SIGNAL'],
+  ['FOCUS', 'AI / ML SYSTEMS'],
+  ['EXPERIENCE', 'MICRON TECHNOLOGY'],
+  ['BASE', 'ATLANTA / INDIA'],
+  ['STATUS', 'M.S. CS @ GSU'],
 ];
 
 const LINES = [
-  'I build intelligent products',
-  'that turn complex systems',
-  'into clear, memorable',
-  'human experiences.',
+  'I build intelligent systems',
+  'that turn research and data',
+  'into reliable products',
+  'people can use.',
 ];
 
 export default function About() {
@@ -46,8 +46,8 @@ export default function About() {
                   animate={inView ? { y: '0%' } : {}}
                   transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {l.includes('intelligent products')
-                    ? <>that turn <span style={{ borderBottom: '1px solid var(--ink)', paddingBottom: 2 }}>complex systems</span></>
+                  {l.includes('intelligent systems')
+                    ? <>I build <span style={{ borderBottom: '1px solid var(--ink)', paddingBottom: 2 }}>intelligent systems</span></>
                     : l}
                 </motion.span>
               </span>
@@ -56,10 +56,10 @@ export default function About() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'clamp(20px, 4vw, 60px)', marginTop: 'clamp(36px, 6vw, 72px)', maxWidth: 900 }}>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
-              Ajay works at the intersection of AI research, product strategy, interaction design and rapid prototyping — translating raw model capability into tools people actually trust.
+              I am a Computer Science graduate student at Georgia State University and a former Software Engineer at Micron Technology. I build production AI, automation, and data systems with a focus on reliability, measurable impact, and clean engineering.
             </p>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
-              The method is direct: interrogate the system, find the human signal inside the noise, then ship interfaces that make intelligence feel obvious.
+              My work spans persistent memory for LLM agents, medical computer vision, enterprise NLP analytics, CI/CD automation, and full-stack systems. I like difficult technical problems that connect research to practical software.
             </p>
           </div>
         </div>

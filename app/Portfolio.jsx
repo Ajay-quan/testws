@@ -13,6 +13,7 @@ import Ticker from '@/components/portfolio/Ticker';
 import PositioningTitle from '@/components/portfolio/PositioningTitle';
 import BinaryTransition from '@/components/portfolio/BinaryTransition';
 import About from '@/components/portfolio/About';
+import Experience from '@/components/portfolio/Experience';
 import Capabilities from '@/components/portfolio/Capabilities';
 import WorkPortal from '@/components/portfolio/WorkPortal';
 import Contact from '@/components/portfolio/Contact';
@@ -74,11 +75,12 @@ function App() {
 
       <main id="main">
         <HeroField />
-        <Ticker items={['010110100101', '10110010110', '011010011101', 'BLR-2026', 'SIG//001']} dir="l" />
+        <Ticker items={['010110100101', 'LLM SYSTEMS', 'COMPUTER VISION', 'ATL-2026', 'SIG//001']} dir="l" />
         <PositioningTitle />
         <BinaryTransition />
         <About />
-        <Ticker items={['CAPABILITY MATRIX', '02—03', 'PRODUCT × AI', '110100', 'STRATEGY→CODE']} dir="r" invert />
+        <Experience />
+        <Ticker items={['CAPABILITY MATRIX', '02—03', 'AI × SOFTWARE', '110100', 'RESEARCH→PRODUCTION']} dir="r" invert />
         <Capabilities />
         <WorkPortal onOpen={setOpenProject} />
         <Contact />

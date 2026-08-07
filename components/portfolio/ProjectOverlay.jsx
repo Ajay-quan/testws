@@ -96,6 +96,7 @@ export default function ProjectOverlay({ project, onClose }) {
                   ))}
                 </div>
               </div>
+              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW GITHUB REPOSITORY ↗</a>}
             </div>
           </motion.div>
         </motion.div>

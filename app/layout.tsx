@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ajay Varada — AI Product Builder",
-  description: "A kinetic portfolio exploring AI products, creative technology, and interaction systems.",
+  title: "Ajay Varada — AI/ML & Software Engineer",
+  description: "Ajay Varada builds production AI systems, LLM agent memory, computer vision pipelines, automation, and reliable software.",
 };
 
 export default function RootLayout({

@@ -7,18 +7,21 @@ export default function Footer() {
             AJAY<br />VARADA
           </div>
           <div className="u-label" style={{ marginTop: 14, opacity: 0.7 }}>
-            AI PRODUCT BUILDER / CREATIVE TECHNOLOGIST
+            AI / ML ENGINEER · SOFTWARE ENGINEER · M.S. COMPUTER SCIENCE
           </div>
         </div>
 
-        <div style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(3, 1fr)' }}>
-          <a data-testid="footer-linkedin" data-cursor="hover" className="hairline-b focus-ring" href="https://www.linkedin.com/" target="_blank" rel="noreferrer"
+        <div style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(4, 1fr)' }}>
+          <a data-testid="footer-linkedin" data-cursor="hover" className="hairline-b focus-ring" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer"
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
             <span className="u-label">LINKEDIN</span><span className="u-label">↗</span>
           </a>
-          <a data-testid="footer-github" data-cursor="hover" className="hairline-b focus-ring" href="https://github.com/" target="_blank" rel="noreferrer"
+          <a data-testid="footer-github" data-cursor="hover" className="hairline-b focus-ring" href="https://github.com/Ajay-quan" target="_blank" rel="noreferrer"
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
             <span className="u-label">GITHUB</span><span className="u-label">↗</span>
+          </a>
+          <a data-testid="footer-resume" data-cursor="hover" className="hairline-b focus-ring" href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
+            <span className="u-label">RÉSUMÉ</span><span className="u-label">↗</span>
           </a>
           <button data-testid="back-to-top" data-cursor="hover" className="focus-ring" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'transparent', border: 'none', color: 'var(--ink)', textAlign: 'left', width: '100%' }}>
@@ -28,7 +31,7 @@ export default function Footer() {
       </div>
       <div className="hairline-t" style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 20px' }}>
         <span className="u-label" style={{ opacity: 0.6 }}>© 2026 — AV SIGNAL LABORATORY</span>
-        <span className="u-label" style={{ opacity: 0.6 }}>12.9716° N / 77.5946° E</span>
+        <span className="u-label" style={{ opacity: 0.6 }}>33.7490° N / 84.3880° W</span>
       </div>
     </footer>
   );

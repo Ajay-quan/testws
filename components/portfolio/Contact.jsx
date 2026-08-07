@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-const EMAIL = 'hello@ajayvarada.com';
+const EMAIL = 'ajayvrda@gmail.com';
 
 export default function Contact() {
   const [hover, setHover] = useState(false);
