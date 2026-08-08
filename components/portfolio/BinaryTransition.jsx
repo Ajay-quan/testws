@@ -1,10 +1,20 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { usePrefersReducedMotion, randBits } from './hooks';
+import { usePrefersReducedMotion } from './hooks';
+
+function stableBits(length, seed) {
+  let value = (seed + 1) * 2654435761;
+  let bits = '';
+  for (let i = 0; i < length; i += 1) {
+    value = (value ^ (value >>> 13)) * 1597334677;
+    bits += (value >>> 0) & 1 ? '1' : '0';
+  }
+  return bits;
+}
 
 const ROWS = Array.from({ length: 18 }, (_, i) => {
-  const a = randBits(2), b = randBits(4), c = randBits(1);
-  const d = randBits(5), e = randBits(2);
+  const a = stableBits(2, i * 5), b = stableBits(4, i * 5 + 1), c = stableBits(1, i * 5 + 2);
+  const d = stableBits(5, i * 5 + 3), e = stableBits(2, i * 5 + 4);
   const dir = i % 2 === 0 ? '\\' : '/';
   return `${a} / ${b} / ${c}     ${dir}     ${d} / ${e}`;
 });

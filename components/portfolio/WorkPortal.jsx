@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
-import { ContextEngine, SonicField, QuietSignal } from './ProjectPreviews';
 import { usePrefersReducedMotion } from './hooks';
 import { whoosh } from './tunnelAudio';
 
@@ -8,7 +7,7 @@ export const PROJECTS = [
   {
     id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26',
     premise: 'A self-improving persistent memory layer for long-running LLM agents.',
-    Preview: ContextEngine, side: -1, accent: '#E34351',
+    cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351',
     overview: 'An open-source memory system that lets agents store, retrieve, revise, and learn from long-lived context through REST and MCP interfaces.',
     challenge: 'Long-running agents need more than chat history: they need durable recall, contradiction handling, privacy controls, and retrieval that improves through use.',
     approach: 'Combined dense semantic search, BM25 and Reciprocal Rank Fusion with versioned memory lifecycle, reranking, PII redaction, and per-tenant continual learning.',
@@ -18,20 +17,21 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/AegisMem',
   },
   {
-    id: 'cv', title: 'ISCHEMIC STROKE AI', serial: '#CV96—0002/22', role: 'ML ENGINEER', year: '2022',
-    premise: 'A pathology-image classification pipeline for ischemic stroke analysis.',
-    Preview: SonicField, side: 1, accent: '#E6B94E',
-    overview: 'A reproducible computer-vision pipeline for classifying pathology image tiles associated with ischemic stroke.',
-    challenge: 'The project required learning from more than 30,000 high-resolution pathology tiles while improving substantially over the baseline model.',
-    approach: 'Built modular ingestion, preprocessing, augmentation, training, evaluation, and visualization stages around a ResNet101V2 architecture.',
-    contribution: 'Implemented the end-to-end training pipeline, SQL-backed data workflow, experiments, evaluation, and stakeholder-facing performance visualizations.',
-    outcome: 'Achieved 0.96 AUC and 93% accuracy, improving accuracy by 20% over the baseline.',
-    tech: ['Python', 'PyTorch', 'ResNet101V2', 'scikit-learn', 'SQL'],
+    id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025',
+    premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
+    cover: '/projects/vision-console.png', media: ['/projects/vision-console.png'], side: 1, accent: '#E6B94E',
+    overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
+    challenge: 'Bring camera calibration, image restoration, feature extraction, stitching, tracking, stereo measurement, and pose analysis into one coherent browser experience.',
+    approach: 'Built a Flask interface around OpenCV pipelines with modular pages, live streams, reusable experiment controls, and recorded demonstrations.',
+    contribution: 'Implemented the end-to-end web application, camera workflows, OpenCV modules, dashboard navigation, result views, and real-time demos.',
+    outcome: 'Delivered a working visual laboratory with seven interactive modules spanning calibration, restoration, features, tracking, stereo vision, and pose.',
+    tech: ['Python', 'Flask', 'OpenCV', 'MediaPipe', 'SAM2', 'NumPy'],
+    externalLink: 'https://github.com/Ajay-quan/ComputerVision_Fall2025',
   },
   {
     id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026',
     premise: 'A university research-opportunity platform with intelligent applicant matching.',
-    Preview: QuietSignal, side: -1, accent: '#5FB6A8',
+    cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8',
     overview: 'A full-stack application connecting students with faculty research projects through search, applications, and ranked matching.',
     challenge: 'Students struggle to discover relevant faculty work, while faculty need a consistent way to evaluate applicants across skills and interests.',
     approach: 'Built role-based student and faculty journeys around a five-factor SQL matching procedure, secure authentication, and project workflows.',
@@ -70,8 +70,6 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, mx, m
     if (s < 0.85) passed.current = false;
   });
 
-  const Preview = project.Preview;
-
   return (
     <motion.article
       data-testid={`project-${project.id}`}
@@ -98,7 +96,14 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, mx, m
         </div>
 
         <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: 'var(--ink)' }}>
-          <Preview tint={accent} />
+          <motion.img
+            src={project.cover}
+            alt={`${project.title} real project interface`}
+            loading="lazy"
+            animate={{ scale: revealed ? 1.035 : 1 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+          />
           <motion.div
             aria-hidden={!revealed}
             initial={false}
