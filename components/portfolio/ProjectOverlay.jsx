@@ -50,7 +50,7 @@ export default function ProjectOverlay({ project, onClose }) {
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="surface-ink"
-            style={{ width: 'min(560px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid var(--accent)' }}
+            style={{ width: 'min(640px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid var(--accent)' }}
           >
             <div className="hairline-b" style={{ borderColor: 'var(--accent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--ink)', zIndex: 2 }}>
               <span className="u-label" style={{ color: project.accent }}>{project.serial}</span>
@@ -75,6 +75,17 @@ export default function ProjectOverlay({ project, onClose }) {
                 <span className="u-label" style={{ opacity: 0.7 }}>YEAR / {project.year}</span>
               </div>
 
+              {project.metrics && (
+                <div className="project-metrics" style={{ display: 'grid', gridTemplateColumns: `repeat(${project.metrics.length}, 1fr)`, marginTop: 26, borderTop: `1px solid ${project.accent}`, borderBottom: `1px solid ${project.accent}` }}>
+                  {project.metrics.map(([label, value], index) => (
+                    <div key={label} style={{ padding: '14px 10px', borderRight: index < project.metrics.length - 1 ? `1px solid ${project.accent}` : 'none' }}>
+                      <div className="u-label" style={{ opacity: .55, marginBottom: 7 }}>{label}</div>
+                      <div className="font-display" style={{ color: project.accent, fontSize: 'clamp(22px,4vw,38px)', lineHeight: .95 }}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {[
                 ['OVERVIEW', project.overview],
                 ['CHALLENGE', project.challenge],
@@ -96,8 +107,9 @@ export default function ProjectOverlay({ project, onClose }) {
                   ))}
                 </div>
               </div>
-              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW GITHUB REPOSITORY ↗</a>}
+              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>SOURCE CODE / GITHUB ↗</a>}
             </div>
+            <style>{`@media(max-width:520px){.project-metrics{grid-template-columns:1fr!important}.project-metrics>div{border-right:none!important;border-bottom:1px solid currentColor}.project-metrics>div:last-child{border-bottom:none}}`}</style>
           </motion.div>
         </motion.div>
       )}

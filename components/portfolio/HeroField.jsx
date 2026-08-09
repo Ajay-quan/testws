@@ -178,8 +178,19 @@ export default function HeroField() {
 
   return (
     <section aria-label="Interactive signal field" data-testid="hero-field" className="surface-accent hairline-b" style={{ position: 'relative' }}>
-      <div ref={wrapRef} style={{ position: 'relative', height: 'clamp(360px, 62vh, 640px)', width: '100%' }}>
+      <div ref={wrapRef} className="hero-field-wrap" style={{ position: 'relative', height: 'clamp(500px, 72vh, 760px)', width: '100%' }}>
         <canvas ref={canvasRef} aria-hidden="true" style={{ display: 'block', width: '100%', height: '100%' }} />
+        <div className="hero-identity">
+          <div className="u-label hero-kicker"><span className="signal-dot" />AVAILABLE FOR AI / SOFTWARE ROLES · 2026</div>
+          <h1 className="font-display hero-name"><span>AJAY</span><span>VARADA</span></h1>
+          <div className="hero-bottom-line">
+            <p className="font-serif-ed">I build production AI systems that remember, reason, and ship.</p>
+            <div className="hero-actions">
+              <a href="#work" data-cursor="hover" className="hero-action focus-ring" onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }}>SELECTED WORK ↘</a>
+              <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="hero-action focus-ring">RÉSUMÉ ↗</a>
+            </div>
+          </div>
+        </div>
         <div style={{ position: 'absolute', left: 16, bottom: 12, display: 'flex', gap: 20 }}>
           <span className="u-label">12.9716° N</span>
           <span className="u-label">77.5946° E</span>
@@ -189,6 +200,30 @@ export default function HeroField() {
           <span className="u-label" style={{ opacity: 0.6 }}>FIELD / 001</span>
         </div>
       </div>
+      <style>{`
+        .hero-identity { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(28px,4vw,52px) clamp(18px,3vw,42px) 52px; pointer-events:none; }
+        .hero-kicker { align-self:flex-start; display:flex; align-items:center; gap:9px; background:var(--accent); border:1px solid var(--ink); padding:8px 10px; }
+        .signal-dot { width:7px; height:7px; border-radius:50%; background:var(--red); box-shadow:0 0 0 4px rgba(227,67,81,.14); }
+        .hero-name { margin:auto 0 0; font-size:clamp(88px,17vw,300px); line-height:.74; letter-spacing:-.065em; display:flex; justify-content:space-between; align-items:flex-end; text-shadow:3px 3px 0 var(--accent); }
+        .hero-name span:last-child { text-align:right; }
+        .hero-bottom-line { display:flex; align-items:flex-end; justify-content:space-between; gap:28px; margin-top:30px; }
+        .hero-bottom-line p { margin:0; max-width:560px; font-size:clamp(18px,2vw,30px); line-height:1.1; font-weight:420; background:var(--accent); padding:5px 7px; }
+        .hero-actions { display:flex; gap:8px; pointer-events:auto; flex-shrink:0; }
+        .hero-action { color:var(--ink); background:var(--accent); border:1px solid var(--ink); padding:12px 14px; text-decoration:none; font-size:10px; letter-spacing:.13em; transition:background .3s,color .3s; }
+        .hero-action:hover { background:var(--ink); color:var(--accent); }
+        @media(max-width:720px){
+          .hero-field-wrap { height:calc(100svh - 72px)!important; min-height:590px; }
+          .hero-identity { padding:24px 14px 54px; }
+          .hero-kicker { font-size:8px; max-width:250px; }
+          .hero-name { display:block; font-size:clamp(86px,29vw,126px); line-height:.76; margin-top:auto; }
+          .hero-name span { display:block; }
+          .hero-name span:last-child { text-align:left; }
+          .hero-bottom-line { display:block; margin-top:26px; }
+          .hero-bottom-line p { font-size:18px; max-width:330px; }
+          .hero-actions { margin-top:18px; }
+          .hero-action { flex:1; text-align:center; padding:12px 8px; }
+        }
+      `}</style>
     </section>
   );
 }

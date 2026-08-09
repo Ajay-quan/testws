@@ -24,6 +24,18 @@ export function useIsFinePointer() {
   return fine;
 }
 
+export function useIsCompact() {
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 720px)');
+    const on = () => setCompact(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return compact;
+}
+
 export function randBits(n) {
   let s = '';
   for (let i = 0; i < n; i++) s += Math.random() > 0.5 ? '1' : '0';

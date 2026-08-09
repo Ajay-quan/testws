@@ -56,10 +56,10 @@ export default function About() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'clamp(20px, 4vw, 60px)', marginTop: 'clamp(36px, 6vw, 72px)', maxWidth: 900 }}>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
-              I am a Computer Science graduate student at Georgia State University and a former Software Engineer at Micron Technology. I build production AI, automation, and data systems with a focus on reliability, measurable impact, and clean engineering.
+              I am a Computer Science graduate student at Georgia State University and a former Software Engineer at Micron Technology. I turn complex AI and data problems into reliable systems with measurable product impact.
             </p>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
-              My work spans persistent memory for LLM agents, medical computer vision, enterprise NLP analytics, CI/CD automation, and full-stack systems. I like difficult technical problems that connect research to practical software.
+              My work spans agent memory, computer vision, enterprise NLP, automation, and full-stack products. I am currently focused on applied AI roles where research quality and production engineering matter equally.
             </p>
           </div>
         </div>

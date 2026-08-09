@@ -103,3 +103,9 @@ body {
 
 /* remove shadcn base leftovers we don't want */
 #root { background: var(--ink); }
+
+@media (max-width: 720px) {
+  .u-label { font-size: 9px; letter-spacing: 0.11em; }
+  .about-grid, .contact-grid { grid-template-columns: 40px 1fr !important; }
+  section[id] { scroll-margin-top: 72px !important; }
+}

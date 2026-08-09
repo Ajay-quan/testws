@@ -1,8 +1,6 @@
 import { useRef, useState } from 'react';
-import axios from 'axios';
 import { toast } from 'sonner';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const EMAIL = 'ajayvrda@gmail.com';
 
 export default function Contact() {
@@ -26,15 +24,11 @@ export default function Contact() {
       return;
     }
     setSending(true);
-    try {
-      await axios.post(`${API}/contact`, form);
-      toast.success('Signal received. Ajay will reply soon.');
-      setForm({ name: '', email: '', message: '' });
-    } catch (err) {
-      toast.error('Transmission failed. Try email instead.');
-    } finally {
-      setSending(false);
-    }
+    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name.trim()}`);
+    const body = encodeURIComponent(`Name: ${form.name.trim()}\nEmail: ${form.email.trim()}\n\n${form.message.trim()}`);
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    toast.success('Your email app is ready with the message.');
+    setTimeout(() => setSending(false), 500);
   };
 
   const inputStyle = { width: '100%', background: 'transparent', border: 'none', borderBottom: '1px solid var(--ink)', padding: '12px 2px', color: 'var(--ink)', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, outline: 'none' };
@@ -50,7 +44,7 @@ export default function Contact() {
         <div>
           <div style={{ padding: 'clamp(30px,5vw,64px) clamp(20px,4vw,56px)' }} className="hairline-b">
             <p className="font-serif-ed" style={{ fontWeight: 350, fontSize: 'clamp(26px, 4.4vw, 62px)', lineHeight: 1.06, margin: 0, maxWidth: 900 }}>
-              Have a strange problem, a bold product, or an impossible deadline?
+              Building an intelligent product, an ambitious ML system, or a difficult piece of software?
             </p>
           </div>
 
@@ -77,13 +71,13 @@ export default function Contact() {
           <form onSubmit={submit} data-testid="contact-form" style={{ padding: 'clamp(30px,5vw,56px) clamp(20px,4vw,56px)', display: 'grid', gap: 22, maxWidth: 760 }}>
             <div className="u-label" style={{ opacity: 0.6 }}>OR TRANSMIT DIRECTLY —</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }} className="form-row">
-              <input data-testid="contact-name" className="focus-ring" style={inputStyle} placeholder="NAME" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <input data-testid="contact-email" className="focus-ring" type="email" style={inputStyle} placeholder="EMAIL" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <input data-testid="contact-name" aria-label="Name" required autoComplete="name" className="focus-ring" style={inputStyle} placeholder="NAME" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input data-testid="contact-email" aria-label="Email" required autoComplete="email" className="focus-ring" type="email" style={inputStyle} placeholder="EMAIL" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
-            <textarea data-testid="contact-message" className="focus-ring" style={{ ...inputStyle, resize: 'vertical', minHeight: 90 }} placeholder="MESSAGE" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+            <textarea data-testid="contact-message" aria-label="Message" required className="focus-ring" style={{ ...inputStyle, resize: 'vertical', minHeight: 90 }} placeholder="MESSAGE" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
             <button data-testid="contact-submit" data-cursor="hover" type="submit" disabled={sending} className="focus-ring"
               style={{ justifySelf: 'start', background: 'var(--ink)', color: 'var(--accent)', border: 'none', padding: '14px 28px', fontFamily: 'JetBrains Mono', fontSize: 12, letterSpacing: '0.14em', opacity: sending ? 0.6 : 1 }}>
-              {sending ? 'TRANSMITTING…' : 'SEND SIGNAL ↗'}
+              {sending ? 'OPENING EMAIL…' : 'PREPARE EMAIL ↗'}
             </button>
           </form>
         </div>

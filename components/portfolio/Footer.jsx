@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
     <footer className="surface-accent" data-testid="site-footer">
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }} className="hairline-t">
-        <div className="hairline-r" style={{ gridColumn: 'span 6', padding: '28px 20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }} className="hairline-t footer-grid">
+        <div className="hairline-r footer-identity" style={{ gridColumn: 'span 6', padding: '28px 20px' }}>
           <div className="font-display" style={{ fontSize: 'clamp(40px, 8vw, 96px)', lineHeight: 0.86, letterSpacing: '-0.03em' }}>
             AJAY<br />VARADA
           </div>
@@ -11,7 +11,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(4, 1fr)' }}>
+        <div className="footer-links" style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(4, 1fr)' }}>
           <a data-testid="footer-linkedin" data-cursor="hover" className="hairline-b focus-ring" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer"
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
             <span className="u-label">LINKEDIN</span><span className="u-label">↗</span>
@@ -33,6 +33,7 @@ export default function Footer() {
         <span className="u-label" style={{ opacity: 0.6 }}>© 2026 — AV SIGNAL LABORATORY</span>
         <span className="u-label" style={{ opacity: 0.6 }}>33.7490° N / 84.3880° W</span>
       </div>
+      <style>{`@media(max-width:640px){.footer-grid{grid-template-columns:1fr!important}.footer-identity,.footer-links{grid-column:1!important}.footer-identity{border-right:none!important;border-bottom:1px solid var(--ink)}footer>div:last-of-type{gap:14px;flex-wrap:wrap}}`}</style>
     </footer>
   );
 }

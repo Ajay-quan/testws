@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { usePrefersReducedMotion, randBits } from './hooks';
+import { usePrefersReducedMotion } from './hooks';
 
 const MSGS = ['LOADING IDEAS', 'BREAKING PATTERNS', 'MAKING SIGNALS'];
 
@@ -11,12 +11,17 @@ export default function Loader({ onDone }) {
   const rootRef = useRef(null);
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).has('fast')) {
+      onDone();
+      return;
+    }
     if (reduced) {
       onDone();
       return;
     }
     let p = 0;
-    const total = 2100;
+    const returning = window.sessionStorage.getItem('av-signal-seen') === '1';
+    const total = returning ? 360 : 1250;
     const start = performance.now();
     const timer = setInterval(() => {
       p = Math.min(((performance.now() - start) / total) * 100, 100);
@@ -30,8 +35,9 @@ export default function Loader({ onDone }) {
       setLine(arr.join(''));
       if (p >= 100) {
         clearInterval(timer);
+        window.sessionStorage.setItem('av-signal-seen', '1');
         setExit(true);
-        setTimeout(onDone, 650);
+        setTimeout(onDone, returning ? 180 : 380);
       }
     }, 60);
     return () => { clearInterval(timer); };
@@ -47,7 +53,7 @@ export default function Loader({ onDone }) {
         position: 'fixed', inset: 0, zIndex: 300, background: 'var(--ink)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         clipPath: exit ? 'inset(0 0 100% 0)' : 'inset(0 0 0 0)',
-        transition: 'clip-path 0.6s cubic-bezier(0.77,0,0.18,1)',
+        transition: 'clip-path 0.38s cubic-bezier(0.77,0,0.18,1)',
       }}
     >
       <div

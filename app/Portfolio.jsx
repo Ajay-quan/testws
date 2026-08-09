@@ -25,7 +25,7 @@ import { setEnabled as setAudioEnabled } from '@/components/portfolio/tunnelAudi
 
 function App() {
   const reduced = usePrefersReducedMotion();
-  const [loaded, setLoaded] = useState(() => typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('fast'));
+  const [loaded, setLoaded] = useState(false);
   const [mode, setMode] = useState('paper'); // 'paper' | 'signal'
   const [scrollPct, setScrollPct] = useState(0);
   const [openProject, setOpenProject] = useState(null);

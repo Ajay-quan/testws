@@ -30,7 +30,7 @@ export default function PositioningTitle() {
       </div>
       <motion.h1
         ref={lineRef}
-        className="font-display"
+        className="font-display positioning-headline"
         style={{
           x: reduced ? 0 : x,
           scaleY: reduced ? 1 : scaleY,
@@ -46,6 +46,7 @@ export default function PositioningTitle() {
       >
         AI / ML <span style={{ fontSize: '0.42em', verticalAlign: 'middle', margin: '0 0.12em' }}>✦</span> ENGINEER
       </motion.h1>
+      <style>{`@media(max-width:720px){.positioning-headline{white-space:normal!important;font-size:clamp(68px,24vw,104px)!important;line-height:.82!important}.positioning-headline span{display:none}}`}</style>
     </section>
   );
 }

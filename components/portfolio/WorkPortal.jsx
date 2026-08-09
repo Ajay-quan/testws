@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
-import { usePrefersReducedMotion } from './hooks';
+import { useIsCompact, usePrefersReducedMotion } from './hooks';
 import { whoosh } from './tunnelAudio';
 
 export const PROJECTS = [
@@ -13,6 +13,7 @@ export const PROJECTS = [
     approach: 'Combined dense semantic search, BM25 and Reciprocal Rank Fusion with versioned memory lifecycle, reranking, PII redaction, and per-tenant continual learning.',
     contribution: 'Designed and implemented the layered API-to-adapter architecture, retrieval pipeline, lifecycle services, SDK, CLI, evaluation harnesses, and AWS deployment path.',
     outcome: 'Delivered a zero-infrastructure default with 135 passing tests and a benchmark reaching 0.9667 Recall@5 and 1.0 MRR.',
+    metrics: [['RECALL@5', '0.9667'], ['MRR', '1.0'], ['TESTS', '135']],
     tech: ['Python', 'FastAPI', 'LangChain', 'MCP', 'FAISS', 'Vector DB', 'AWS'],
     externalLink: 'https://github.com/Ajay-quan/AegisMem',
   },
@@ -25,6 +26,7 @@ export const PROJECTS = [
     approach: 'Built a Flask interface around OpenCV pipelines with modular pages, live streams, reusable experiment controls, and recorded demonstrations.',
     contribution: 'Implemented the end-to-end web application, camera workflows, OpenCV modules, dashboard navigation, result views, and real-time demos.',
     outcome: 'Delivered a working visual laboratory with seven interactive modules spanning calibration, restoration, features, tracking, stereo vision, and pose.',
+    metrics: [['MODULES', '07'], ['MODE', 'REAL-TIME'], ['STACK', 'CV + AI']],
     tech: ['Python', 'Flask', 'OpenCV', 'MediaPipe', 'SAM2', 'NumPy'],
     externalLink: 'https://github.com/Ajay-quan/ComputerVision_Fall2025',
   },
@@ -37,31 +39,34 @@ export const PROJECTS = [
     approach: 'Built role-based student and faculty journeys around a five-factor SQL matching procedure, secure authentication, and project workflows.',
     contribution: 'Implemented the React client, Express API, MySQL schema, JWT authentication, matching logic, dashboards, milestones, and assignment management.',
     outcome: 'Produced a complete multi-role workflow from project discovery and application through ranked review and acceptance.',
+    metrics: [['MATCHING', '5-FACTOR'], ['ROLES', '02'], ['FLOW', 'END-TO-END']],
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'JWT', 'Tailwind'],
     externalLink: 'https://github.com/Ajay-quan/DBS_Project',
   },
 ];
 
-function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, mx, my }) {
+function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compact, mx, my }) {
   const [revealed, setRevealed] = useState(false);
   const passed = useRef(false);
   const [r0, r1] = range;
   const mid = (r0 + r1) / 2;
   const side = project.side;
-  const rot = side * 1.8;
+  const rot = side * (compact ? 0.65 : 1.25);
   const accent = project.accent;
 
-  const y = useTransform(scrollYProgress, [r0, r1], ['66vh', '-82vh']);
-  const scale = useTransform(scrollYProgress, [r0, mid, r1], [0.46, 1.06, 1.34]);
-  const opacity = useTransform(scrollYProgress, [r0, r0 + 0.04, r1 - 0.1, r1], [0, 1, 1, 0]);
-  const x = useTransform(scrollYProgress, [r0, mid, r1], [`${side * 12}vw`, `${side * 2}vw`, `${side * -6}vw`]);
+  const p1 = r0 + (r1 - r0) * .28;
+  const p2 = r0 + (r1 - r0) * .63;
+  const y = useTransform(scrollYProgress, [r0, p1, p2, r1], [compact ? '42vh' : '54vh', '0vh', '0vh', compact ? '-48vh' : '-64vh']);
+  const scale = useTransform(scrollYProgress, [r0, p1, p2, r1], [compact ? 0.76 : 0.58, 1, 1, compact ? 1.08 : 1.16]);
+  const opacity = useTransform(scrollYProgress, [r0, r0 + 0.025, r1 - 0.055, r1], [0, 1, 1, 0]);
+  const x = useTransform(scrollYProgress, [r0, p1, p2, r1], [`${side * (compact ? 3 : 8)}vw`, '0vw', '0vw', `${side * (compact ? -2 : -4)}vw`]);
   const zIndex = useTransform(scale, (s) => Math.round(s * 100));
 
   // dominance = how close to the viewer this window is (1 near center)
   const dominance = useTransform(scale, (s) => Math.max(0, Math.min(1, (s - 0.7) / 0.4)));
   // cursor-reactive parallax tilt, only meaningful while dominant
-  const rotY = useTransform([mx, dominance], ([m, d]) => (m || 0) * 16 * d);
-  const rotX = useTransform([my, dominance], ([m, d]) => -(m || 0) * 11 * d);
+  const rotY = useTransform([mx, dominance], ([m, d]) => (m || 0) * (compact ? 4 : 10) * d);
+  const rotX = useTransform([my, dominance], ([m, d]) => -(m || 0) * (compact ? 3 : 7) * d);
 
   // fire a whoosh once as the window passes the viewer
   useMotionValueEvent(scale, 'change', (s) => {
@@ -76,7 +81,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, mx, m
       style={reduced ? { position: 'relative', margin: '0 auto 40px', maxWidth: 760, width: '90%' } : {
         position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%',
         y, x, scale, opacity, rotate: rot, zIndex, rotateX: rotX, rotateY: rotY,
-        transformPerspective: 900, width: 'min(720px, 86vw)', willChange: 'transform',
+        transformPerspective: 900, width: compact ? '92vw' : 'min(720px, 86vw)', willChange: 'transform',
       }}
     >
       <div
@@ -121,9 +126,9 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, mx, m
 
         <div className="hairline-t surface-accent" style={{ borderColor: 'var(--ink)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px' }}>
           <span className="font-display" style={{ fontSize: 'clamp(18px, 2.6vw, 30px)', letterSpacing: '-0.02em' }}>{project.title}</span>
-          <button data-testid={`tap-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => (revealed ? onOpen(project) : setRevealed(true))} aria-label={`Open ${project.title}`}
+          <button data-testid={`tap-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)} aria-label={`Open ${project.title}`}
             style={{ background: 'transparent', border: '1px solid var(--ink)', color: 'var(--ink)', padding: '6px 10px', fontSize: 10, letterSpacing: '0.1em' }}>
-            {project.role} / {project.year}
+            CASE STUDY ↗
           </button>
         </div>
       </div>
@@ -152,7 +157,7 @@ function BgLetter({ ch, l, t, size, op, y }) {
 
 function DoorOutline({ scrollYProgress, r0, r1, baseW, h }) {
   const sx = useTransform(scrollYProgress, [r0, r1], [1, 20]);
-  const op = useTransform(scrollYProgress, [0.34, 0.42], [1, 0]);
+  const op = useTransform(scrollYProgress, [r1, r1 + 0.06], [1, 0]);
   return (
     <motion.div aria-hidden="true" style={{
       position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%',
@@ -163,6 +168,7 @@ function DoorOutline({ scrollYProgress, r0, r1, baseW, h }) {
 
 export default function WorkPortal({ onOpen }) {
   const reduced = usePrefersReducedMotion();
+  const compact = useIsCompact();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
 
@@ -174,43 +180,43 @@ export default function WorkPortal({ onOpen }) {
     my.set((e.clientY - r.top) / r.height - 0.5);
   };
 
-  const gridOpacity = useTransform(scrollYProgress, [0, 0.28, 0.4], [1, 1, 0]);
-  const inkOverlay = useTransform(scrollYProgress, [0.3, 0.44], [0, 1]);
-  const dotOpacity = useTransform(scrollYProgress, [0.42, 0.52], [0, 0.18]);
+  const gridOpacity = useTransform(scrollYProgress, [0, 0.18, 0.28], [1, 1, 0]);
+  const inkOverlay = useTransform(scrollYProgress, [0.18, 0.29], [0, 1]);
+  const dotOpacity = useTransform(scrollYProgress, [0.27, 0.36], [0, 0.18]);
 
-  const capScaleX = useTransform(scrollYProgress, [0, 0.08, 0.36], [1, 1, 22]);
-  const capH = useTransform(scrollYProgress, [0, 0.36], ['80vh', '112vh']);
-  const capRadius = useTransform(scrollYProgress, [0.08, 0.36], [200, 0]);
-  const capOpacity = useTransform(scrollYProgress, [0.36, 0.44], [1, 0]);
+  const capScaleX = useTransform(scrollYProgress, [0, 0.06, 0.24], [1, 1, 22]);
+  const capH = useTransform(scrollYProgress, [0, 0.24], ['80vh', '112vh']);
+  const capRadius = useTransform(scrollYProgress, [0.06, 0.24], [200, 0]);
+  const capOpacity = useTransform(scrollYProgress, [0.23, 0.29], [1, 0]);
   const letterCounter = useTransform(capScaleX, (v) => 1 / v);
-  const workScale = useTransform(scrollYProgress, [0, 0.08, 0.3], [1, 1.12, 1.7]);
-  const workLetterOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  const echoX = useTransform(scrollYProgress, [0.08, 0.34], [0, 60]);
+  const workScale = useTransform(scrollYProgress, [0, 0.06, 0.21], [1, 1.12, 1.7]);
+  const workLetterOpacity = useTransform(scrollYProgress, [0.2, 0.27], [1, 0]);
+  const echoX = useTransform(scrollYProgress, [0.06, 0.23], [0, 60]);
   const echoXNeg = useTransform(echoX, (v) => -v);
-  const echoOpacity = useTransform(scrollYProgress, [0.08, 0.18, 0.36], [0, 0.5, 0]);
+  const echoOpacity = useTransform(scrollYProgress, [0.06, 0.13, 0.24], [0, 0.5, 0]);
 
-  const py0 = useTransform(scrollYProgress, [0.4, 1], [140 * BG[0].depth, -180 * BG[0].depth]);
-  const py1 = useTransform(scrollYProgress, [0.4, 1], [140 * BG[1].depth, -180 * BG[1].depth]);
-  const py2 = useTransform(scrollYProgress, [0.4, 1], [140 * BG[2].depth, -180 * BG[2].depth]);
-  const py3 = useTransform(scrollYProgress, [0.4, 1], [140 * BG[3].depth, -180 * BG[3].depth]);
-  const py4 = useTransform(scrollYProgress, [0.4, 1], [140 * BG[4].depth, -180 * BG[4].depth]);
-  const py5 = useTransform(scrollYProgress, [0.4, 1], [140 * BG[5].depth, -180 * BG[5].depth]);
+  const py0 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[0].depth, -180 * BG[0].depth]);
+  const py1 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[1].depth, -180 * BG[1].depth]);
+  const py2 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[2].depth, -180 * BG[2].depth]);
+  const py3 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[3].depth, -180 * BG[3].depth]);
+  const py4 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[4].depth, -180 * BG[4].depth]);
+  const py5 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[5].depth, -180 * BG[5].depth]);
   const py = [py0, py1, py2, py3, py4, py5];
 
   // per-project stage tint (peaks while that project is dominant)
-  const ranges = [[0.40, 0.66], [0.55, 0.81], [0.70, 0.98]];
+  const ranges = [[0.27, 0.54], [0.47, 0.74], [0.67, 0.96]];
   const tint0 = useTransform(scrollYProgress, [ranges[0][0], (ranges[0][0] + ranges[0][1]) / 2, ranges[0][1]], [0, 0.16, 0]);
   const tint1 = useTransform(scrollYProgress, [ranges[1][0], (ranges[1][0] + ranges[1][1]) / 2, ranges[1][1]], [0, 0.16, 0]);
   const tint2 = useTransform(scrollYProgress, [ranges[2][0], (ranges[2][0] + ranges[2][1]) / 2, ranges[2][1]], [0, 0.16, 0]);
   const tints = [tint0, tint1, tint2];
 
   return (
-    <section id="work" ref={ref} data-testid="work-section" style={{ position: 'relative', height: reduced ? 'auto' : '600vh', scrollMarginTop: 92 }}>
+    <section id="work" ref={ref} data-testid="work-section" style={{ position: 'relative', height: reduced ? 'auto' : compact ? '390vh' : '470vh', scrollMarginTop: compact ? 72 : 92 }}>
       {reduced ? (
         <div className="surface-ink" style={{ padding: '60px 18px' }}>
           <h2 className="font-display" style={{ fontSize: 'clamp(60px,18vw,240px)', color: 'var(--accent)', margin: '0 0 40px', letterSpacing: '-0.05em' }}>WORK</h2>
           {PROJECTS.map((p) => (
-            <ProjectWindow key={p.id} project={p} scrollYProgress={scrollYProgress} range={[0, 1]} onOpen={onOpen} reduced mx={mx} my={my} />
+            <ProjectWindow key={p.id} project={p} scrollYProgress={scrollYProgress} range={[0, 1]} onOpen={onOpen} reduced compact={compact} mx={mx} my={my} />
           ))}
         </div>
       ) : (
@@ -227,9 +233,9 @@ export default function WorkPortal({ onOpen }) {
             {BG.map((b, i) => <BgLetter key={i} {...b} y={py[i]} />)}
           </div>
 
-          <DoorOutline scrollYProgress={scrollYProgress} r0={0.08} r1={0.34} baseW={240} h="86vh" />
-          <DoorOutline scrollYProgress={scrollYProgress} r0={0.08} r1={0.32} baseW={300} h="92vh" />
-          <DoorOutline scrollYProgress={scrollYProgress} r0={0.08} r1={0.30} baseW={360} h="98vh" />
+          <DoorOutline scrollYProgress={scrollYProgress} r0={0.06} r1={0.24} baseW={240} h="86vh" />
+          <DoorOutline scrollYProgress={scrollYProgress} r0={0.06} r1={0.22} baseW={300} h="92vh" />
+          <DoorOutline scrollYProgress={scrollYProgress} r0={0.06} r1={0.20} baseW={360} h="98vh" />
 
           <motion.div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%', width: 200, height: capH, scaleX: capScaleX, opacity: capOpacity, borderRadius: capRadius, background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
             <motion.div style={{ scaleX: letterCounter, position: 'relative' }}>
@@ -239,9 +245,9 @@ export default function WorkPortal({ onOpen }) {
             </motion.div>
           </motion.div>
 
-          <ProjectWindow project={PROJECTS[0]} scrollYProgress={scrollYProgress} range={ranges[0]} onOpen={onOpen} mx={mx} my={my} />
-          <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} mx={mx} my={my} />
-          <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[0]} scrollYProgress={scrollYProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
 
           <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — WORK / SIGNAL TUNNEL</span></div>
           <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL ↓</span></div>
