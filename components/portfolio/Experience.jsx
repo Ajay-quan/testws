@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const EXPERIENCE = [
-  { period: 'JUL 2024 — JUL 2025', company: 'MICRON TECHNOLOGY', logo: '/brands/micron.avif', role: 'SOFTWARE ENGINEER I', detail: 'Promoted from intern. Built an LLM-powered NLP analytics platform adopted by 170+ engineers, reducing task overhead by 40%. Improved CI/CD reliability by 30% and helped shorten release cycles by 35% across 4+ services.' },
-  { period: 'JAN 2024 — JUL 2024', company: 'MICRON TECHNOLOGY', logo: '/brands/micron.avif', role: 'SOFTWARE ENGINEERING INTERN', detail: 'Built 100+ Python and SQL automation scripts for enterprise network and security validation. Named Best Intern of the Year and converted to a full-time engineering role.' },
+  { period: 'JUL 2024 — JUL 2025', company: 'MICRON TECHNOLOGY', role: 'SOFTWARE ENGINEER I', detail: 'Promoted from intern. Built an LLM-powered NLP analytics platform adopted by 170+ engineers, reducing task overhead by 40%. Improved CI/CD reliability by 30% and helped shorten release cycles by 35% across 4+ services.' },
+  { period: 'JAN 2024 — JUL 2024', company: 'MICRON TECHNOLOGY', role: 'SOFTWARE ENGINEERING INTERN', detail: 'Built 100+ Python and SQL automation scripts for enterprise network and security validation. Named Best Intern of the Year and converted to a full-time engineering role.' },
   { period: 'AUG 2023 — DEC 2023', company: 'DIGICLINICS RESEARCH', role: 'AI / ML ENGINEER INTERN', detail: 'Developed an end-to-end PyTorch and scikit-learn medical-imaging pipeline with approximately 90% segmentation accuracy, deployed across 2 hospitals and 10+ institutions.' },
 ];
 
@@ -24,13 +24,8 @@ export default function Experience() {
       <div>
         {EXPERIENCE.map((item, i) => <motion.article key={`${item.company}-${item.period}`} className="hairline-b experience-row" initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }} style={{ display: 'grid', gridTemplateColumns: '180px minmax(220px, .75fr) 1fr' }}>
           <div className="hairline-r u-label" style={{ padding: '24px 18px', opacity: 0.65 }}>{item.period}</div>
-          <div className="hairline-r experience-company" style={{ padding: '24px 18px', background: item.logo ? 'var(--ink)' : 'transparent', display: 'flex', alignItems: 'center' }}>
-            {item.logo ? <img src={item.logo} alt={item.company} loading="lazy" style={{ width: 'min(230px, 100%)', height: 'auto', display: 'block' }} /> : <div><div className="font-display" style={{ fontSize: 'clamp(24px,3vw,42px)', lineHeight: 0.9 }}>{item.company}</div><div className="u-label" style={{ marginTop: 12 }}>{item.role}</div></div>}
-          </div>
-          <div style={{ padding: '24px 18px', maxWidth: 760 }}>
-            {item.logo && <div className="u-label" style={{ marginBottom: 10 }}>{item.role}</div>}
-            <p className="font-mono-u" style={{ margin: 0, fontSize: 12, lineHeight: 1.75 }}>{item.detail}</p>
-          </div>
+          <div className="hairline-r" style={{ padding: '24px 18px' }}><div className="font-display" style={{ fontSize: 'clamp(24px,3vw,42px)', lineHeight: 0.9 }}>{item.company}</div><div className="u-label" style={{ marginTop: 12 }}>{item.role}</div></div>
+          <p className="font-mono-u" style={{ padding: '24px 18px', margin: 0, fontSize: 12, lineHeight: 1.75, maxWidth: 760 }}>{item.detail}</p>
         </motion.article>)}
       </div>
       <div className="education-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' }}>
