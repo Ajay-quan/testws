@@ -1,11 +1,12 @@
-import { motion } from 'framer-motion';
-import { usePrefersReducedMotion } from './hooks';
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { useIsCompact, usePrefersReducedMotion } from './hooks';
 
 export const PROJECTS = [
   {
     id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26',
-    premise: 'Persistent memory infrastructure for long-running AI agents.',
-    cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], accent: '#E34351',
+    premise: 'A self-improving persistent memory layer for long-running LLM agents.',
+    cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351',
     overview: 'An open-source memory system that lets agents store, retrieve, revise, and learn from long-lived context through REST and MCP interfaces.',
     challenge: 'Long-running agents need more than chat history: they need durable recall, contradiction handling, privacy controls, and retrieval that improves through use.',
     approach: 'Combined dense semantic search, BM25 and Reciprocal Rank Fusion with versioned memory lifecycle, reranking, PII redaction, and per-tenant continual learning.',
@@ -17,8 +18,8 @@ export const PROJECTS = [
   },
   {
     id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025',
-    premise: 'A browser-based laboratory for real-time computer vision experiments.',
-    cover: '/projects/vision-console.png', media: ['/projects/vision-console.png'], accent: '#E6B94E',
+    premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
+    cover: '/projects/vision-console.png', media: ['/projects/vision-console.png'], side: 1, accent: '#E6B94E',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
     challenge: 'Bring camera calibration, image restoration, feature extraction, stitching, tracking, stereo measurement, and pose analysis into one coherent browser experience.',
     approach: 'Built a Flask interface around OpenCV pipelines with modular pages, live streams, reusable experiment controls, and recorded demonstrations.',
@@ -30,8 +31,8 @@ export const PROJECTS = [
   },
   {
     id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026',
-    premise: 'An AI-assisted research opportunity and applicant-matching platform.',
-    cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], accent: '#5FB6A8',
+    premise: 'A university research-opportunity platform with intelligent applicant matching.',
+    cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8',
     overview: 'A full-stack application connecting students with faculty research projects through search, applications, and ranked matching.',
     challenge: 'Students struggle to discover relevant faculty work, while faculty need a consistent way to evaluate applicants across skills and interests.',
     approach: 'Built role-based student and faculty journeys around a five-factor SQL matching procedure, secure authentication, and project workflows.',
@@ -43,63 +44,206 @@ export const PROJECTS = [
   },
 ];
 
+function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compact, mx, my }) {
+  const [revealed, setRevealed] = useState(false);
+  const [r0, r1] = range;
+  const mid = (r0 + r1) / 2;
+  const side = project.side;
+  const rot = side * (compact ? 0.2 : 0.55);
+  const accent = project.accent;
+
+  const p1 = r0 + (r1 - r0) * .24;
+  const p2 = r0 + (r1 - r0) * .7;
+  const y = useTransform(scrollYProgress, [r0, p1, p2, r1], [compact ? '30vh' : '38vh', '0vh', '0vh', compact ? '-36vh' : '-46vh']);
+  const scale = useTransform(scrollYProgress, [r0, p1, p2, r1], [compact ? 0.84 : 0.7, 1, 1, compact ? 1.04 : 1.08]);
+  const opacity = useTransform(scrollYProgress, [r0, r0 + 0.018, r1 - 0.045, r1], [0, 1, 1, 0]);
+  const x = useTransform(scrollYProgress, [r0, p1, p2, r1], [`${side * (compact ? 1 : 4)}vw`, '0vw', '0vw', `${side * (compact ? -1 : -2)}vw`]);
+  const zIndex = useTransform(scale, (s) => Math.round(s * 100));
+
+  // dominance = how close to the viewer this window is (1 near center)
+  const dominance = useTransform(scale, (s) => Math.max(0, Math.min(1, (s - 0.7) / 0.4)));
+  // cursor-reactive parallax tilt, only meaningful while dominant
+  const rotY = useTransform([mx, dominance], ([m, d]) => (m || 0) * (compact ? 1.5 : 5) * d);
+  const rotX = useTransform([my, dominance], ([m, d]) => -(m || 0) * (compact ? 1 : 3.5) * d);
+
+  return (
+    <motion.article
+      data-testid={`project-${project.id}`}
+      style={reduced ? { position: 'relative', margin: '0 auto 40px', maxWidth: 760, width: '90%' } : {
+        position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%',
+        y, x, scale, opacity, rotate: rot, zIndex, rotateX: rotX, rotateY: rotY,
+        transformPerspective: 900, width: compact ? '92vw' : 'min(720px, 86vw)', willChange: 'transform',
+      }}
+    >
+      <div
+        className="hairline"
+        data-cursor="hover"
+        onMouseEnter={() => setRevealed(true)}
+        onMouseLeave={() => setRevealed(false)}
+        style={{ background: 'var(--ink)', boxShadow: `12px 12px 0 rgba(17,9,8,0.5)`, position: 'relative', borderColor: 'var(--ink)' }}
+      >
+        <div className="surface-accent hairline-b" style={{ borderColor: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
+          <div style={{ display: 'flex', gap: 5 }}>
+            <span style={{ width: 8, height: 8, background: accent }} />
+            <span style={{ width: 8, height: 8, border: '1px solid var(--ink)' }} />
+            <span style={{ width: 8, height: 8, border: '1px solid var(--ink)' }} />
+          </div>
+          <span className="u-label" style={{ opacity: 0.7 }}>{project.serial}</span>
+        </div>
+
+        <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: 'var(--ink)' }}>
+          <motion.img
+            src={project.cover}
+            alt={`${project.title} real project interface`}
+            loading="lazy"
+            animate={{ scale: revealed ? 1.035 : 1 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+          />
+          <motion.div
+            aria-hidden={!revealed}
+            initial={false}
+            animate={{ clipPath: revealed ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            style={{ position: 'absolute', inset: 0, background: 'var(--ink)', color: 'var(--accent)', padding: '9% 8%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+          >
+            <p className="font-serif-ed" style={{ fontSize: 'clamp(16px, 2.2vw, 26px)', lineHeight: 1.4, margin: 0, fontWeight: 350 }}>{project.premise}</p>
+            <button data-testid={`open-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)}
+              style={{ alignSelf: 'flex-start', background: 'transparent', border: `1px solid ${accent}`, color: accent, padding: '10px 16px', fontSize: 11, letterSpacing: '0.14em' }}>
+              VIEW SIGNAL ↗
+            </button>
+          </motion.div>
+        </div>
+
+        <div className="hairline-t surface-accent" style={{ borderColor: 'var(--ink)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px' }}>
+          <span className="font-display" style={{ fontSize: 'clamp(18px, 2.6vw, 30px)', letterSpacing: '-0.02em' }}>{project.title}</span>
+          <button data-testid={`tap-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)} aria-label={`Open ${project.title}`}
+            style={{ background: 'transparent', border: '1px solid var(--ink)', color: 'var(--ink)', padding: '6px 10px', fontSize: 10, letterSpacing: '0.1em' }}>
+            CASE STUDY ↗
+          </button>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+const BG = [
+  { ch: 'W', l: '2%', t: '2%', size: 40, depth: 1.0, op: 0.10 },
+  { ch: 'O', l: '68%', t: '-6%', size: 46, depth: 1.5, op: 0.08 },
+  { ch: 'R', l: '6%', t: '52%', size: 52, depth: 0.7, op: 0.07 },
+  { ch: 'K', l: '74%', t: '48%', size: 44, depth: 1.9, op: 0.09 },
+  { ch: 'W', l: '38%', t: '24%', size: 30, depth: 1.2, op: 0.05 },
+  { ch: 'K', l: '-6%', t: '30%', size: 38, depth: 2.2, op: 0.06 },
+];
+
+function BgLetter({ ch, l, t, size, op, y }) {
+  return (
+    <motion.span className="font-display" style={{
+      position: 'absolute', left: l, top: t, y,
+      fontSize: `clamp(140px, ${size}vw, 640px)`, lineHeight: 0.8,
+      color: 'transparent', WebkitTextStroke: '1px var(--accent)', opacity: op, textShadow: '6px 6px 0 rgba(17,9,8,0.6)',
+    }}>{ch}</motion.span>
+  );
+}
+
+function DoorOutline({ scrollYProgress, r0, r1, baseW, h }) {
+  const sx = useTransform(scrollYProgress, [r0, r1], [1, 20]);
+  const op = useTransform(scrollYProgress, [r1, r1 + 0.06], [1, 0]);
+  return (
+    <motion.div aria-hidden="true" style={{
+      position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%',
+      width: baseW, height: h, scaleX: sx, opacity: op, border: '1px solid var(--ink)', borderRadius: 200,
+    }} />
+  );
+}
+
 export default function WorkPortal({ onOpen }) {
   const reduced = usePrefersReducedMotion();
+  const compact = useIsCompact();
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const onStageMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+
+  const gridOpacity = useTransform(scrollYProgress, [0, 0.12, 0.21], [1, 1, 0]);
+  const inkOverlay = useTransform(scrollYProgress, [0.11, 0.22], [0, 1]);
+  const dotOpacity = useTransform(scrollYProgress, [0.19, 0.28], [0, 0.12]);
+
+  const capScaleX = useTransform(scrollYProgress, [0, 0.035, 0.18], [1, 1, 22]);
+  const capH = useTransform(scrollYProgress, [0, 0.18], ['78vh', '108vh']);
+  const capRadius = useTransform(scrollYProgress, [0.035, 0.18], [200, 0]);
+  const capOpacity = useTransform(scrollYProgress, [0.17, 0.22], [1, 0]);
+  const letterCounter = useTransform(capScaleX, (v) => 1 / v);
+  const workScale = useTransform(scrollYProgress, [0, 0.035, 0.17], [1, 1.08, 1.55]);
+  const workLetterOpacity = useTransform(scrollYProgress, [0.16, 0.21], [1, 0]);
+  const echoX = useTransform(scrollYProgress, [0.035, 0.18], [0, 42]);
+  const echoXNeg = useTransform(echoX, (v) => -v);
+  const echoOpacity = useTransform(scrollYProgress, [0.035, 0.1, 0.18], [0, 0.32, 0]);
+
+  const py0 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[0].depth, -180 * BG[0].depth]);
+  const py1 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[1].depth, -180 * BG[1].depth]);
+  const py2 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[2].depth, -180 * BG[2].depth]);
+  const py3 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[3].depth, -180 * BG[3].depth]);
+  const py4 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[4].depth, -180 * BG[4].depth]);
+  const py5 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[5].depth, -180 * BG[5].depth]);
+  const py = [py0, py1, py2, py3, py4, py5];
+
+  // per-project stage tint (peaks while that project is dominant)
+  const ranges = [[0.2, 0.47], [0.4, 0.69], [0.62, 0.92]];
+  const tint0 = useTransform(scrollYProgress, [ranges[0][0], (ranges[0][0] + ranges[0][1]) / 2, ranges[0][1]], [0, 0.09, 0]);
+  const tint1 = useTransform(scrollYProgress, [ranges[1][0], (ranges[1][0] + ranges[1][1]) / 2, ranges[1][1]], [0, 0.09, 0]);
+  const tint2 = useTransform(scrollYProgress, [ranges[2][0], (ranges[2][0] + ranges[2][1]) / 2, ranges[2][1]], [0, 0.09, 0]);
+  const tints = [tint0, tint1, tint2];
+
   return (
-    <section id="work" data-testid="work-section" className="surface-ink simple-work" style={{ scrollMarginTop: 76 }}>
-      <div className="simple-work-heading hairline-b">
-        <div>
-          <span className="u-label">03 — SELECTED WORK</span>
-          <h2 className="font-display">PROJECTS</h2>
+    <section id="work" ref={ref} data-testid="work-section" style={{ position: 'relative', height: reduced ? 'auto' : compact ? '310vh' : '350vh', scrollMarginTop: compact ? 72 : 76 }}>
+      {reduced ? (
+        <div className="surface-ink" style={{ padding: '60px 18px' }}>
+          <h2 className="font-display" style={{ fontSize: 'clamp(60px,18vw,240px)', color: 'var(--accent)', margin: '0 0 40px', letterSpacing: '-0.05em' }}>WORK</h2>
+          {PROJECTS.map((p) => (
+            <ProjectWindow key={p.id} project={p} scrollYProgress={scrollYProgress} range={[0, 1]} onOpen={onOpen} reduced compact={compact} mx={mx} my={my} />
+          ))}
         </div>
-        <p className="font-serif-ed">Three systems spanning agent memory, computer vision, and full-stack product engineering.</p>
-      </div>
-      <div className="simple-work-grid">
-        {PROJECTS.map((project, index) => (
-          <motion.article
-            key={project.id}
-            data-testid={`project-${project.id}`}
-            className="simple-project"
-            initial={reduced ? false : { opacity: 0, y: 36 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-8%' }}
-            transition={{ duration: .65, delay: index * .08, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <button type="button" onClick={() => onOpen(project)} className="simple-project-button focus-ring" data-cursor="hover" aria-label={`Open ${project.title} case study`}>
-              <div className="simple-project-meta hairline-b">
-                <span className="u-label">{project.serial}</span><span className="u-label">{project.year}</span>
-              </div>
-              <div className="simple-project-image"><img src={project.cover} alt={`${project.title} interface`} loading="lazy" /></div>
-              <div className="simple-project-copy hairline-t">
-                <h3 className="font-display">{project.title}</h3>
-                <p>{project.premise}</p>
-                <span className="u-label">VIEW CASE STUDY ↗</span>
-              </div>
-            </button>
-          </motion.article>
-        ))}
-      </div>
-      <style>{`
-        .simple-work { color:var(--accent); }
-        .simple-work-heading { padding:clamp(38px,5vw,68px) clamp(20px,4vw,58px); border-color:var(--accent); display:grid; grid-template-columns:1.4fr minmax(280px,.6fr); gap:36px; align-items:end; }
-        .simple-work-heading h2 { font-size:clamp(72px,13vw,190px); line-height:.78; letter-spacing:-.05em; margin:42px 0 0; }
-        .simple-work-heading p { font-size:clamp(18px,2vw,28px); line-height:1.22; margin:0; }
-        .simple-work-grid { display:grid; grid-template-columns:repeat(3,1fr); }
-        .simple-project { min-width:0; border-right:1px solid var(--accent); }
-        .simple-project:last-child { border-right:0; }
-        .simple-project-button { width:100%; height:100%; padding:0; border:0; background:var(--ink); color:var(--accent); text-align:left; transition:background .32s ease,color .32s ease; }
-        .simple-project-button:hover { background:var(--accent); color:var(--ink); }
-        .simple-project-meta { height:42px; border-color:currentColor; padding:0 12px; display:flex; justify-content:space-between; align-items:center; }
-        .simple-project-image { aspect-ratio:16/10; overflow:hidden; background:#1c1816; }
-        .simple-project-image img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s cubic-bezier(.16,1,.3,1); }
-        .simple-project-button:hover img { transform:scale(1.025); }
-        .simple-project-copy { min-height:225px; border-color:currentColor; padding:20px; display:flex; flex-direction:column; }
-        .simple-project-copy h3 { font-size:clamp(26px,3vw,44px); line-height:.9; margin:0 0 18px; }
-        .simple-project-copy p { font-size:12px; line-height:1.6; margin:0 0 28px; max-width:360px; }
-        .simple-project-copy .u-label { margin-top:auto; }
-        @media(max-width:900px){.simple-work-grid{grid-template-columns:1fr}.simple-project{border-right:0;border-bottom:1px solid var(--accent)}.simple-project:last-child{border-bottom:0}.simple-project-button{display:grid;grid-template-columns:minmax(260px,.8fr) 1fr}.simple-project-meta{grid-column:1/-1}.simple-project-copy{border-top:0!important;border-left:1px solid currentColor}.simple-project-image{height:100%}}
-        @media(max-width:640px){.simple-work-heading{grid-template-columns:1fr}.simple-work-heading h2{font-size:74px}.simple-project-button{display:block}.simple-project-copy{border-left:0;border-top:1px solid currentColor!important;min-height:190px}.simple-project-image{height:auto}}
-      `}</style>
+      ) : (
+        <div onMouseMove={onStageMove} style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: 'var(--accent)' }}>
+          <motion.div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'var(--ink)', opacity: inkOverlay }} />
+          {/* per-project signal tints */}
+          {PROJECTS.map((p, i) => (
+            <motion.div key={p.id} aria-hidden="true" style={{ position: 'absolute', inset: 0, background: p.accent, opacity: tints[i], mixBlendMode: 'screen' }} />
+          ))}
+          <motion.div aria-hidden="true" style={{ position: 'absolute', inset: 0, opacity: gridOpacity, backgroundImage: 'linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)', backgroundSize: '6vw 6vw' }} />
+          <motion.div aria-hidden="true" className="dot-field" style={{ position: 'absolute', inset: 0, opacity: dotOpacity }} />
+
+          <div aria-hidden="true" style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+            {BG.map((b, i) => <BgLetter key={i} {...b} y={py[i]} />)}
+          </div>
+
+          <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.18} baseW={240} h="86vh" />
+          <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.165} baseW={300} h="92vh" />
+          <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.15} baseW={360} h="98vh" />
+
+          <motion.div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%', width: 200, height: capH, scaleX: capScaleX, opacity: capOpacity, borderRadius: capRadius, background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            <motion.div style={{ scaleX: letterCounter, position: 'relative' }}>
+              <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoX, opacity: echoOpacity, scale: workScale, color: 'var(--accent)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
+              <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoXNeg, opacity: echoOpacity, scale: workScale, color: 'var(--accent)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
+              <motion.div className="font-display" style={{ scale: workScale, opacity: workLetterOpacity, color: 'var(--accent)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em', position: 'relative' }}>W<br />O<br />R<br />K</motion.div>
+            </motion.div>
+          </motion.div>
+
+          <ProjectWindow project={PROJECTS[0]} scrollYProgress={scrollYProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+
+          <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — WORK / SIGNAL TUNNEL</span></div>
+          <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL ↓</span></div>
+        </div>
+      )}
     </section>
   );
 }
