@@ -61,6 +61,7 @@ test("keeps identity, project data, writing links, and contact actions in the pr
   assert.match(work, /STATEFUL\.AI/);
   assert.match(work, /Recall@5/);
   assert.match(work, /RESEARCHMATCH/);
+  assert.match(work, /vision-console-stereo\.jpg/);
   assert.match(writing, /substack\.com\/@ajayvarada\/note\/p-207923267/);
   assert.match(writing, /Multi-Agent Systems Work Best When Agents Know Less/);
   assert.match(writing, /COMING SOON/);
