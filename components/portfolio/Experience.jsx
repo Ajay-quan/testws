@@ -22,16 +22,20 @@ export default function Experience() {
         <span className="u-label" style={{ opacity: 0.6 }}>CAREER / EDUCATION</span>
       </div>
       <div>
-        {EXPERIENCE.map((item, i) => <motion.article key={`${item.company}-${item.period}`} className="hairline-b experience-row" initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }} style={{ display: 'grid', gridTemplateColumns: '180px minmax(220px, .75fr) 1fr' }}>
+        {EXPERIENCE.map((item, i) => <motion.article key={`${item.company}-${item.period}`} className="hairline-b experience-row" initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}>
           <div className="hairline-r u-label" style={{ padding: '24px 18px', opacity: 0.65 }}>{item.period}</div>
           <div className="hairline-r" style={{ padding: '24px 18px' }}><div className="font-display" style={{ fontSize: 'clamp(24px,3vw,42px)', lineHeight: 0.9 }}>{item.company}</div><div className="u-label" style={{ marginTop: 12 }}>{item.role}</div></div>
           <p className="font-mono-u" style={{ padding: '24px 18px', margin: 0, fontSize: 12, lineHeight: 1.75, maxWidth: 760 }}>{item.detail}</p>
         </motion.article>)}
       </div>
-      <div className="education-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' }}>
+      <div className="education-grid">
         {EDUCATION.map(([school, detail], i) => <div key={school} className={i === 0 ? 'hairline-r' : ''} style={{ padding: '24px 18px', minHeight: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}><span className="u-label" style={{ opacity: 0.55 }}>EDUCATION / 0{i + 1}</span><div><div className="font-display" style={{ fontSize: 'clamp(22px,3vw,38px)', lineHeight: 0.92 }}>{school}</div><div className="u-label" style={{ marginTop: 12 }}>{detail}</div></div></div>)}
       </div>
-      <style>{`@media(max-width:760px){.experience-row{grid-template-columns:1fr!important}.experience-row>*{border-right:none!important;border-bottom:1px solid var(--ink)}.experience-row>*:last-child{border-bottom:none}.education-grid{grid-template-columns:1fr!important}.education-grid>div:first-child{border-right:none!important;border-bottom:1px solid var(--ink)}}`}</style>
+      <style>{`
+        .experience-row,.education-grid { display:grid; grid-template-columns:180px minmax(220px,.75fr) 1fr; }
+        .education-grid > div:first-child { grid-column:span 2; }
+        @media(max-width:760px){.experience-row,.education-grid{grid-template-columns:1fr!important}.experience-row>*{border-right:none!important;border-bottom:1px solid var(--ink)}.experience-row>*:last-child{border-bottom:none}.education-grid>div:first-child{grid-column:auto;border-right:none!important;border-bottom:1px solid var(--ink)}}
+      `}</style>
     </section>
   );
 }
