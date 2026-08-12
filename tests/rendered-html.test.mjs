@@ -63,8 +63,10 @@ test("keeps identity, project data, writing links, and contact actions in the pr
   assert.match(work, /RESEARCHMATCH/);
   assert.match(writing, /substack\.com\/@ajayvarada\/note\/p-207923267/);
   assert.match(writing, /Multi-Agent Systems Work Best When Agents Know Less/);
-  assert.match(writing, /PUBLICATION PENDING/);
+  assert.match(writing, /COMING SOON/);
   assert.match(writing, /const published = Boolean\(post\.href\)/);
+  assert.match(writing, /scroll-snap-type:x mandatory/);
+  assert.match(writing, /ArrowRight/);
   assert.match(contact, /mailto:/);
   assert.match(contact, /required/);
   assert.match(layout, /Ajay Varada — AI\/ML & Software Engineer/);
