@@ -16,6 +16,7 @@ import About from '@/components/portfolio/About';
 import Experience from '@/components/portfolio/Experience';
 import Capabilities from '@/components/portfolio/Capabilities';
 import WorkPortal from '@/components/portfolio/WorkPortal';
+import Writing from '@/components/portfolio/Writing';
 import Contact from '@/components/portfolio/Contact';
 import EmailRibbon from '@/components/portfolio/EmailRibbon';
 import Footer from '@/components/portfolio/Footer';
@@ -83,6 +84,7 @@ function App() {
         <Ticker items={['CAPABILITY MATRIX', '02—03', 'AI × SOFTWARE', '110100', 'RESEARCH→PRODUCTION']} dir="r" invert />
         <Capabilities />
         <WorkPortal onOpen={setOpenProject} />
+        <Writing />
         <Contact />
         <EmailRibbon />
       </main>

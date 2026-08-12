@@ -51,7 +51,7 @@ export default function Header({ scrollPct, mode, onToggleMode, soundOn, onToggl
   }, []);
 
   useEffect(() => {
-    const ids = ['about', 'experience', 'work', 'contact'];
+    const ids = ['about', 'experience', 'work', 'writing', 'contact'];
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible) setActive(visible.target.id);
@@ -88,6 +88,7 @@ export default function Header({ scrollPct, mode, onToggleMode, soundOn, onToggl
             <NavLink label="ABOUT" target="about" active={active === 'about'} />
             <NavLink label="EXPERIENCE" target="experience" active={active === 'experience'} />
             <NavLink label="WORK" target="work" active={active === 'work'} />
+            <NavLink label="WRITING" target="writing" active={active === 'writing'} />
             <NavLink label="CONTACT" target="contact" active={active === 'contact'} />
           </nav>
 
@@ -125,11 +126,12 @@ export default function Header({ scrollPct, mode, onToggleMode, soundOn, onToggl
       </div>
 
       <div id="mobile-nav" className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
-        <div className="u-label mobile-nav-top"><span>INDEX / 01—04</span><span>{pct}% / SIGNAL</span></div>
+        <div className="u-label mobile-nav-top"><span>INDEX / 01—05</span><span>{pct}% / SIGNAL</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
           <NavLink label="ABOUT" target="about" active={active === 'about'} mobile onNavigate={() => setMenuOpen(false)} />
           <NavLink label="EXPERIENCE" target="experience" active={active === 'experience'} mobile onNavigate={() => setMenuOpen(false)} />
           <NavLink label="WORK" target="work" active={active === 'work'} mobile onNavigate={() => setMenuOpen(false)} />
+          <NavLink label="WRITING" target="writing" active={active === 'writing'} mobile onNavigate={() => setMenuOpen(false)} />
           <NavLink label="CONTACT" target="contact" active={active === 'contact'} mobile onNavigate={() => setMenuOpen(false)} />
         </nav>
         <div className="mobile-nav-foot u-label">AJAY VARADA · AI / ML ENGINEER · ATLANTA</div>
@@ -150,8 +152,9 @@ export default function Header({ scrollPct, mode, onToggleMode, soundOn, onToggl
           .mobile-nav { position:fixed; left:7px; right:7px; top:72px; bottom:7px; z-index:119; background:var(--accent); color:var(--ink); border:1px solid var(--ink); transform:translateY(-105%); opacity:0; visibility:hidden; transition:transform .55s cubic-bezier(.16,1,.3,1), opacity .25s; padding:18px 14px; display:flex; flex-direction:column; }
           .mobile-nav.is-open { transform:translateY(0); opacity:1; visibility:visible; }
           .mobile-nav-top, .mobile-nav-foot { display:flex; justify-content:space-between; gap:10px; }
-          .mobile-nav-links { margin:auto 0; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+          .mobile-nav-links { margin:auto 0; display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
           .mobile-nav-links a { width:100%; border-bottom:1px solid var(--ink); padding:5px 0; }
+          .mobile-nav-links .font-display { font-size:clamp(45px,15vw,72px)!important; }
         }
       `}</style>
     </header>

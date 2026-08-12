@@ -33,19 +33,23 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
   assert.match(html, /ABOUT/);
   assert.match(html, /EXPERIENCE/);
   assert.match(html, /WORK/);
+  assert.match(html, /WRITING/);
   assert.match(html, /CONTACT/);
   assert.match(html, /STATEFUL\.AI/);
   assert.match(html, /VISION CONSOLE/);
   assert.match(html, /RESEARCHMATCH/);
+  assert.match(html, /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\./);
+  assert.match(html, /Multi-Agent Systems Work Best When Agents Know Less/);
   assert.match(html, /AI\/ML &amp; Software Engineer/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });
 
-test("keeps identity, project data, and contact actions in the product source", async () => {
-  const [portfolio, hero, work, contact, layout] = await Promise.all([
+test("keeps identity, project data, writing links, and contact actions in the product source", async () => {
+  const [portfolio, hero, work, writing, contact, layout] = await Promise.all([
     readFile(new URL("../app/Portfolio.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/HeroField.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/WorkPortal.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/portfolio/Writing.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/Contact.jsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
@@ -57,6 +61,10 @@ test("keeps identity, project data, and contact actions in the product source", 
   assert.match(work, /STATEFUL\.AI/);
   assert.match(work, /Recall@5/);
   assert.match(work, /RESEARCHMATCH/);
+  assert.match(writing, /substack\.com\/@ajayvarada\/note\/p-207923267/);
+  assert.match(writing, /Multi-Agent Systems Work Best When Agents Know Less/);
+  assert.match(writing, /PUBLICATION PENDING/);
+  assert.match(writing, /const published = Boolean\(post\.href\)/);
   assert.match(contact, /mailto:/);
   assert.match(contact, /required/);
   assert.match(layout, /Ajay Varada — AI\/ML & Software Engineer/);
