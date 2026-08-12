@@ -60,7 +60,7 @@ function App() {
       <Footer />
 
       {/* framed page border overlay */}
-      <div aria-hidden="true" style={{ position: 'fixed', inset: 7, border: '1px solid var(--ink)', pointerEvents: 'none', zIndex: 130, mixBlendMode: 'normal' }} />
+      <div aria-hidden="true" style={{ position: 'fixed', inset: 7, border: '1px solid var(--ink)', pointerEvents: 'none', zIndex: 110, mixBlendMode: 'normal' }} />
 
       <ProjectOverlay project={openProject} onClose={closeProject} />
     </div>
