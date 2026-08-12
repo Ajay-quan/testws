@@ -1,83 +1,38 @@
-import { useState } from 'react';
-
 const CAPS = [
-  { id: '01', title: 'LLM & AGENT SYSTEMS', note: 'Persistent memory, hybrid retrieval, LangChain, MCP, RAG and LLM APIs.', shape: 'square' },
-  { id: '02', title: 'MACHINE LEARNING', note: 'Production ML pipelines with PyTorch, TensorFlow and scikit-learn.', shape: 'circle' },
-  { id: '03', title: 'COMPUTER VISION', note: 'Medical image classification, segmentation and object detection.', shape: 'triangle' },
-  { id: '04', title: 'BACKEND & CLOUD', note: 'Python services, REST APIs, AWS, SQL, NoSQL and distributed systems.', shape: 'cross' },
-  { id: '05', title: 'DATA SYSTEMS', note: 'ETL pipelines, vector databases, relational design and query optimization.', shape: 'ring' },
-  { id: '06', title: 'DEVOPS & RELIABILITY', note: 'Azure DevOps, CI/CD automation, testing, debugging and performance.', shape: 'bars' },
+  ['01', 'LLM & AGENT SYSTEMS', 'Persistent memory, hybrid retrieval, LangChain, MCP, RAG and LLM APIs.'],
+  ['02', 'MACHINE LEARNING', 'Production ML pipelines with PyTorch, TensorFlow and scikit-learn.'],
+  ['03', 'COMPUTER VISION', 'Classification, segmentation, object detection and real-time vision.'],
+  ['04', 'BACKEND & CLOUD', 'Python services, REST APIs, AWS, SQL, NoSQL and distributed systems.'],
+  ['05', 'DATA SYSTEMS', 'ETL pipelines, vector databases, relational design and query optimization.'],
+  ['06', 'DEVOPS & RELIABILITY', 'CI/CD automation, testing, debugging and performance engineering.'],
 ];
-
-function Glyph({ shape, active }) {
-  const s = { transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)', transform: active ? 'rotate(90deg) scale(1.15)' : 'none' };
-  const stroke = 'currentColor';
-  return (
-    <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true" style={s}>
-      {shape === 'square' && <rect x="12" y="12" width="48" height="48" fill="none" stroke={stroke} strokeWidth="2" />}
-      {shape === 'circle' && <circle cx="36" cy="36" r="24" fill="none" stroke={stroke} strokeWidth="2" />}
-      {shape === 'triangle' && <polygon points="36,10 62,60 10,60" fill="none" stroke={stroke} strokeWidth="2" />}
-      {shape === 'cross' && <><line x1="36" y1="8" x2="36" y2="64" stroke={stroke} strokeWidth="2" /><line x1="8" y1="36" x2="64" y2="36" stroke={stroke} strokeWidth="2" /></>}
-      {shape === 'ring' && <><circle cx="36" cy="36" r="24" fill="none" stroke={stroke} strokeWidth="2" /><circle cx="36" cy="36" r="10" fill="none" stroke={stroke} strokeWidth="2" /></>}
-      {shape === 'bars' && <><rect x="14" y="16" width="44" height="6" fill={stroke} /><rect x="14" y="33" width="30" height="6" fill={stroke} /><rect x="14" y="50" width="44" height="6" fill={stroke} /></>}
-    </svg>
-  );
-}
-
-function Cell({ cap, borderR, borderB }) {
-  const [active, setActive] = useState(false);
-  return (
-    <div
-      data-testid={`cap-${cap.id}`}
-      data-cursor="hover"
-      tabIndex={0}
-      className={`focus-ring ${borderR ? 'hairline-r' : ''} ${borderB ? 'hairline-b' : ''}`}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
-      onClick={() => setActive((a) => !a)}
-      style={{
-        background: active ? 'var(--ink)' : 'transparent',
-        color: active ? 'var(--accent)' : 'var(--ink)',
-        padding: 'clamp(22px, 3vw, 40px)',
-        minHeight: 260,
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-        transition: 'background 0.45s cubic-bezier(0.16,1,0.3,1), color 0.45s cubic-bezier(0.16,1,0.3,1)',
-        outline: 'none',
-      }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <span className="u-label" style={{ fontSize: 12, opacity: 0.7 }}>{cap.id}</span>
-        <Glyph shape={cap.shape} active={active} />
-      </div>
-      <div>
-        <h3 className="font-display" style={{ margin: 0, fontSize: 'clamp(24px, 3vw, 42px)', lineHeight: 0.92, letterSpacing: '-0.03em', transform: active ? 'translateX(6px)' : 'none', transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)' }}>
-          {cap.title}
-        </h3>
-        <p className="font-mono-u" style={{ fontSize: 11, lineHeight: 1.7, margin: '12px 0 0', maxWidth: 320, overflow: 'hidden', maxHeight: active ? 60 : 0, opacity: active ? 0.9 : 0, transition: 'max-height 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.35s' }}>
-          {cap.note}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export default function Capabilities() {
   return (
-    <section data-testid="capabilities-section" className="surface-accent hairline-b">
-      <div className="hairline-b" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: 'clamp(30px,5vw,64px) 18px 20px' }}>
-        <h2 className="font-display" style={{ margin: 0, fontSize: 'clamp(48px, 13vw, 220px)', lineHeight: 0.8, letterSpacing: '-0.05em' }}>CAPABILITIES</h2>
-        <span className="u-label" style={{ opacity: 0.6, whiteSpace: 'nowrap' }}>02—03</span>
+    <section data-testid="capabilities-section" className="surface-accent hairline-b compact-capabilities">
+      <div className="compact-cap-heading hairline-b">
+        <h2 className="font-display">CAPABILITIES</h2><span className="u-label">WHAT I BUILD WITH</span>
       </div>
-      <div className="cap-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
-        {CAPS.map((c, i) => (
-          <Cell key={c.id} cap={c} borderR={(i % 3) !== 2} borderB={i < 3} />
+      <div className="compact-cap-grid">
+        {CAPS.map(([id, title, note]) => (
+          <article key={id} className="compact-cap-cell">
+            <span className="u-label">{id}</span>
+            <h3 className="font-display">{title}</h3>
+            <p>{note}</p>
+          </article>
         ))}
       </div>
       <style>{`
-        @media (max-width: 900px) { .cap-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (max-width: 560px) { .cap-grid { grid-template-columns: 1fr !important; } }
+        .compact-cap-heading { padding:34px 20px 18px; display:flex; align-items:end; justify-content:space-between; gap:20px; }
+        .compact-cap-heading h2 { font-size:clamp(52px,10vw,150px); line-height:.8; letter-spacing:-.05em; margin:0; }
+        .compact-cap-grid { display:grid; grid-template-columns:repeat(3,1fr); }
+        .compact-cap-cell { min-height:190px; padding:22px 20px; border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); display:flex; flex-direction:column; }
+        .compact-cap-cell:nth-child(3n) { border-right:0; }
+        .compact-cap-cell:nth-last-child(-n+3) { border-bottom:0; }
+        .compact-cap-cell h3 { font-size:clamp(22px,2.4vw,34px); line-height:.94; margin:auto 0 12px; }
+        .compact-cap-cell p { font-size:11px; line-height:1.55; opacity:.68; margin:0; max-width:340px; }
+        @media(max-width:760px){.compact-cap-grid{grid-template-columns:1fr 1fr}.compact-cap-cell:nth-child(3n){border-right:1px solid var(--ink)}.compact-cap-cell:nth-child(2n){border-right:0}.compact-cap-cell:nth-last-child(-n+3){border-bottom:1px solid var(--ink)}.compact-cap-cell:nth-last-child(-n+2){border-bottom:0}.compact-cap-cell{min-height:175px}}
+        @media(max-width:480px){.compact-cap-heading{align-items:flex-start;flex-direction:column}.compact-cap-grid{grid-template-columns:1fr}.compact-cap-cell{border-right:0!important;border-bottom:1px solid var(--ink)!important;min-height:155px}.compact-cap-cell:last-child{border-bottom:0!important}.compact-cap-cell p{font-size:12px}}
       `}</style>
     </section>
   );

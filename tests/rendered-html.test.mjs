@@ -68,7 +68,8 @@ test("keeps identity, project data, writing links, and contact actions in the pr
   assert.match(writing, /scroll-snap-type:x mandatory/);
   assert.match(writing, /ArrowRight/);
   assert.match(contact, /mailto:/);
-  assert.match(contact, /required/);
+  assert.match(contact, /Have a thoughtful AI problem/);
+  assert.doesNotMatch(contact, /<form/);
   assert.match(layout, /Ajay Varada — AI\/ML & Software Engineer/);
   assert.match(layout, /production AI systems/);
 });

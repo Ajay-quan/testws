@@ -36,7 +36,7 @@ export default function About() {
           <span className="u-label" style={{ writingMode: 'vertical-rl', opacity: 0.6 }}>01—03</span>
         </div>
 
-        <div style={{ padding: 'clamp(36px, 6vw, 84px) clamp(20px, 4vw, 60px)' }}>
+        <div className="about-content" style={{ padding: 'clamp(36px, 6vw, 84px) clamp(20px, 4vw, 60px)', minWidth: 0 }}>
           <h2 className="font-serif-ed" style={{ margin: 0, fontWeight: 350, fontSize: 'clamp(30px, 5.4vw, 78px)', lineHeight: 1.02, letterSpacing: '-0.01em', maxWidth: 1100 }}>
             {LINES.map((l, i) => (
               <span key={i} className="clip-line">
@@ -54,7 +54,7 @@ export default function About() {
             ))}
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'clamp(20px, 4vw, 60px)', marginTop: 'clamp(36px, 6vw, 72px)', maxWidth: 900 }}>
+          <div className="about-bio" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'clamp(20px, 4vw, 60px)', marginTop: 'clamp(36px, 6vw, 72px)', maxWidth: 900 }}>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
               I am a Computer Science graduate student at Georgia State University and a former Software Engineer at Micron Technology. I turn complex AI and data problems into reliable systems with measurable product impact.
             </p>
@@ -84,6 +84,10 @@ export default function About() {
 
       <style>{`
         @media (max-width: 640px) {
+          .about-content { padding: 34px 20px !important; overflow: hidden; }
+          .about-content h2 { max-width: 100% !important; font-size: 30px !important; }
+          .about-bio { grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; margin-top: 32px !important; }
+          .about-bio p { width: auto !important; font-size: 13px !important; }
           .fact-grid { grid-template-columns: 1fr 1fr !important; }
           .fact-grid > div:nth-child(2) { border-right: none !important; }
           .fact-grid > div:nth-child(1), .fact-grid > div:nth-child(2) { border-bottom: 1px solid var(--ink); }

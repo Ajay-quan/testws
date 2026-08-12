@@ -1,89 +1,35 @@
-import { useRef, useState } from 'react';
-import { toast } from 'sonner';
-
 const EMAIL = 'ajayvrda@gmail.com';
 
 export default function Contact() {
-  const [hover, setHover] = useState(false);
-  const bigRef = useRef(null);
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [sending, setSending] = useState(false);
-
-  const onMove = (e) => {
-    if (!bigRef.current) return;
-    const r = bigRef.current.getBoundingClientRect();
-    const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
-    const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-    bigRef.current.style.transform = `translate(${dx * 14}px, ${dy * 10}px)`;
-  };
-
-  const submit = async (e) => {
-    e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      toast.error('Fill in every field, please.');
-      return;
-    }
-    setSending(true);
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name.trim()}`);
-    const body = encodeURIComponent(`Name: ${form.name.trim()}\nEmail: ${form.email.trim()}\n\n${form.message.trim()}`);
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-    toast.success('Your email app is ready with the message.');
-    setTimeout(() => setSending(false), 500);
-  };
-
-  const inputStyle = { width: '100%', background: 'transparent', border: 'none', borderBottom: '1px solid var(--ink)', padding: '12px 2px', color: 'var(--ink)', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, outline: 'none' };
-
   return (
-    <section id="contact" data-testid="contact-section" className="surface-accent hairline-b" style={{ scrollMarginTop: 92 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '64px 1fr' }} className="contact-grid">
-        <div className="hairline-r" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '18px 0', alignItems: 'center' }}>
-          <span className="font-mono-u" style={{ writingMode: 'vertical-rl', letterSpacing: '0.4em', fontSize: 14 }}>CONTACT</span>
-          <span className="u-label" style={{ writingMode: 'vertical-rl', opacity: 0.6 }}>03—03</span>
-        </div>
-
-        <div>
-          <div style={{ padding: 'clamp(30px,5vw,64px) clamp(20px,4vw,56px)' }} className="hairline-b">
-            <p className="font-serif-ed" style={{ fontWeight: 350, fontSize: 'clamp(26px, 4.4vw, 62px)', lineHeight: 1.06, margin: 0, maxWidth: 900 }}>
-              Building an intelligent product, an ambitious ML system, or a difficult piece of software?
-            </p>
-          </div>
-
-          {/* invert action panel */}
-          <button
-            data-testid="lets-talk"
-            data-cursor="hover"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => { setHover(false); if (bigRef.current) bigRef.current.style.transform = 'none'; }}
-            onFocus={() => setHover(true)}
-            onBlur={() => setHover(false)}
-            onMouseMove={onMove}
-            onClick={() => { window.location.href = `mailto:${EMAIL}`; }}
-            className="hairline-b focus-ring"
-            style={{ position: 'relative', width: '100%', textAlign: 'left', border: 'none', borderBottom: '1px solid var(--ink)', padding: 'clamp(30px,6vw,80px) clamp(20px,4vw,56px)', background: hover ? 'var(--ink)' : 'transparent', color: hover ? 'var(--accent)' : 'var(--ink)', transition: 'background 0.5s cubic-bezier(0.16,1,0.3,1), color 0.5s cubic-bezier(0.16,1,0.3,1)', overflow: 'hidden' }}
-          >
-            <span className="u-label" style={{ position: 'absolute', top: 16, left: 20, opacity: 0.7 }}>START A PROJECT</span>
-            <span ref={bigRef} className="font-display" style={{ display: 'inline-block', fontSize: 'clamp(64px, 18vw, 320px)', lineHeight: 0.8, letterSpacing: '-0.05em', transition: 'transform 0.2s ease-out' }}>
-              LET’S<br />TALK <span style={{ display: 'inline-block', transform: hover ? 'translate(18px,-18px)' : 'none', transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)' }}>↗</span>
-            </span>
-          </button>
-
-          {/* working form */}
-          <form onSubmit={submit} data-testid="contact-form" style={{ padding: 'clamp(30px,5vw,56px) clamp(20px,4vw,56px)', display: 'grid', gap: 22, maxWidth: 760 }}>
-            <div className="u-label" style={{ opacity: 0.6 }}>OR TRANSMIT DIRECTLY —</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }} className="form-row">
-              <input data-testid="contact-name" aria-label="Name" required autoComplete="name" className="focus-ring" style={inputStyle} placeholder="NAME" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <input data-testid="contact-email" aria-label="Email" required autoComplete="email" className="focus-ring" type="email" style={inputStyle} placeholder="EMAIL" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-            </div>
-            <textarea data-testid="contact-message" aria-label="Message" required className="focus-ring" style={{ ...inputStyle, resize: 'vertical', minHeight: 90 }} placeholder="MESSAGE" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-            <button data-testid="contact-submit" data-cursor="hover" type="submit" disabled={sending} className="focus-ring"
-              style={{ justifySelf: 'start', background: 'var(--ink)', color: 'var(--accent)', border: 'none', padding: '14px 28px', fontFamily: 'JetBrains Mono', fontSize: 12, letterSpacing: '0.14em', opacity: sending ? 0.6 : 1 }}>
-              {sending ? 'OPENING EMAIL…' : 'PREPARE EMAIL ↗'}
-            </button>
-          </form>
-        </div>
+    <section id="contact" data-testid="contact-section" className="surface-accent hairline-b simple-contact" style={{ scrollMarginTop: 76 }}>
+      <div className="simple-contact-main">
+        <span className="u-label">05 — CONTACT</span>
+        <h2 className="font-serif-ed">Have a thoughtful AI problem or a product worth building?</h2>
+        <a data-testid="contact-email" className="contact-email focus-ring font-display" data-cursor="hover" href={`mailto:${EMAIL}`}>
+          {EMAIL}<span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div className="simple-contact-links hairline-t">
+        <p>Open to applied AI, machine-learning engineering, and software roles where research quality meets production discipline.</p>
+        <nav aria-label="Contact links">
+          <a className="focus-ring u-label" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer">LINKEDIN ↗</a>
+          <a className="focus-ring u-label" href="https://github.com/Ajay-quan" target="_blank" rel="noreferrer">GITHUB ↗</a>
+          <a className="focus-ring u-label" href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer">RÉSUMÉ ↗</a>
+        </nav>
       </div>
       <style>{`
-        @media (max-width: 640px) { .form-row { grid-template-columns: 1fr !important; } }
+        .simple-contact-main { min-height:500px; padding:clamp(42px,6vw,80px) clamp(20px,4vw,58px); display:flex; flex-direction:column; }
+        .simple-contact-main h2 { font-size:clamp(34px,5vw,70px); line-height:1.04; font-weight:350; max-width:980px; margin:50px 0 80px; }
+        .contact-email { margin-top:auto; color:var(--ink); text-decoration:none; font-size:clamp(42px,8.5vw,132px); line-height:.9; letter-spacing:-.045em; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; border-bottom:3px solid var(--ink); padding-bottom:14px; transition:padding-left .35s cubic-bezier(.16,1,.3,1); }
+        .contact-email:hover { padding-left:14px; }
+        .contact-email span { font-family:'Fraunces',serif; font-size:.55em; }
+        .simple-contact-links { display:grid; grid-template-columns:1fr auto; gap:40px; padding:24px clamp(20px,4vw,58px); align-items:center; }
+        .simple-contact-links p { font-size:12px; line-height:1.65; opacity:.66; max-width:680px; margin:0; }
+        .simple-contact-links nav { display:flex; gap:24px; }
+        .simple-contact-links a { color:var(--ink); text-decoration:none; }
+        .simple-contact-links a:hover { text-decoration:underline; text-underline-offset:5px; }
+        @media(max-width:720px){.simple-contact-main{min-height:420px}.simple-contact-main h2{margin:42px 0 64px}.contact-email{font-size:clamp(34px,11vw,54px);word-break:break-word}.simple-contact-links{grid-template-columns:1fr}.simple-contact-links nav{flex-wrap:wrap;gap:20px}}
       `}</style>
     </section>
   );
