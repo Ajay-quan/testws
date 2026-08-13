@@ -73,6 +73,7 @@ export default function ProjectOverlay({ project, onClose }) {
               <div style={{ display: 'flex', gap: 24, marginTop: 16, flexWrap: 'wrap' }}>
                 <span className="u-label" style={{ opacity: 0.7 }}>ROLE / {project.role}</span>
                 <span className="u-label" style={{ opacity: 0.7 }}>YEAR / {project.year}</span>
+                <span className="u-label" style={{ opacity: 0.7 }}>STATUS / {project.status}</span>
               </div>
 
               {project.metrics && (
@@ -90,7 +91,7 @@ export default function ProjectOverlay({ project, onClose }) {
                 ['OVERVIEW', project.overview],
                 ['CHALLENGE', project.challenge],
                 ['APPROACH', project.approach],
-                ['CONTRIBUTION', project.contribution],
+                ['WHAT I OWNED', project.contribution],
                 ['OUTCOME', project.outcome],
               ].map(([k, v]) => (
                 <div key={k} style={{ marginTop: 30 }}>
@@ -107,7 +108,7 @@ export default function ProjectOverlay({ project, onClose }) {
                   ))}
                 </div>
               </div>
-              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>SOURCE CODE / GITHUB ↗</a>}
+              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW REPOSITORY / GITHUB ↗</a>}
             </div>
             <style>{`@media(max-width:520px){.project-metrics{grid-template-columns:1fr!important}.project-metrics>div{border-right:none!important;border-bottom:1px solid currentColor}.project-metrics>div:last-child{border-bottom:none}}`}</style>
           </motion.div>

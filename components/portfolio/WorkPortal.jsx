@@ -4,7 +4,7 @@ import { useIsCompact, usePrefersReducedMotion } from './hooks';
 
 export const PROJECTS = [
   {
-    id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26',
+    id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26', status: 'OPEN SOURCE · INDEPENDENT',
     premise: 'A self-improving persistent memory layer for long-running LLM agents.',
     cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351',
     overview: 'An open-source memory system that lets agents store, retrieve, revise, and learn from long-lived context through REST and MCP interfaces.',
@@ -17,7 +17,7 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/AegisMem',
   },
   {
-    id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025',
+    id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC',
     premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
     cover: '/projects/vision-console-tracking.jpg', media: ['/projects/vision-console-tracking.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
@@ -30,7 +30,7 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/ComputerVision_Fall2025',
   },
   {
-    id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026',
+    id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026', status: 'OPEN SOURCE · ACADEMIC',
     premise: 'A university research-opportunity platform with intelligent applicant matching.',
     cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8',
     overview: 'A full-stack application connecting students with faculty research projects through search, applications, and ranked matching.',

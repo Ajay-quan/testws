@@ -17,7 +17,8 @@ export const POSTS = [
     index: '002',
     title: 'Multi-Agent Systems Work Best When Agents Know Less',
     image: '/writing/multi-agent-systems.jpeg',
-    status: 'SCHEDULED',
+    href: 'https://substack.com/@ajayvarada/note/p-210856139?r=7lkpa&utm_source=notes-share-action&utm_medium=web',
+    status: 'PUBLISHED',
   },
 ];
 

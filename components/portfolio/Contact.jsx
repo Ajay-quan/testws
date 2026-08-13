@@ -5,13 +5,13 @@ export default function Contact() {
     <section id="contact" data-testid="contact-section" className="surface-accent hairline-b simple-contact" style={{ scrollMarginTop: 76 }}>
       <div className="simple-contact-main">
         <span className="u-label">05 — CONTACT</span>
-        <h2 className="font-serif-ed">Have a thoughtful AI problem or a product worth building?</h2>
+        <h2 className="font-serif-ed">Seeking AI / ML and software engineering roles focused on production systems—not just prototypes.</h2>
         <a data-testid="contact-email" className="contact-email focus-ring font-display" data-cursor="hover" href={`mailto:${EMAIL}`}>
           {EMAIL}<span aria-hidden="true">↗</span>
         </a>
       </div>
       <div className="simple-contact-links hairline-t">
-        <p>Open to applied AI, machine-learning engineering, and software roles where research quality meets production discipline.</p>
+        <p>Based in Atlanta. Open to full-time roles, internships, research collaborations, and technically ambitious teams.</p>
         <nav aria-label="Contact links">
           <a className="focus-ring u-label" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer">LINKEDIN ↗</a>
           <a className="focus-ring u-label" href="https://github.com/Ajay-quan" target="_blank" rel="noreferrer">GITHUB ↗</a>

@@ -2,17 +2,17 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const FACTS = [
-  ['FOCUS', 'AI / ML SYSTEMS'],
-  ['EXPERIENCE', 'MICRON TECHNOLOGY'],
-  ['BASE', 'ATLANTA / INDIA'],
-  ['STATUS', 'M.S. CS @ GSU'],
+  ['POSITIONING', 'APPLIED AI + SOFTWARE'],
+  ['PROOF', '170+ ENGINEERS SERVED'],
+  ['CURRENT', 'AGENT MEMORY + RETRIEVAL'],
+  ['TARGET', 'AI / ML + SOFTWARE ROLES'],
 ];
 
 const LINES = [
-  'I build intelligent systems',
-  'that turn research and data',
-  'into reliable products',
-  'people can use.',
+  'I combine production',
+  'software engineering',
+  'with applied',
+  'machine learning.',
 ];
 
 export default function About() {
@@ -46,8 +46,8 @@ export default function About() {
                   animate={inView ? { y: '0%' } : {}}
                   transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {l.includes('intelligent systems')
-                    ? <>I build <span style={{ borderBottom: '1px solid var(--ink)', paddingBottom: 2 }}>intelligent systems</span></>
+                  {l.includes('software engineering')
+                    ? <span style={{ borderBottom: '1px solid var(--ink)', paddingBottom: 2 }}>software engineering</span>
                     : l}
                 </motion.span>
               </span>
@@ -56,10 +56,10 @@ export default function About() {
 
           <div className="about-bio" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'clamp(20px, 4vw, 60px)', marginTop: 'clamp(36px, 6vw, 72px)', maxWidth: 900 }}>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
-              I am a Computer Science graduate student at Georgia State University and a former Software Engineer at Micron Technology. I turn complex AI and data problems into reliable systems with measurable product impact.
+              At Micron, I built an NLP analytics platform used by 170+ engineers and automation that improved reliability across enterprise services. I was promoted from intern to Software Engineer after being named Best Intern of the Year.
             </p>
             <p className="font-mono-u" style={{ fontSize: 13, lineHeight: 1.8, margin: 0, opacity: 0.85 }}>
-              My work spans agent memory, computer vision, enterprise NLP, automation, and full-stack products. I am currently focused on applied AI roles where research quality and production engineering matter equally.
+              Now completing an M.S. in Computer Science at Georgia State University, I focus on persistent AI memory, hybrid retrieval, computer vision, and full-stack ML products that move beyond prototypes into tested software.
             </p>
           </div>
         </div>

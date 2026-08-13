@@ -181,10 +181,10 @@ export default function HeroField() {
       <div ref={wrapRef} className="hero-field-wrap" style={{ position: 'relative', height: 'clamp(500px, 72vh, 760px)', width: '100%' }}>
         <canvas ref={canvasRef} aria-hidden="true" style={{ display: 'block', width: '100%', height: '100%' }} />
         <div className="hero-identity">
-          <div className="u-label hero-kicker"><span className="signal-dot" />AVAILABLE FOR AI / SOFTWARE ROLES · 2026</div>
+          <div className="u-label hero-kicker"><span className="signal-dot" />OPEN TO AI / ML + SOFTWARE ENGINEERING ROLES · 2026</div>
           <h1 className="font-display hero-name"><span>AJAY</span><span>VARADA</span></h1>
           <div className="hero-bottom-line">
-            <p className="font-serif-ed">I build production AI systems that remember, reason, and ship.</p>
+            <p className="font-serif-ed">Former Micron engineer building agent memory, retrieval systems, and production ML.</p>
             <div className="hero-actions">
               <a href="#work" data-cursor="hover" className="hero-action focus-ring" onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }}>SELECTED WORK ↘</a>
               <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="hero-action focus-ring">RÉSUMÉ ↗</a>
