@@ -110,7 +110,19 @@ export default function ProjectOverlay({ project, onClose }) {
               </div>
               {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW REPOSITORY / GITHUB ↗</a>}
             </div>
-            <style>{`@media(max-width:520px){.project-metrics{grid-template-columns:1fr!important}.project-metrics>div{border-right:none!important;border-bottom:1px solid currentColor}.project-metrics>div:last-child{border-bottom:none}}`}</style>
+            <style>{`
+              @media(max-width:520px){
+                [data-testid="project-overlay"]>div{border-left:0!important}
+                [data-testid="project-overlay"]>div>div:first-child{padding:12px 14px!important}
+                [data-testid="project-overlay"] figure{aspect-ratio:16 / 10!important}
+                [data-testid="project-overlay"] figure+*{min-width:0}
+                [data-testid="project-overlay"] h2{font-size:clamp(42px,15vw,64px)!important;overflow-wrap:anywhere}
+                .project-metrics{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+                .project-metrics>div{padding:12px 7px!important}
+                .project-metrics .font-display{font-size:22px!important;overflow-wrap:anywhere}
+                .project-metrics .u-label{font-size:7px!important;letter-spacing:.06em}
+              }
+            `}</style>
           </motion.div>
         </motion.div>
       )}

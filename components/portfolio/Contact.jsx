@@ -29,7 +29,7 @@ export default function Contact() {
         .simple-contact-links nav { display:flex; gap:24px; }
         .simple-contact-links a { color:var(--ink); text-decoration:none; }
         .simple-contact-links a:hover { text-decoration:underline; text-underline-offset:5px; }
-        @media(max-width:720px){.simple-contact-main{min-height:420px}.simple-contact-main h2{margin:42px 0 64px}.contact-email{font-size:clamp(34px,11vw,54px);word-break:break-word}.simple-contact-links{grid-template-columns:1fr}.simple-contact-links nav{flex-wrap:wrap;gap:20px}}
+        @media(max-width:720px){.simple-contact-main{min-height:360px;padding:34px 16px}.simple-contact-main h2{font-size:clamp(30px,9vw,42px);margin:30px 0 52px}.contact-email{font-size:clamp(26px,8.6vw,38px);line-height:1;word-break:break-word;gap:10px;padding-bottom:10px;border-bottom-width:2px}.simple-contact-links{grid-template-columns:1fr;gap:18px;padding:20px 16px}.simple-contact-links nav{flex-wrap:wrap;gap:18px}}
       `}</style>
     </section>
   );

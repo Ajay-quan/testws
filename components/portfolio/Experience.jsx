@@ -34,7 +34,22 @@ export default function Experience() {
       <style>{`
         .experience-row,.education-grid { display:grid; grid-template-columns:180px minmax(220px,.75fr) 1fr; }
         .education-grid > div:first-child { grid-column:span 2; }
-        @media(max-width:760px){.experience-row,.education-grid{grid-template-columns:1fr!important}.experience-row>*{border-right:none!important;border-bottom:1px solid var(--ink)}.experience-row>*:last-child{border-bottom:none}.education-grid>div:first-child{grid-column:auto;border-right:none!important;border-bottom:1px solid var(--ink)}}
+        @media(max-width:760px){
+          #experience>div:first-child{padding:34px 14px 16px!important;align-items:flex-start!important;gap:12px;overflow:hidden}
+          #experience>div:first-child h2{font-size:clamp(47px,17vw,70px)!important;line-height:.86!important;max-width:100%}
+          #experience>div:first-child>span{display:none}
+          .experience-row,.education-grid{grid-template-columns:1fr!important}
+          .experience-row{padding:0 14px}
+          .experience-row>*{border-right:none!important;border-bottom:none!important;padding-left:0!important;padding-right:0!important}
+          .experience-row>div:first-child{padding-top:18px!important;padding-bottom:9px!important}
+          .experience-row>div:nth-child(2){padding-top:0!important;padding-bottom:10px!important}
+          .experience-row>div:nth-child(2) .font-display{font-size:clamp(28px,9vw,38px)!important;line-height:.94!important}
+          .experience-row>p{padding-top:0!important;padding-bottom:20px!important;font-size:11px!important;line-height:1.65!important}
+          .education-grid>div{min-height:132px!important;padding:20px 14px!important}
+          .education-grid>div:first-child{grid-column:auto;border-right:none!important;border-bottom:1px solid var(--ink)}
+          .education-grid .font-display{font-size:clamp(24px,8vw,34px)!important;line-height:.96!important;overflow-wrap:anywhere}
+          .education-grid .u-label{line-height:1.5}
+        }
       `}</style>
     </section>
   );

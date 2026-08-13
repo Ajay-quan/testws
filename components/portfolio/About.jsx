@@ -85,13 +85,16 @@ export default function About() {
       <style>{`
         .about-reveal-line { padding-bottom:.14em; margin-bottom:-.14em; }
         @media (max-width: 640px) {
-          .about-content { padding: 34px 20px !important; overflow: hidden; }
-          .about-content h2 { max-width: 100% !important; font-size: 30px !important; }
+          .about-grid { grid-template-columns: 38px minmax(0, 1fr) !important; }
+          .about-content { padding: 32px 16px 38px !important; overflow: hidden; }
+          .about-content h2 { max-width: 100% !important; font-size: clamp(27px, 8vw, 34px) !important; line-height: 1.08 !important; }
           .about-bio { grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; margin-top: 32px !important; }
           .about-bio p { width: auto !important; font-size: 13px !important; }
           .fact-grid { grid-template-columns: 1fr 1fr !important; }
           .fact-grid > div:nth-child(2) { border-right: none !important; }
+          .fact-grid > div { min-height: 102px !important; padding: 15px 13px !important; }
           .fact-grid > div:nth-child(1), .fact-grid > div:nth-child(2) { border-bottom: 1px solid var(--ink); }
+          .fact-grid .font-display { font-size: 17px !important; line-height: 1.02; overflow-wrap: anywhere; }
         }
       `}</style>
     </section>

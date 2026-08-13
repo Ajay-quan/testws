@@ -244,6 +244,25 @@ export default function WorkPortal({ onOpen }) {
           <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL ↓</span></div>
         </div>
       )}
+      <style>{`
+        @media(max-width:720px){
+          #work { height:270svh!important; }
+          #work > div[style*="position: sticky"] { height:100svh!important; }
+          #work article { width:calc(100vw - 28px)!important; }
+          #work article > div { box-shadow:6px 6px 0 rgba(17,9,8,.45)!important; }
+          #work article > div > div:nth-child(2) { aspect-ratio:4 / 3!important; }
+          #work article > div > div:last-child { padding:9px 10px!important; gap:8px; }
+          #work article > div > div:last-child .font-display { font-size:21px!important; line-height:1; }
+          #work article > div > div:last-child .u-label { font-size:7px!important; line-height:1.35; letter-spacing:.07em; }
+          #work article > div > div:last-child button { min-height:38px; padding:6px 8px!important; flex:0 0 auto; }
+          #work article [aria-hidden] p { font-size:16px!important; line-height:1.28!important; }
+          #work article [aria-hidden] button { min-height:44px; }
+          #work > div > div:last-child .u-label { font-size:8px; }
+        }
+        @media(max-width:360px){
+          #work article > div > div:last-child .u-label { display:none; }
+        }
+      `}</style>
     </section>
   );
 }

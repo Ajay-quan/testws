@@ -195,14 +195,14 @@ export default function Writing() {
         .writing-progress { height:3px; background:rgba(17,9,8,.16); }
         .writing-progress span { display:block; width:100%; height:100%; background:var(--ink); transform-origin:left; }
         @media(max-width:720px){
-          .writing-intro { min-height:270px; grid-template-columns:1fr; gap:24px; padding:34px 20px; }
-          .writing-intro h2 { font-size:clamp(58px,18vw,78px); margin-top:46px; }
-          .writing-intro p { font-size:18px; }
+          .writing-intro { min-height:auto; grid-template-columns:1fr; gap:18px; padding:30px 16px 28px; }
+          .writing-intro h2 { font-size:clamp(52px,16vw,68px); margin-top:32px; }
+          .writing-intro p { font-size:16px; line-height:1.3; }
           .writing-toolbar { height:62px; }
           .writing-count { padding:0 16px; }
           .writing-count .font-display { font-size:30px; }
           .writing-controls { grid-template-columns:62px 62px; }
-          .writing-rail { grid-auto-columns:min(82vw,330px); gap:12px; padding:20px 18px 26px; scroll-padding-inline:18px; }
+          .writing-rail { grid-auto-columns:min(78vw,300px); gap:12px; padding:16px 14px 22px; scroll-padding-inline:14px; }
           .writing-card-foot { min-height:110px; }
           .writing-card-foot h3 { font-size:18px; }
           .is-published:hover { transform:none; box-shadow:none; }

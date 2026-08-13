@@ -207,16 +207,16 @@ export default function HeroField() {
         .hero-action { color:var(--ink); background:var(--accent); border:1px solid var(--ink); padding:12px 14px; text-decoration:none; font-size:10px; letter-spacing:.13em; transition:background .3s,color .3s; }
         .hero-action:hover { background:var(--ink); color:var(--accent); }
         @media(max-width:720px){
-          .hero-field-wrap { height:calc(100svh - 72px)!important; min-height:590px; }
-          .hero-identity { padding:24px 14px 54px; }
+          .hero-field-wrap { height:calc(100svh - 64px)!important; min-height:570px; max-height:760px; }
+          .hero-identity { padding:20px 14px 28px; }
           .hero-kicker { font-size:8px; max-width:250px; }
-          .hero-name { display:block; font-size:clamp(86px,29vw,126px); line-height:.76; margin-top:auto; }
+          .hero-name { display:block; font-size:clamp(76px,26.5vw,112px); line-height:.78; margin-top:auto; }
           .hero-name span { display:block; }
           .hero-name span:last-child { text-align:left; }
           .hero-bottom-line { display:block; margin-top:26px; }
-          .hero-bottom-line p { font-size:18px; max-width:330px; }
+          .hero-bottom-line p { font-size:16px; line-height:1.15; max-width:330px; }
           .hero-actions { margin-top:18px; }
-          .hero-action { flex:1; text-align:center; padding:12px 8px; }
+          .hero-action { flex:1; text-align:center; padding:13px 8px; min-height:44px; }
         }
       `}</style>
     </section>
