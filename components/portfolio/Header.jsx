@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 
 const NAV = [
   ['HOME', '/', 'home'],
@@ -25,7 +25,7 @@ function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
   );
 }
 
-export default function Header({ scrollPct, currentPage = 'home', onPageChange }) {
+export default function Header({ scrollPct, currentPage = 'home', onPageChange, theme = 'light', onThemeToggle }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -45,6 +45,9 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange }
         {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} onNavigate={onPageChange} />)}
         <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label">RÉSUMÉ ↗</span></a>
       </nav>
+      <button data-testid="theme-toggle" className="theme-toggle focus-ring" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
+        {theme === 'dark' ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
+      </button>
       <button data-testid="mobile-menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen((value) => !value)} className="mobile-menu-toggle focus-ring">
         {menuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
       </button>
@@ -59,7 +62,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange }
       </div>
 
       <style>{`
-        .simple-header { position:sticky; top:0; z-index:120; height:76px; display:grid; grid-template-columns:minmax(230px,1fr) minmax(552px,auto); }
+        .simple-header { position:sticky; top:0; z-index:120; height:76px; display:grid; grid-template-columns:minmax(230px,1fr) minmax(552px,auto) 50px; }
         .header-status { padding:0 18px; display:flex; flex-direction:column; justify-content:center; gap:5px; border-right:1px solid var(--ink); }
         .header-status span:last-child { opacity:.5; }
         .simple-nav { display:grid; grid-template-columns:repeat(6,minmax(92px,1fr)); align-items:stretch; }
@@ -68,13 +71,16 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange }
         .simple-nav a:hover,.simple-nav a[aria-current] { background:var(--ink); color:var(--accent)!important; opacity:1!important; }
         .simple-nav .header-resume { background:var(--ink); color:var(--accent); opacity:1; text-decoration:none; }
         .simple-nav .header-resume:hover { background:var(--red); color:var(--accent)!important; }
+        .theme-toggle { display:flex;align-items:center;justify-content:center;background:transparent;border:0;border-left:1px solid var(--ink);color:var(--ink); }
+        .theme-toggle:hover { background:var(--ink);color:var(--accent); }
         .mobile-menu-toggle,.mobile-nav { display:none; }
-        @media(max-width:980px){.simple-header{grid-template-columns:minmax(170px,1fr) minmax(468px,auto)}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}}
+        @media(max-width:980px){.simple-header{grid-template-columns:minmax(170px,1fr) minmax(468px,auto) 44px}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}}
         @media(max-width:720px){
-          .simple-header { height:64px; grid-template-columns:1fr 60px; }
+          .simple-header { height:64px; grid-template-columns:1fr 52px 60px; }
           .header-status { padding:0 12px; }
           .header-status span:last-child,.simple-nav { display:none; }
-          .mobile-menu-toggle { display:flex; align-items:center; justify-content:center; background:transparent; border:0; border-left:1px solid var(--ink); color:var(--ink); }
+          .theme-toggle { grid-column:2; }
+          .mobile-menu-toggle { grid-column:3; display:flex; align-items:center; justify-content:center; background:transparent; border:0; border-left:1px solid var(--ink); color:var(--ink); }
           .mobile-nav { position:fixed; left:7px; right:7px; top:64px; bottom:7px; z-index:119; background:var(--accent); border:1px solid var(--ink); transform:translateY(-105%); opacity:0; visibility:hidden; transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .2s; padding:18px 14px; display:flex; flex-direction:column; }
           .mobile-nav.is-open { transform:translateY(0); opacity:1; visibility:visible; }
           .mobile-nav-top,.mobile-nav-foot { display:flex; justify-content:space-between; gap:10px; }

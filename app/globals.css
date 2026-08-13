@@ -9,12 +9,20 @@
   --paper: #f2ece3;
   --red: #e34351;
   --accent: var(--paper); /* bright signal surface */
+  --page-bg: #110908;
+  --soft-ink: rgba(17, 9, 8, 0.64);
   --grid-line: rgba(17, 9, 8, 0.16);
 }
 
-html[data-mode='signal'] {
-  --accent: var(--red);
-  --grid-line: rgba(17, 9, 8, 0.28);
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #eee9e1;
+  --paper: #161719;
+  --red: #ff7f88;
+  --accent: #161719;
+  --page-bg: #0d0e10;
+  --soft-ink: rgba(238, 233, 225, 0.68);
+  --grid-line: rgba(238, 233, 225, 0.13);
 }
 
 * {
@@ -27,12 +35,33 @@ html {
 
 body {
   margin: 0;
-  background: var(--ink);
+  background: var(--page-bg);
   color: var(--ink);
   font-family: 'JetBrains Mono', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+body, .surface-accent, .surface-ink, header, footer, button, a {
+  transition: background-color .28s ease, color .28s ease, border-color .28s ease;
+}
+
+html[data-theme='dark'] img { filter: brightness(.91) contrast(1.04); }
+html[data-theme='dark'] .writing-poster img,
+html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness(.86) contrast(1.06) saturate(.9); }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    color-scheme: dark;
+    --ink: #eee9e1;
+    --paper: #161719;
+    --red: #ff7f88;
+    --accent: #161719;
+    --page-bg: #0d0e10;
+    --soft-ink: rgba(238, 233, 225, 0.68);
+    --grid-line: rgba(238, 233, 225, 0.13);
+  }
 }
 
 ::selection {
@@ -85,6 +114,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .rm-hide { display: none !important; }
+  body, .surface-accent, .surface-ink, header, footer, button, a { transition: none !important; }
 }
 
 /* skip link */
