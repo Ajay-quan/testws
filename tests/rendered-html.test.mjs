@@ -37,6 +37,7 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
   assert.match(html, /CONTACT/);
   assert.match(html, /STATEFUL\.AI/);
   assert.match(html, /ENGINEERS USED MY NLP PLATFORM/);
+  assert.doesNotMatch(html, /12\.9716|77\.5946|33\.7490|84\.3880/);
   assert.match(html, /VISION CONSOLE/);
   assert.match(html, /RESEARCHMATCH/);
   assert.match(html, /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\./);

@@ -192,12 +192,7 @@ export default function HeroField() {
           </div>
         </div>
         <div style={{ position: 'absolute', left: 16, bottom: 12, display: 'flex', gap: 20 }}>
-          <span className="u-label">12.9716° N</span>
-          <span className="u-label">77.5946° E</span>
-          <span className="u-label" style={{ opacity: 0.6 }}>MOVE / TOUCH</span>
-        </div>
-        <div style={{ position: 'absolute', right: 16, top: 12 }}>
-          <span className="u-label" style={{ opacity: 0.6 }}>FIELD / 001</span>
+          <span className="u-label" style={{ opacity: 0.6 }}>INTERACTIVE · MOVE / TOUCH</span>
         </div>
       </div>
       <style>{`

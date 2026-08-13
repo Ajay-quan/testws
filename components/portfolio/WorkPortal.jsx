@@ -4,7 +4,7 @@ import { useIsCompact, usePrefersReducedMotion } from './hooks';
 
 export const PROJECTS = [
   {
-    id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26', status: 'OPEN SOURCE · INDEPENDENT', proof: '0.9667 RECALL@5 · 135 TESTS',
+    id: 'aeg', title: 'STATEFUL.AI', role: 'AI SYSTEMS ENGINEER', year: '2025—26', status: 'OPEN SOURCE · INDEPENDENT', proof: '0.9667 RECALL@5 · 135 TESTS',
     premise: 'A self-improving persistent memory layer for long-running LLM agents.',
     cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351',
     overview: 'An open-source memory system that lets agents store, retrieve, revise, and learn from long-lived context through REST and MCP interfaces.',
@@ -17,7 +17,7 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/AegisMem',
   },
   {
-    id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC', proof: '07 MODULES · REAL-TIME CV',
+    id: 'cv', title: 'VISION CONSOLE', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC', proof: '7 MODULES · REAL-TIME CV',
     premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
     cover: '/projects/vision-console-tracking.jpg', media: ['/projects/vision-console-tracking.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
@@ -30,7 +30,7 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/ComputerVision_Fall2025',
   },
   {
-    id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026', status: 'OPEN SOURCE · ACADEMIC', proof: '5-FACTOR MATCHING · 02 ROLES',
+    id: 'rm', title: 'RESEARCHMATCH', role: 'FULL-STACK ENGINEER', year: '2026', status: 'OPEN SOURCE · ACADEMIC', proof: '5-FACTOR MATCHING · 2 ROLES',
     premise: 'A university research-opportunity platform with intelligent applicant matching.',
     cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8',
     overview: 'A full-stack application connecting students with faculty research projects through search, applications, and ranked matching.',
@@ -88,7 +88,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
             <span style={{ width: 8, height: 8, border: '1px solid var(--ink)' }} />
             <span style={{ width: 8, height: 8, border: '1px solid var(--ink)' }} />
           </div>
-          <span className="u-label" style={{ opacity: 0.7 }}>{project.serial}</span>
+          <span className="u-label" style={{ opacity: 0.7 }}>{project.status}</span>
         </div>
 
         <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: 'var(--ink)' }}>
@@ -110,7 +110,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
             <p className="font-serif-ed" style={{ fontSize: 'clamp(16px, 2.2vw, 26px)', lineHeight: 1.4, margin: 0, fontWeight: 350 }}>{project.premise}</p>
             <button data-testid={`open-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)}
               style={{ alignSelf: 'flex-start', background: 'transparent', border: `1px solid ${accent}`, color: accent, padding: '10px 16px', fontSize: 11, letterSpacing: '0.14em' }}>
-              VIEW SIGNAL ↗
+              VIEW CASE STUDY ↗
             </button>
           </motion.div>
         </div>
@@ -240,7 +240,7 @@ export default function WorkPortal({ onOpen }) {
           <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
           <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
 
-          <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — WORK / SIGNAL TUNNEL</span></div>
+          <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — SELECTED WORK · 3 PROJECTS</span></div>
           <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL ↓</span></div>
         </div>
       )}

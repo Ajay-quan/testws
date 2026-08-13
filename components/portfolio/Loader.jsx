@@ -75,7 +75,7 @@ export default function Loader({ onDone }) {
         <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${pct}%`, background: 'var(--accent)' }} />
       </div>
       <div className="font-mono-u" style={{ color: 'var(--accent)', fontSize: 10, letterSpacing: '0.2em', marginTop: 12, opacity: 0.7 }}>
-        {String(pct).padStart(3, '0')}% / SIGNAL
+        {String(pct).padStart(3, '0')}% / LOADED
       </div>
     </div>
   );

@@ -30,8 +30,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="hairline-t" style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 20px' }}>
-        <span className="u-label" style={{ opacity: 0.6 }}>© 2026 — AV SIGNAL LABORATORY</span>
-        <span className="u-label" style={{ opacity: 0.6 }}>33.7490° N / 84.3880° W</span>
+        <span className="u-label" style={{ opacity: 0.6 }}>© 2026 — AJAY VARADA</span>
+        <span className="u-label" style={{ opacity: 0.6 }}>ATLANTA · OPEN TO AI / ML + SOFTWARE ROLES</span>
       </div>
       <style>{`@media(max-width:640px){.footer-grid{grid-template-columns:1fr!important}.footer-identity,.footer-links{grid-column:1!important}.footer-identity{border-right:none!important;border-bottom:1px solid var(--ink)}footer>div:last-of-type{gap:14px;flex-wrap:wrap}}`}</style>
     </footer>
