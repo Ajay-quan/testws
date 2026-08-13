@@ -1,17 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-function Monogram() {
-  return (
-    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" style={{ display: 'block' }}>
-      <rect x="4" y="4" width="3" height="26" fill="var(--ink)" />
-      <rect x="11" y="4" width="3" height="18" fill="var(--ink)" />
-      <rect x="20" y="12" width="3" height="18" fill="var(--ink)" />
-      <rect x="27" y="4" width="3" height="26" fill="var(--ink)" />
-    </svg>
-  );
-}
-
 const NAV = [
   ['ABOUT', 'about'],
   ['EXPERIENCE', 'experience'],
@@ -58,7 +47,6 @@ export default function Header({ scrollPct }) {
 
   return (
     <header data-testid="site-header" className="surface-accent hairline-b simple-header">
-      <a href="#main" className="header-mark hairline-r focus-ring" aria-label="Ajay Varada — back to top"><Monogram /></a>
       <div className="header-status">
         <span className="u-label">{pct}% / PORTFOLIO</span>
         <span className="u-label">FORMER MICRON SWE · ATLANTA</span>
@@ -81,8 +69,7 @@ export default function Header({ scrollPct }) {
       </div>
 
       <style>{`
-        .simple-header { position:sticky; top:0; z-index:120; height:76px; display:grid; grid-template-columns:76px minmax(230px,1fr) minmax(552px,auto); }
-        .header-mark { display:flex; align-items:center; justify-content:center; color:var(--ink); }
+        .simple-header { position:sticky; top:0; z-index:120; height:76px; display:grid; grid-template-columns:minmax(230px,1fr) minmax(552px,auto); }
         .header-status { padding:0 18px; display:flex; flex-direction:column; justify-content:center; gap:5px; border-right:1px solid var(--ink); }
         .header-status span:last-child { opacity:.5; }
         .simple-nav { display:grid; grid-template-columns:repeat(6,minmax(92px,1fr)); align-items:stretch; }
@@ -92,9 +79,9 @@ export default function Header({ scrollPct }) {
         .simple-nav .header-resume { background:var(--ink); color:var(--accent); opacity:1; text-decoration:none; }
         .simple-nav .header-resume:hover { background:var(--red); color:var(--accent)!important; }
         .mobile-menu-toggle,.mobile-nav { display:none; }
-        @media(max-width:980px){.simple-header{grid-template-columns:76px minmax(170px,1fr) minmax(468px,auto)}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}}
+        @media(max-width:980px){.simple-header{grid-template-columns:minmax(170px,1fr) minmax(468px,auto)}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}}
         @media(max-width:720px){
-          .simple-header { height:72px; grid-template-columns:72px 1fr 64px; }
+          .simple-header { height:72px; grid-template-columns:1fr 64px; }
           .header-status { padding:0 12px; }
           .header-status span:last-child,.simple-nav { display:none; }
           .mobile-menu-toggle { display:flex; align-items:center; justify-content:center; background:transparent; border:0; border-left:1px solid var(--ink); color:var(--ink); }
