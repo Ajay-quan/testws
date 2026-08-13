@@ -61,34 +61,38 @@ export default function Header({ scrollPct }) {
       <a href="#main" className="header-mark hairline-r focus-ring" aria-label="Ajay Varada — back to top"><Monogram /></a>
       <div className="header-status">
         <span className="u-label">{pct}% / PORTFOLIO</span>
-        <span className="u-label">AI / ML ENGINEER · ATLANTA</span>
+        <span className="u-label">FORMER MICRON SWE · ATLANTA</span>
       </div>
       <nav aria-label="Primary" className="simple-nav">
         {NAV.map(([label, id]) => <NavLink key={id} label={label} target={id} active={active === id} />)}
+        <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label">RÉSUMÉ ↗</span></a>
       </nav>
       <button data-testid="mobile-menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen((value) => !value)} className="mobile-menu-toggle focus-ring">
         {menuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
       </button>
 
       <div id="mobile-nav" className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
-        <div className="u-label mobile-nav-top"><span>INDEX / 01—05</span><span>{pct}%</span></div>
+        <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span><span>{pct}%</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
           {NAV.map(([label, id]) => <NavLink key={id} label={label} target={id} active={active === id} mobile onNavigate={() => setMenuOpen(false)} />)}
+          <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display">RÉSUMÉ ↗</span></a>
         </nav>
         <div className="mobile-nav-foot u-label">AJAY VARADA · AI / ML ENGINEER</div>
       </div>
 
       <style>{`
-        .simple-header { position:sticky; top:0; z-index:120; height:76px; display:grid; grid-template-columns:76px minmax(230px,1fr) minmax(560px,auto); }
+        .simple-header { position:sticky; top:0; z-index:120; height:76px; display:grid; grid-template-columns:76px minmax(230px,1fr) minmax(552px,auto); }
         .header-mark { display:flex; align-items:center; justify-content:center; color:var(--ink); }
         .header-status { padding:0 18px; display:flex; flex-direction:column; justify-content:center; gap:5px; border-right:1px solid var(--ink); }
         .header-status span:last-child { opacity:.5; }
-        .simple-nav { display:grid; grid-template-columns:repeat(5,minmax(112px,1fr)); align-items:stretch; }
+        .simple-nav { display:grid; grid-template-columns:repeat(6,minmax(92px,1fr)); align-items:stretch; }
         .simple-nav a { display:flex; align-items:center; justify-content:center; padding:0 14px; border-right:1px solid var(--ink); transition:background .25s ease,color .25s ease,opacity .25s ease; }
         .simple-nav a:last-child { border-right:0; }
         .simple-nav a:hover,.simple-nav a[aria-current] { background:var(--ink); color:var(--accent)!important; opacity:1!important; }
+        .simple-nav .header-resume { background:var(--ink); color:var(--accent); opacity:1; text-decoration:none; }
+        .simple-nav .header-resume:hover { background:var(--red); color:var(--accent)!important; }
         .mobile-menu-toggle,.mobile-nav { display:none; }
-        @media(max-width:980px){.simple-header{grid-template-columns:76px minmax(170px,1fr) minmax(470px,auto)}.simple-nav{grid-template-columns:repeat(5,minmax(94px,1fr))}.simple-nav a{padding:0 8px}.simple-nav .u-label{font-size:9px}}
+        @media(max-width:980px){.simple-header{grid-template-columns:76px minmax(170px,1fr) minmax(468px,auto)}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}}
         @media(max-width:720px){
           .simple-header { height:72px; grid-template-columns:72px 1fr 64px; }
           .header-status { padding:0 12px; }
@@ -100,6 +104,7 @@ export default function Header({ scrollPct }) {
           .mobile-nav-links { margin:auto 0; display:flex; flex-direction:column; gap:4px; }
           .mobile-nav-links a { width:100%; border-bottom:1px solid var(--ink); padding:5px 0; }
           .mobile-nav-links .font-display { font-size:clamp(45px,15vw,72px); line-height:.92; }
+          .mobile-nav-links .mobile-resume-link { color:var(--ink); text-decoration:none; }
         }
       `}</style>
     </header>

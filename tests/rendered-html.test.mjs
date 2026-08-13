@@ -36,6 +36,7 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
   assert.match(html, /WRITING/);
   assert.match(html, /CONTACT/);
   assert.match(html, /STATEFUL\.AI/);
+  assert.match(html, /ENGINEERS USED MY NLP PLATFORM/);
   assert.match(html, /VISION CONSOLE/);
   assert.match(html, /RESEARCHMATCH/);
   assert.match(html, /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\./);
@@ -45,9 +46,11 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
 });
 
 test("keeps identity, project data, writing links, and contact actions in the product source", async () => {
-  const [portfolio, hero, work, writing, contact, layout] = await Promise.all([
+  const [portfolio, hero, header, proof, work, writing, contact, layout] = await Promise.all([
     readFile(new URL("../app/Portfolio.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/HeroField.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/portfolio/Header.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/portfolio/HiringProof.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/WorkPortal.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/Writing.jsx", import.meta.url), "utf8"),
     readFile(new URL("../components/portfolio/Contact.jsx", import.meta.url), "utf8"),
@@ -58,6 +61,8 @@ test("keeps identity, project data, writing links, and contact actions in the pr
   assert.match(hero, /AJAY/);
   assert.match(hero, /VARADA/);
   assert.match(hero, /Former Micron engineer/);
+  assert.match(header, /header-resume/);
+  assert.match(proof, /170\+/);
   assert.match(work, /STATEFUL\.AI/);
   assert.match(work, /Recall@5/);
   assert.match(work, /RESEARCHMATCH/);

@@ -7,6 +7,7 @@ import Loader from '@/components/portfolio/Loader';
 import Pointer from '@/components/portfolio/Pointer';
 import Header from '@/components/portfolio/Header';
 import HeroField from '@/components/portfolio/HeroField';
+import HiringProof from '@/components/portfolio/HiringProof';
 import About from '@/components/portfolio/About';
 import Experience from '@/components/portfolio/Experience';
 import Capabilities from '@/components/portfolio/Capabilities';
@@ -49,6 +50,7 @@ function App() {
 
       <main id="main">
         <HeroField />
+        <HiringProof />
         <About />
         <Experience />
         <Capabilities />

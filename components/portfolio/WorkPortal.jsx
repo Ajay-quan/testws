@@ -4,7 +4,7 @@ import { useIsCompact, usePrefersReducedMotion } from './hooks';
 
 export const PROJECTS = [
   {
-    id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26', status: 'OPEN SOURCE · INDEPENDENT',
+    id: 'aeg', title: 'STATEFUL.AI', serial: '#AEG1—0001/26', role: 'AI SYSTEMS ENGINEER', year: '2025—26', status: 'OPEN SOURCE · INDEPENDENT', proof: '0.9667 RECALL@5 · 135 TESTS',
     premise: 'A self-improving persistent memory layer for long-running LLM agents.',
     cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351',
     overview: 'An open-source memory system that lets agents store, retrieve, revise, and learn from long-lived context through REST and MCP interfaces.',
@@ -17,7 +17,7 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/AegisMem',
   },
   {
-    id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC',
+    id: 'cv', title: 'VISION CONSOLE', serial: '#CV07—0002/25', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC', proof: '07 MODULES · REAL-TIME CV',
     premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
     cover: '/projects/vision-console-tracking.jpg', media: ['/projects/vision-console-tracking.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
@@ -30,7 +30,7 @@ export const PROJECTS = [
     externalLink: 'https://github.com/Ajay-quan/ComputerVision_Fall2025',
   },
   {
-    id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026', status: 'OPEN SOURCE · ACADEMIC',
+    id: 'rm', title: 'RESEARCHMATCH', serial: '#RM05—0003/26', role: 'FULL-STACK ENGINEER', year: '2026', status: 'OPEN SOURCE · ACADEMIC', proof: '5-FACTOR MATCHING · 02 ROLES',
     premise: 'A university research-opportunity platform with intelligent applicant matching.',
     cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8',
     overview: 'A full-stack application connecting students with faculty research projects through search, applications, and ranked matching.',
@@ -116,7 +116,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
         </div>
 
         <div className="hairline-t surface-accent" style={{ borderColor: 'var(--ink)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px' }}>
-          <span className="font-display" style={{ fontSize: 'clamp(18px, 2.6vw, 30px)', letterSpacing: '-0.02em' }}>{project.title}</span>
+          <span style={{ display: 'flex', flexDirection: 'column', gap: 5 }}><span className="font-display" style={{ fontSize: 'clamp(18px, 2.6vw, 30px)', letterSpacing: '-0.02em' }}>{project.title}</span><span className="u-label" style={{ opacity: .58 }}>{project.proof}</span></span>
           <button data-testid={`tap-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)} aria-label={`Open ${project.title}`}
             style={{ background: 'transparent', border: '1px solid var(--ink)', color: 'var(--ink)', padding: '6px 10px', fontSize: 10, letterSpacing: '0.1em' }}>
             CASE STUDY ↗
