@@ -20,6 +20,13 @@ export const POSTS = [
     href: 'https://substack.com/@ajayvarada/note/p-210856139?r=7lkpa&utm_source=notes-share-action&utm_medium=web',
     status: 'PUBLISHED',
   },
+  {
+    id: 'context-deletion',
+    index: '003',
+    title: 'The Best Context-Engineering Move Is Knowing What to Delete',
+    image: '/writing/context-engineering-delete.jpeg',
+    status: 'SCHEDULED',
+  },
 ];
 
 function WritingCard({ post, index, visible, reduced }) {
@@ -156,8 +163,9 @@ export default function Writing() {
         .writing-intro h2 em { font-family:'Fraunces',serif; font-weight:350; }
         .writing-intro p { font-size:clamp(18px,2vw,28px); line-height:1.2; margin:0; max-width:520px; }
         .writing-toolbar { height:72px; display:flex; align-items:stretch; justify-content:space-between; }
-        .writing-count { display:flex; align-items:baseline; gap:8px; padding:0 22px; }
+        .writing-count { height:100%; display:flex; align-items:center; gap:8px; padding:0 22px; }
         .writing-count .font-display { font-size:36px; line-height:1; }
+        .writing-count .u-label { display:flex; align-items:center; line-height:1; }
         .writing-controls { display:grid; grid-template-columns:72px 72px; }
         .writing-controls button { border:0; border-left:1px solid var(--ink); background:transparent; color:var(--ink); font-size:25px; transition:background .25s ease,color .25s ease,opacity .25s ease; }
         .writing-controls button:not(:disabled):hover { background:var(--ink); color:var(--accent); }

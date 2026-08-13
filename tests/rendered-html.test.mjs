@@ -42,6 +42,7 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
   assert.match(html, /RESEARCHMATCH/);
   assert.match(html, /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\./);
   assert.match(html, /Multi-Agent Systems Work Best When Agents Know Less/);
+  assert.match(html, /The Best Context-Engineering Move Is Knowing What to Delete/);
   assert.match(html, /AI\/ML &amp; Software Engineer/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });
@@ -71,6 +72,7 @@ test("keeps identity, project data, writing links, and contact actions in the pr
   assert.match(writing, /substack\.com\/@ajayvarada\/note\/p-207923267/);
   assert.match(writing, /substack\.com\/@ajayvarada\/note\/p-210856139/);
   assert.match(writing, /Multi-Agent Systems Work Best When Agents Know Less/);
+  assert.match(writing, /context-engineering-delete\.jpeg/);
   assert.match(writing, /PUBLISHED/);
   assert.match(writing, /const published = Boolean\(post\.href\)/);
   assert.match(writing, /scroll-snap-type:x mandatory/);
