@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV = [
-  ['ABOUT', 'about'],
-  ['EXPERIENCE', 'experience'],
-  ['WORK', 'work'],
-  ['WRITING', 'writing'],
-  ['CONTACT', 'contact'],
+  ['HOME', '/', 'home'],
+  ['WORK', '/work', 'work'],
+  ['WRITING', '/writing', 'writing'],
+  ['PROFILE', '/profile', 'profile'],
+  ['CONTACT', '/contact', 'contact'],
 ];
 
-function NavLink({ label, target, active, onNavigate, mobile = false }) {
+function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
   return (
     <a
-      href={`#${target}`}
+      href={href}
       data-cursor="hover"
       data-testid={`nav-${target}`}
       className="focus-ring"
@@ -25,18 +25,8 @@ function NavLink({ label, target, active, onNavigate, mobile = false }) {
   );
 }
 
-export default function Header({ scrollPct }) {
+export default function Header({ scrollPct, currentPage = 'home' }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('');
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActive(visible.target.id);
-    }, { rootMargin: '-34% 0px -58%', threshold: [0, .2, .5] });
-    NAV.forEach(([, id]) => { const el = document.getElementById(id); if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -52,7 +42,7 @@ export default function Header({ scrollPct }) {
         <span className="u-label">FORMER MICRON SWE · ATLANTA</span>
       </div>
       <nav aria-label="Primary" className="simple-nav">
-        {NAV.map(([label, id]) => <NavLink key={id} label={label} target={id} active={active === id} />)}
+        {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} />)}
         <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label">RÉSUMÉ ↗</span></a>
       </nav>
       <button data-testid="mobile-menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen((value) => !value)} className="mobile-menu-toggle focus-ring">
@@ -62,7 +52,7 @@ export default function Header({ scrollPct }) {
       <div id="mobile-nav" className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
         <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span><span>{pct}%</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
-          {NAV.map(([label, id]) => <NavLink key={id} label={label} target={id} active={active === id} mobile onNavigate={() => setMenuOpen(false)} />)}
+          {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} mobile onNavigate={() => setMenuOpen(false)} />)}
           <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display">RÉSUMÉ ↗</span></a>
         </nav>
         <div className="mobile-nav-foot u-label">AJAY VARADA · AI / ML ENGINEER</div>

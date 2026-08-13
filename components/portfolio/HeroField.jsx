@@ -186,7 +186,7 @@ export default function HeroField() {
           <div className="hero-bottom-line">
             <p className="font-serif-ed">Former Micron engineer building agent memory, retrieval systems, and production ML.</p>
             <div className="hero-actions">
-              <a href="#work" data-cursor="hover" className="hero-action focus-ring" onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }}>SELECTED WORK ↘</a>
+              <a href="/work" data-cursor="hover" className="hero-action focus-ring">SELECTED WORK ↗</a>
               <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="hero-action focus-ring">RÉSUMÉ ↗</a>
             </div>
           </div>

@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/?fast", {
+    new Request(`http://localhost${path}?fast`, {
       headers: { accept: "text/html" },
     }),
     {
@@ -31,20 +31,24 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
   const html = await response.text();
   assert.match(html, /Ajay Varada/);
   assert.match(html, /ABOUT/);
-  assert.match(html, /EXPERIENCE/);
   assert.match(html, /WORK/);
   assert.match(html, /WRITING/);
   assert.match(html, /CONTACT/);
-  assert.match(html, /STATEFUL\.AI/);
   assert.match(html, /ENGINEERS USED MY NLP PLATFORM/);
   assert.doesNotMatch(html, /12\.9716|77\.5946|33\.7490|84\.3880/);
-  assert.match(html, /VISION CONSOLE/);
-  assert.match(html, /RESEARCHMATCH/);
-  assert.match(html, /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\./);
-  assert.match(html, /Multi-Agent Systems Work Best When Agents Know Less/);
-  assert.match(html, /The Best Context-Engineering Move Is Knowing What to Delete/);
   assert.match(html, /AI\/ML &amp; Software Engineer/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
+});
+
+test("serves focused work, writing, profile, and contact routes", async () => {
+  const [work, writing, profile, contact] = await Promise.all([
+    render("/work"), render("/writing"), render("/profile"), render("/contact"),
+  ]);
+  for (const response of [work, writing, profile, contact]) assert.equal(response.status, 200);
+  assert.match(await work.text(), /STATEFUL\.AI[\s\S]*VISION CONSOLE[\s\S]*RESEARCHMATCH/);
+  assert.match(await writing.text(), /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\.[\s\S]*Multi-Agent Systems Work Best When Agents Know Less/);
+  assert.match(await profile.text(), /EXPERIENCE[\s\S]*MICRON TECHNOLOGY[\s\S]*CAPABILITIES/);
+  assert.match(await contact.text(), /LET’S[\s\S]*BUILD[\s\S]*mailto:/);
 });
 
 test("keeps identity, project data, writing links, and contact actions in the product source", async () => {
