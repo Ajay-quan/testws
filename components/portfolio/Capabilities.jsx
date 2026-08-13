@@ -26,7 +26,7 @@ export default function Capabilities() {
         .compact-cap-heading { padding:34px 20px 18px; display:flex; align-items:end; justify-content:space-between; gap:20px; }
         .compact-cap-heading h2 { font-size:clamp(52px,10vw,150px); line-height:.8; letter-spacing:-.05em; margin:0; }
         .compact-cap-grid { display:grid; grid-template-columns:repeat(3,1fr); }
-        .compact-cap-cell { min-height:190px; padding:22px 20px; border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); display:flex; flex-direction:column; }
+        .compact-cap-cell { min-height:190px; padding:22px 20px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; flex-direction:column; }
         .compact-cap-cell:nth-child(3n) { border-right:0; }
         .compact-cap-cell:nth-last-child(-n+3) { border-bottom:0; }
         .compact-cap-cell h3 { font-size:clamp(22px,2.4vw,34px); line-height:.94; margin:auto 0 12px; }

@@ -50,7 +50,7 @@ export default function Loader({ onDone }) {
       ref={rootRef}
       aria-hidden="true"
       style={{
-        position: 'fixed', inset: 0, zIndex: 300, background: 'var(--ink)',
+        position: 'fixed', inset: 0, zIndex: 300, background: 'var(--inverse-bg)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         clipPath: exit ? 'inset(0 0 100% 0)' : 'inset(0 0 0 0)',
         transition: 'clip-path 0.38s cubic-bezier(0.77,0,0.18,1)',
@@ -59,7 +59,7 @@ export default function Loader({ onDone }) {
       <div
         className="font-display"
         style={{
-          color: 'var(--accent)', fontSize: 'min(34vw, 40vh)', lineHeight: 0.8,
+          color: 'var(--inverse-fg)', fontSize: 'min(34vw, 40vh)', lineHeight: 0.8,
           letterSpacing: '-0.06em',
           transform: `scaleX(${0.5 + (pct / 100) * 0.5})`,
           transformOrigin: 'center',
@@ -68,13 +68,13 @@ export default function Loader({ onDone }) {
       >
         AV
       </div>
-      <div className="font-mono-u" style={{ color: 'var(--accent)', fontSize: 11, letterSpacing: '0.24em', marginTop: 28, height: 14 }}>
+      <div className="font-mono-u" style={{ color: 'var(--inverse-fg)', fontSize: 11, letterSpacing: '0.24em', marginTop: 28, height: 14 }}>
         {line}
       </div>
       <div style={{ width: 'min(320px, 60vw)', height: 1, background: 'rgba(242,236,227,0.25)', marginTop: 22, position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${pct}%`, background: 'var(--accent)' }} />
+        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${pct}%`, background: 'var(--inverse-fg)' }} />
       </div>
-      <div className="font-mono-u" style={{ color: 'var(--accent)', fontSize: 10, letterSpacing: '0.2em', marginTop: 12, opacity: 0.7 }}>
+      <div className="font-mono-u" style={{ color: 'var(--inverse-fg)', fontSize: 10, letterSpacing: '0.2em', marginTop: 12, opacity: 0.7 }}>
         {String(pct).padStart(3, '0')}% / LOADED
       </div>
     </div>

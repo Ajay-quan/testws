@@ -21,7 +21,7 @@ export default function Contact() {
       <style>{`
         .simple-contact-main { min-height:500px; padding:clamp(42px,6vw,80px) clamp(20px,4vw,58px); display:flex; flex-direction:column; }
         .simple-contact-main h2 { font-size:clamp(34px,5vw,70px); line-height:1.04; font-weight:350; max-width:980px; margin:50px 0 80px; }
-        .contact-email { margin-top:auto; color:var(--ink); text-decoration:none; font-size:clamp(42px,8.5vw,132px); line-height:.9; letter-spacing:-.045em; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; border-bottom:3px solid var(--ink); padding-bottom:14px; transition:padding-left .35s cubic-bezier(.16,1,.3,1); }
+        .contact-email { margin-top:auto; color:var(--ink); text-decoration:none; font-size:clamp(42px,8.5vw,132px); line-height:.9; letter-spacing:-.045em; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; border-bottom:3px solid var(--line); padding-bottom:14px; transition:padding-left .35s cubic-bezier(.16,1,.3,1); }
         .contact-email:hover { padding-left:14px; }
         .contact-email span { font-family:'Fraunces',serif; font-size:.55em; }
         .simple-contact-links { display:grid; grid-template-columns:1fr auto; gap:40px; padding:24px clamp(20px,4vw,58px); align-items:center; }

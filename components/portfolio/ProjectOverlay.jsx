@@ -50,9 +50,9 @@ export default function ProjectOverlay({ project, onClose }) {
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="surface-ink"
-            style={{ width: 'min(640px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid var(--accent)' }}
+            style={{ width: 'min(640px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid var(--line)' }}
           >
-            <div className="hairline-b" style={{ borderColor: 'var(--accent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--ink)', zIndex: 2 }}>
+            <div className="hairline-b" style={{ borderColor: 'var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--inverse-bg)', zIndex: 2 }}>
               <span className="u-label" style={{ color: project.accent }}>{project.status}</span>
               <button ref={closeRef} data-testid="overlay-close" data-cursor="hover" onClick={() => onClose()} aria-label="Close project" className="focus-ring"
                 style={{ background: 'transparent', border: `1px solid ${project.accent}`, color: project.accent, width: 34, height: 34 }}>✕</button>
@@ -68,7 +68,7 @@ export default function ProjectOverlay({ project, onClose }) {
               </div>
             )}
 
-            <div style={{ padding: '28px 20px 60px', color: 'var(--accent)' }}>
+            <div style={{ padding: '28px 20px 60px', color: 'var(--inverse-fg)' }}>
               <h2 id="ov-title" className="font-display" style={{ margin: 0, fontSize: 'clamp(40px, 8vw, 84px)', lineHeight: 0.86, letterSpacing: '-0.03em' }}>{project.title}</h2>
               <div style={{ display: 'flex', gap: 24, marginTop: 16, flexWrap: 'wrap' }}>
                 <span className="u-label" style={{ opacity: 0.7 }}>ROLE / {project.role}</span>

@@ -168,7 +168,7 @@ export default function Writing() {
         .writing-count .u-label { display:flex; align-items:center; line-height:1; }
         .writing-controls { display:grid; grid-template-columns:72px 72px; }
         .writing-controls button { border:0; border-left:1px solid var(--ink); background:transparent; color:var(--ink); font-size:25px; transition:background .25s ease,color .25s ease,opacity .25s ease; }
-        .writing-controls button:not(:disabled):hover { background:var(--ink); color:var(--accent); }
+        .writing-controls button:not(:disabled):hover { background:var(--inverse-bg); color:var(--inverse-fg); }
         .writing-controls button:disabled { opacity:.2; }
         .writing-rail { display:grid; grid-auto-flow:column; grid-auto-columns:clamp(300px,27vw,390px); gap:18px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-padding-inline:clamp(18px,5vw,72px); padding:30px clamp(18px,5vw,72px) 34px; scrollbar-width:none; touch-action:pan-x pan-y; }
         .writing-rail::-webkit-scrollbar { display:none; }
@@ -189,10 +189,10 @@ export default function Writing() {
         .writing-action { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
         .writing-action span:last-child { font-size:22px; line-height:1; }
         .is-scheduled { opacity:.72; }
-        .is-published:hover { transform:translateY(-7px); box-shadow:8px 8px 0 var(--ink); }
+        .is-published:hover { transform:translateY(-7px); box-shadow:8px 8px 0 var(--inverse-bg); }
         .writing-link:focus-visible { outline:3px solid var(--red); outline-offset:4px; }
         .writing-rail:focus-visible { outline:2px solid var(--red); outline-offset:-4px; }
-        .writing-progress { height:3px; background:rgba(17,9,8,.16); }
+        .writing-progress { height:3px; background:var(--grid-line); }
         .writing-progress span { display:block; width:100%; height:100%; background:var(--ink); transform-origin:left; }
         @media(max-width:720px){
           .writing-intro { min-height:auto; grid-template-columns:1fr; gap:18px; padding:30px 16px 28px; }

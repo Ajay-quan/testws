@@ -80,7 +80,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
         data-cursor="hover"
         onMouseEnter={() => setRevealed(true)}
         onMouseLeave={() => setRevealed(false)}
-        style={{ background: 'var(--ink)', boxShadow: `12px 12px 0 rgba(17,9,8,0.5)`, position: 'relative', borderColor: 'var(--ink)' }}
+        style={{ background: 'var(--inverse-bg)', boxShadow: `12px 12px 0 rgba(0,0,0,0.28)`, position: 'relative', borderColor: 'var(--line)' }}
       >
         <div className="surface-accent hairline-b" style={{ borderColor: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
           <div style={{ display: 'flex', gap: 5 }}>
@@ -105,7 +105,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
             initial={false}
             animate={{ clipPath: revealed ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)' }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ position: 'absolute', inset: 0, background: 'var(--ink)', color: 'var(--accent)', padding: '9% 8%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+            style={{ position: 'absolute', inset: 0, background: 'var(--inverse-bg)', color: 'var(--inverse-fg)', padding: '9% 8%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
             <p className="font-serif-ed" style={{ fontSize: 'clamp(16px, 2.2vw, 26px)', lineHeight: 1.4, margin: 0, fontWeight: 350 }}>{project.premise}</p>
             <button data-testid={`open-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)}
@@ -212,7 +212,7 @@ export default function WorkPortal({ onOpen }) {
         </div>
       ) : (
         <div onMouseMove={onStageMove} style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: 'var(--accent)' }}>
-          <motion.div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'var(--ink)', opacity: inkOverlay }} />
+          <motion.div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'var(--inverse-bg)', opacity: inkOverlay }} />
           {/* per-project signal tints */}
           {PROJECTS.map((p, i) => (
             <motion.div key={p.id} aria-hidden="true" style={{ position: 'absolute', inset: 0, background: p.accent, opacity: tints[i], mixBlendMode: 'screen' }} />
@@ -228,11 +228,11 @@ export default function WorkPortal({ onOpen }) {
           <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.165} baseW={300} h="92vh" />
           <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.15} baseW={360} h="98vh" />
 
-          <motion.div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%', width: 200, height: capH, scaleX: capScaleX, opacity: capOpacity, borderRadius: capRadius, background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          <motion.div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%', width: 200, height: capH, scaleX: capScaleX, opacity: capOpacity, borderRadius: capRadius, background: 'var(--inverse-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
             <motion.div style={{ scaleX: letterCounter, position: 'relative' }}>
-              <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoX, opacity: echoOpacity, scale: workScale, color: 'var(--accent)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
-              <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoXNeg, opacity: echoOpacity, scale: workScale, color: 'var(--accent)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
-              <motion.div className="font-display" style={{ scale: workScale, opacity: workLetterOpacity, color: 'var(--accent)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em', position: 'relative' }}>W<br />O<br />R<br />K</motion.div>
+              <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoX, opacity: echoOpacity, scale: workScale, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
+              <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoXNeg, opacity: echoOpacity, scale: workScale, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
+              <motion.div className="font-display" style={{ scale: workScale, opacity: workLetterOpacity, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em', position: 'relative' }}>W<br />O<br />R<br />K</motion.div>
             </motion.div>
           </motion.div>
 

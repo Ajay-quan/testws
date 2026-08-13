@@ -141,7 +141,7 @@ function App({ view = 'home' }) {
         .portfolio-browser-bar{height:34px;display:grid;grid-template-columns:110px 1fr auto;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:2}
         .portfolio-browser-bar>span:nth-child(2){text-align:center;opacity:.62}
         .portfolio-browser-bar>span:last-child{opacity:.4}
-        .browser-controls{display:flex;gap:6px}.browser-controls i{width:7px;height:7px;border:1px solid var(--ink);border-radius:50%}.browser-controls i:first-child{background:var(--red)}
+        .browser-controls{display:flex;gap:6px}.browser-controls i{width:7px;height:7px;border:1px solid var(--line);border-radius:50%}.browser-controls i:first-child{background:var(--red);border-color:var(--red)}
         .portfolio-panel{min-height:calc(100svh - 110px)}
         @media(max-width:720px){.portfolio-browser-bar{height:30px;grid-template-columns:auto 1fr;padding:0 12px}.portfolio-browser-bar>span:nth-child(2){text-align:right;font-size:7px}.portfolio-browser-bar>span:last-child{display:none}.browser-controls i{width:6px;height:6px}.portfolio-panel{min-height:calc(100svh - 94px)}}
         @media(prefers-reduced-motion:reduce){.portfolio-panel{transform:none!important}}
@@ -150,7 +150,7 @@ function App({ view = 'home' }) {
       <Footer />
 
       {/* framed page border overlay */}
-      <div aria-hidden="true" style={{ position: 'fixed', inset: 7, border: '1px solid var(--ink)', pointerEvents: 'none', zIndex: 110, mixBlendMode: 'normal' }} />
+      <div aria-hidden="true" style={{ position: 'fixed', inset: 7, border: '1px solid var(--line)', pointerEvents: 'none', zIndex: 110, mixBlendMode: 'normal' }} />
 
       <ProjectOverlay project={openProject} onClose={closeProject} />
     </div>
