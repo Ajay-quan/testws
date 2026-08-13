@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from './hooks';
 
-export default function HeroField() {
+export default function HeroField({ onOpenWork }) {
   const reduced = usePrefersReducedMotion();
   const canvasRef = useRef(null);
   const wrapRef = useRef(null);
@@ -186,7 +186,7 @@ export default function HeroField() {
           <div className="hero-bottom-line">
             <p className="font-serif-ed">Former Micron engineer building agent memory, retrieval systems, and production ML.</p>
             <div className="hero-actions">
-              <a href="/work" data-cursor="hover" className="hero-action focus-ring">SELECTED WORK ↗</a>
+              <a href="/work" data-cursor="hover" className="hero-action focus-ring" onClick={(event) => onOpenWork?.('work', '/work', event)}>SELECTED WORK ↗</a>
               <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="hero-action focus-ring">RÉSUMÉ ↗</a>
             </div>
           </div>

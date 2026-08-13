@@ -63,7 +63,8 @@ test("keeps identity, project data, writing links, and contact actions in the pr
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(portfolio, /<main/);
+  assert.match(portfolio, /<motion\.main/);
+  assert.match(portfolio, /history\.pushState/);
   assert.match(hero, /AJAY/);
   assert.match(hero, /VARADA/);
   assert.match(hero, /Former Micron engineer/);

@@ -17,7 +17,7 @@ function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
       data-testid={`nav-${target}`}
       className="focus-ring"
       aria-current={active ? 'location' : undefined}
-      onClick={() => onNavigate?.()}
+      onClick={(event) => onNavigate?.(target, href, event)}
       style={{ textDecoration: 'none', color: 'var(--ink)', opacity: active ? 1 : 0.62 }}
     >
       <span className={mobile ? 'font-display' : 'u-label'}>{label}</span>
@@ -25,7 +25,7 @@ function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
   );
 }
 
-export default function Header({ scrollPct, currentPage = 'home' }) {
+export default function Header({ scrollPct, currentPage = 'home', onPageChange }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Header({ scrollPct, currentPage = 'home' }) {
         <span className="u-label">FORMER MICRON SWE · ATLANTA</span>
       </div>
       <nav aria-label="Primary" className="simple-nav">
-        {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} />)}
+        {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} onNavigate={onPageChange} />)}
         <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label">RÉSUMÉ ↗</span></a>
       </nav>
       <button data-testid="mobile-menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen((value) => !value)} className="mobile-menu-toggle focus-ring">
@@ -52,7 +52,7 @@ export default function Header({ scrollPct, currentPage = 'home' }) {
       <div id="mobile-nav" className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
         <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span><span>{pct}%</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
-          {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} mobile onNavigate={() => setMenuOpen(false)} />)}
+          {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} mobile onNavigate={(target, href, event) => { setMenuOpen(false); onPageChange?.(target, href, event); }} />)}
           <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display">RÉSUMÉ ↗</span></a>
         </nav>
         <div className="mobile-nav-foot u-label">AJAY VARADA · AI / ML ENGINEER</div>

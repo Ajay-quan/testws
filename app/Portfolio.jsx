@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import './portfolio.css';
 
 import Loader from '@/components/portfolio/Loader';
@@ -48,6 +49,7 @@ function App({ view = 'home' }) {
   const [loaded, setLoaded] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [openProject, setOpenProject] = useState(null);
+  const [activeView, setActiveView] = useState(view);
   const handleLoaded = useCallback(() => setLoaded(true), []);
 
   useEffect(() => {
@@ -62,31 +64,70 @@ function App({ view = 'home' }) {
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  useEffect(() => {
+    const onPopState = () => {
+      const path = window.location.pathname.replace(/^\//, '') || 'home';
+      setActiveView(VIEWS[path] ? path : 'home');
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
   const closeProject = useCallback((fromPop) => {
     setOpenProject(null);
     if (!fromPop && window.history.state && window.history.state.overlay) window.history.back();
   }, []);
 
-  const visible = VIEWS[view] || VIEWS.home;
+  const visible = VIEWS[activeView] || VIEWS.home;
+  const changePage = useCallback((target, href, event) => {
+    if (!VIEWS[target]) return;
+    event?.preventDefault();
+    if (target === activeView) return;
+    window.history.pushState({ portfolioView: target }, '', href);
+    setOpenProject(null);
+    setActiveView(target);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activeView]);
 
   return (
     <div className="App" style={{ background: 'var(--accent)' }}>
       <a href="#main" className="skip-link">SKIP TO CONTENT</a>
-      {!loaded && view === 'home' && <Loader onDone={handleLoaded} />}
-      <Header scrollPct={scrollPct} currentPage={view} />
+      {!loaded && activeView === 'home' && <Loader onDone={handleLoaded} />}
+      <Header scrollPct={scrollPct} currentPage={activeView} onPageChange={changePage} />
 
-      <main id="main">
-        {visible.includes('hero') && <HeroField />}
-        {visible.includes('proof') && <HiringProof />}
-        {visible.includes('about') && <About />}
-        {visible.includes('profileIntro') && <PageIntro eyebrow="PROFILE / EXPERIENCE" title="BUILDING" italic="USEFUL SYSTEMS." description="Production software engineering, applied machine learning, and the experience behind the work." />}
-        {visible.includes('experience') && <Experience />}
-        {visible.includes('capabilities') && <Capabilities />}
-        {visible.includes('work') && <WorkPortal onOpen={setOpenProject} />}
-        {visible.includes('writing') && <Writing />}
-        {visible.includes('contactIntro') && <PageIntro eyebrow="CONTACT / OPPORTUNITIES" title="LET’S" italic="BUILD." description="Open to AI/ML and software engineering roles where ambitious ideas become reliable products." />}
-        {visible.includes('contact') && <Contact />}
-      </main>
+      <div className="portfolio-browser-bar surface-accent hairline-b" aria-hidden="true">
+        <span className="browser-controls"><i /><i /><i /></span>
+        <span className="u-label">AJAY.PORTFOLIO / {activeView.toUpperCase()}</span>
+        <span className="u-label">ACTIVE TAB</span>
+      </div>
+
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.main id="main" key={activeView} className="portfolio-panel"
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: .34, ease: [0.16, 1, 0.3, 1] }}>
+          {visible.includes('hero') && <HeroField onOpenWork={changePage} />}
+          {visible.includes('proof') && <HiringProof />}
+          {visible.includes('about') && <About />}
+          {visible.includes('profileIntro') && <PageIntro eyebrow="PROFILE / EXPERIENCE" title="BUILDING" italic="USEFUL SYSTEMS." description="Production software engineering, applied machine learning, and the experience behind the work." />}
+          {visible.includes('experience') && <Experience />}
+          {visible.includes('capabilities') && <Capabilities />}
+          {visible.includes('work') && <WorkPortal onOpen={setOpenProject} />}
+          {visible.includes('writing') && <Writing />}
+          {visible.includes('contactIntro') && <PageIntro eyebrow="CONTACT / OPPORTUNITIES" title="LET’S" italic="BUILD." description="Open to AI/ML and software engineering roles where ambitious ideas become reliable products." />}
+          {visible.includes('contact') && <Contact />}
+        </motion.main>
+      </AnimatePresence>
+
+      <style>{`
+        .portfolio-browser-bar{height:34px;display:grid;grid-template-columns:110px 1fr auto;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:2}
+        .portfolio-browser-bar>span:nth-child(2){text-align:center;opacity:.62}
+        .portfolio-browser-bar>span:last-child{opacity:.4}
+        .browser-controls{display:flex;gap:6px}.browser-controls i{width:7px;height:7px;border:1px solid var(--ink);border-radius:50%}.browser-controls i:first-child{background:var(--red)}
+        .portfolio-panel{min-height:calc(100svh - 110px)}
+        @media(max-width:720px){.portfolio-browser-bar{height:30px;grid-template-columns:auto 1fr;padding:0 12px}.portfolio-browser-bar>span:nth-child(2){text-align:right;font-size:7px}.portfolio-browser-bar>span:last-child{display:none}.browser-controls i{width:6px;height:6px}.portfolio-panel{min-height:calc(100svh - 94px)}}
+        @media(prefers-reduced-motion:reduce){.portfolio-panel{transform:none!important}}
+      `}</style>
 
       <Footer />
 
