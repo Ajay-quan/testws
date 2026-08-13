@@ -124,7 +124,7 @@ export default function Writing() {
           <span className="u-label">04 — WRITING / FIELD NOTES</span>
           <h2 className="font-display">THINKING <em>IN PUBLIC.</em></h2>
         </div>
-        <p className="font-serif-ed">Notes on memory, multi-agent systems, and the engineering decisions behind useful AI.</p>
+        <p className="font-serif-ed">Ideas, observations, and lessons from building, learning, and experimenting in public.</p>
       </div>
 
       <div className="writing-toolbar hairline-b">
