@@ -39,7 +39,7 @@ export default function About() {
         <div className="about-content" style={{ padding: 'clamp(36px, 6vw, 84px) clamp(20px, 4vw, 60px)', minWidth: 0 }}>
           <h2 className="font-serif-ed" style={{ margin: 0, fontWeight: 350, fontSize: 'clamp(30px, 5.4vw, 78px)', lineHeight: 1.02, letterSpacing: '-0.01em', maxWidth: 1100 }}>
             {LINES.map((l, i) => (
-              <span key={i} className="clip-line">
+              <span key={i} className="clip-line about-reveal-line">
                 <motion.span
                   style={{ display: 'inline-block' }}
                   initial={{ y: '110%' }}
@@ -83,6 +83,7 @@ export default function About() {
       </div>
 
       <style>{`
+        .about-reveal-line { padding-bottom:.14em; margin-bottom:-.14em; }
         @media (max-width: 640px) {
           .about-content { padding: 34px 20px !important; overflow: hidden; }
           .about-content h2 { max-width: 100% !important; font-size: 30px !important; }
