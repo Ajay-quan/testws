@@ -72,12 +72,6 @@ body {
 /* clip reveal line */
 .clip-line { display: block; overflow: hidden; }
 
-/* custom pointer */
-* { cursor: none; }
-@media (hover: none), (pointer: coarse) {
-  * { cursor: auto; }
-}
-
 .focus-ring:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;

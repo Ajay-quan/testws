@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from 'react';
 import './portfolio.css';
 
 import Loader from '@/components/portfolio/Loader';
-import Pointer from '@/components/portfolio/Pointer';
 import Header from '@/components/portfolio/Header';
 import HeroField from '@/components/portfolio/HeroField';
 import HiringProof from '@/components/portfolio/HiringProof';
@@ -44,8 +43,6 @@ function App() {
     <div className="App" style={{ background: 'var(--accent)' }}>
       <a href="#main" className="skip-link">SKIP TO CONTENT</a>
       {!loaded && <Loader onDone={handleLoaded} />}
-      <Pointer />
-
       <Header scrollPct={scrollPct} />
 
       <main id="main">

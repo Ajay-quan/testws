@@ -55,7 +55,7 @@ export default function ProjectOverlay({ project, onClose }) {
             <div className="hairline-b" style={{ borderColor: 'var(--accent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--ink)', zIndex: 2 }}>
               <span className="u-label" style={{ color: project.accent }}>{project.status}</span>
               <button ref={closeRef} data-testid="overlay-close" data-cursor="hover" onClick={() => onClose()} aria-label="Close project" className="focus-ring"
-                style={{ background: 'transparent', border: `1px solid ${project.accent}`, color: project.accent, width: 34, height: 34, cursor: 'none' }}>✕</button>
+                style={{ background: 'transparent', border: `1px solid ${project.accent}`, color: project.accent, width: 34, height: 34 }}>✕</button>
             </div>
 
             {project.media && project.media.length > 0 && (
