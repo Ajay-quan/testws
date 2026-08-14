@@ -205,7 +205,7 @@ export default function HeroField({ onOpenWork }) {
         .hero-bottom-line p { margin:0; max-width:560px; font-size:clamp(18px,2vw,30px); line-height:1.1; font-weight:420; background:var(--accent); padding:5px 7px; }
         .hero-actions { display:flex; gap:8px; pointer-events:auto; flex-shrink:0; }
         .hero-action { color:var(--ink); background:var(--accent); border:1px solid var(--ink); padding:12px 14px; text-decoration:none; font-size:10px; letter-spacing:.13em; transition:background .3s,color .3s; }
-        .hero-action:hover { background:var(--inverse-bg); color:var(--inverse-fg); }
+        .hero-action:hover { background:var(--inverse-surface-bg); color:var(--inverse-fg); }
         @media(max-width:720px){
           .hero-field-wrap { height:calc(100svh - 64px)!important; min-height:570px; max-height:760px; }
           .hero-identity { padding:20px 14px 28px; }
