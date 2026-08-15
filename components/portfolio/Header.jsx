@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
+import InterfaceIcon from './InterfaceIcon';
 
 const NAV = [
   ['HOME', '/', 'home'],
@@ -43,7 +44,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
       </div>
       <nav aria-label="Primary" className="simple-nav">
         {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} onNavigate={onPageChange} />)}
-        <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label">RÉSUMÉ ↗</span></a>
+        <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label icon-link">RÉSUMÉ <InterfaceIcon /></span></a>
       </nav>
       <button data-testid="theme-toggle" className="theme-toggle focus-ring" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
         {theme === 'dark' ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
@@ -56,7 +57,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
         <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span><span>{pct}%</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
           {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} mobile onNavigate={(target, href, event) => { setMenuOpen(false); onPageChange?.(target, href, event); }} />)}
-          <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display">RÉSUMÉ ↗</span></a>
+          <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display icon-link">RÉSUMÉ <InterfaceIcon size={22} /></span></a>
         </nav>
         <div className="mobile-nav-foot u-label">AJAY VARADA · AI / ML ENGINEER</div>
       </div>

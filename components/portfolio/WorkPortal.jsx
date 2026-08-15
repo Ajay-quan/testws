@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { useIsCompact, usePrefersReducedMotion } from './hooks';
+import InterfaceIcon from './InterfaceIcon';
 
 export const PROJECTS = [
   {
@@ -108,18 +109,18 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
             style={{ position: 'absolute', inset: 0, background: 'var(--inverse-bg)', color: 'var(--inverse-fg)', padding: '9% 8%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
             <p className="font-serif-ed" style={{ fontSize: 'clamp(16px, 2.2vw, 26px)', lineHeight: 1.4, margin: 0, fontWeight: 350 }}>{project.premise}</p>
-            <button data-testid={`open-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)}
+            <button data-testid={`open-${project.id}`} data-cursor="hover" className="focus-ring icon-link" onClick={() => onOpen(project)}
               style={{ alignSelf: 'flex-start', background: 'transparent', border: `1px solid ${accent}`, color: accent, padding: '10px 16px', fontSize: 11, letterSpacing: '0.14em' }}>
-              VIEW CASE STUDY ↗
+              VIEW CASE STUDY <InterfaceIcon />
             </button>
           </motion.div>
         </div>
 
         <div className="hairline-t surface-accent" style={{ borderColor: 'var(--ink)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px' }}>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 5 }}><span className="font-display" style={{ fontSize: 'clamp(18px, 2.6vw, 30px)', letterSpacing: '-0.02em' }}>{project.title}</span><span className="u-label" style={{ opacity: .58 }}>{project.proof}</span></span>
-          <button data-testid={`tap-${project.id}`} data-cursor="hover" className="focus-ring" onClick={() => onOpen(project)} aria-label={`Open ${project.title}`}
+          <button data-testid={`tap-${project.id}`} data-cursor="hover" className="focus-ring icon-link" onClick={() => onOpen(project)} aria-label={`Open ${project.title}`}
             style={{ background: 'transparent', border: '1px solid var(--ink)', color: 'var(--ink)', padding: '6px 10px', fontSize: 10, letterSpacing: '0.1em' }}>
-            CASE STUDY ↗
+            CASE STUDY <InterfaceIcon />
           </button>
         </div>
       </div>
@@ -241,7 +242,7 @@ export default function WorkPortal({ onOpen }) {
           <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
 
           <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — SELECTED WORK · 3 PROJECTS</span></div>
-          <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL ↓</span></div>
+          <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label icon-link" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL <InterfaceIcon name="down" /></span></div>
         </div>
       )}
       <style>{`

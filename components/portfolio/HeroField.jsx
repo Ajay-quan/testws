@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from './hooks';
+import InterfaceIcon from './InterfaceIcon';
 
 export default function HeroField({ onOpenWork }) {
   const reduced = usePrefersReducedMotion();
@@ -186,8 +187,8 @@ export default function HeroField({ onOpenWork }) {
           <div className="hero-bottom-line">
             <p className="font-serif-ed">Former Micron engineer building agent memory, retrieval systems, and production ML.</p>
             <div className="hero-actions">
-              <a href="/work" data-cursor="hover" className="hero-action focus-ring" onClick={(event) => onOpenWork?.('work', '/work', event)}>SELECTED WORK ↗</a>
-              <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="hero-action focus-ring">RÉSUMÉ ↗</a>
+              <a href="/work" data-cursor="hover" className="hero-action focus-ring icon-link" onClick={(event) => onOpenWork?.('work', '/work', event)}>SELECTED WORK <InterfaceIcon /></a>
+              <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="hero-action focus-ring icon-link">RÉSUMÉ <InterfaceIcon /></a>
             </div>
           </div>
         </div>

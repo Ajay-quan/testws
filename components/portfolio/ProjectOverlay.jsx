@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import InterfaceIcon from './InterfaceIcon';
 
 export default function ProjectOverlay({ project, onClose }) {
   const ref = useRef(null);
@@ -108,7 +109,7 @@ export default function ProjectOverlay({ project, onClose }) {
                   ))}
                 </div>
               </div>
-              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label" style={{ display: 'inline-block', marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW REPOSITORY / GITHUB ↗</a>}
+              {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label icon-link" style={{ marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW REPOSITORY / GITHUB <InterfaceIcon /></a>}
             </div>
             <style>{`
               @media(max-width:520px){

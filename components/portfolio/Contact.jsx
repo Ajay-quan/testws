@@ -1,3 +1,5 @@
+import InterfaceIcon from './InterfaceIcon';
+
 const EMAIL = 'ajayvrda@gmail.com';
 
 export default function Contact() {
@@ -7,15 +9,15 @@ export default function Contact() {
         <span className="u-label">05 — CONTACT</span>
         <h2 className="font-serif-ed">Seeking AI / ML and software engineering roles focused on production systems—not just prototypes.</h2>
         <a data-testid="contact-email" className="contact-email focus-ring font-display" data-cursor="hover" href={`mailto:${EMAIL}`}>
-          {EMAIL}<span aria-hidden="true">↗</span>
+          {EMAIL}<InterfaceIcon size={34} />
         </a>
       </div>
       <div className="simple-contact-links hairline-t">
         <p>Based in Atlanta. Open to full-time roles, internships, research collaborations, and technically ambitious teams.</p>
         <nav aria-label="Contact links">
-          <a className="focus-ring u-label" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer">LINKEDIN ↗</a>
-          <a className="focus-ring u-label" href="https://github.com/Ajay-quan" target="_blank" rel="noreferrer">GITHUB ↗</a>
-          <a className="focus-ring u-label" href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer">RÉSUMÉ ↗</a>
+          <a className="focus-ring u-label icon-link" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer">LINKEDIN <InterfaceIcon /></a>
+          <a className="focus-ring u-label icon-link" href="https://github.com/Ajay-quan" target="_blank" rel="noreferrer">GITHUB <InterfaceIcon /></a>
+          <a className="focus-ring u-label icon-link" href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer">RÉSUMÉ <InterfaceIcon /></a>
         </nav>
       </div>
       <style>{`
@@ -23,7 +25,7 @@ export default function Contact() {
         .simple-contact-main h2 { font-size:clamp(34px,5vw,70px); line-height:1.04; font-weight:350; max-width:980px; margin:50px 0 80px; }
         .contact-email { margin-top:auto; color:var(--ink); text-decoration:none; font-size:clamp(42px,8.5vw,132px); line-height:.9; letter-spacing:-.045em; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; border-bottom:3px solid var(--line); padding-bottom:14px; transition:padding-left .35s cubic-bezier(.16,1,.3,1); }
         .contact-email:hover { padding-left:14px; }
-        .contact-email span { font-family:'Fraunces',serif; font-size:.55em; }
+        .contact-email .interface-icon { width:.55em; height:.55em; margin-top:.08em; }
         .simple-contact-links { display:grid; grid-template-columns:1fr auto; gap:40px; padding:24px clamp(20px,4vw,58px); align-items:center; }
         .simple-contact-links p { font-size:12px; line-height:1.65; opacity:.66; max-width:680px; margin:0; }
         .simple-contact-links nav { display:flex; gap:24px; }

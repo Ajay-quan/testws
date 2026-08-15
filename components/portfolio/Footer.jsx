@@ -1,3 +1,5 @@
+import InterfaceIcon from './InterfaceIcon';
+
 export default function Footer() {
   return (
     <footer className="surface-accent" data-testid="site-footer">
@@ -14,18 +16,18 @@ export default function Footer() {
         <div className="footer-links" style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(4, 1fr)' }}>
           <a data-testid="footer-linkedin" data-cursor="hover" className="hairline-b focus-ring" href="https://www.linkedin.com/in/ajay-varada" target="_blank" rel="noreferrer"
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
-            <span className="u-label">LINKEDIN</span><span className="u-label">↗</span>
+            <span className="u-label">LINKEDIN</span><InterfaceIcon />
           </a>
           <a data-testid="footer-github" data-cursor="hover" className="hairline-b focus-ring" href="https://github.com/Ajay-quan" target="_blank" rel="noreferrer"
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
-            <span className="u-label">GITHUB</span><span className="u-label">↗</span>
+            <span className="u-label">GITHUB</span><InterfaceIcon />
           </a>
           <a data-testid="footer-resume" data-cursor="hover" className="hairline-b focus-ring" href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', textDecoration: 'none', color: 'var(--ink)' }}>
-            <span className="u-label">RÉSUMÉ</span><span className="u-label">↗</span>
+            <span className="u-label">RÉSUMÉ</span><InterfaceIcon />
           </a>
           <button data-testid="back-to-top" data-cursor="hover" className="focus-ring" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'transparent', border: 'none', color: 'var(--ink)', textAlign: 'left', width: '100%' }}>
-            <span className="u-label">BACK TO TOP</span><span className="u-label">↑</span>
+            <span className="u-label">BACK TO TOP</span><InterfaceIcon name="up" />
           </button>
         </div>
       </div>

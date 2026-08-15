@@ -104,6 +104,21 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
   text-transform: uppercase;
 }
 
+.interface-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.22em;
+  stroke: currentColor;
+}
+
+.icon-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: .48em;
+}
+
 /* ---- structural frame ---- */
 .hairline { border: 1px solid var(--line); }
 .hairline-t { border-top: 1px solid var(--line); }

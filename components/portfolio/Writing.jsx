@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { usePrefersReducedMotion } from './hooks';
+import InterfaceIcon from './InterfaceIcon';
 
 // Add future posts here; the horizontal shelf expands automatically.
 export const POSTS = [
@@ -61,7 +62,7 @@ function WritingCard({ post, index, visible, reduced }) {
         <h3 className="font-serif-ed">{post.title}</h3>
         <div className="writing-action">
           <span className="u-label">{published ? 'READ' : 'COMING SOON'}</span>
-          <span className="font-serif-ed" aria-hidden="true">{published ? '↗' : '—'}</span>
+          <span className="font-serif-ed" aria-hidden="true">{published ? <InterfaceIcon /> : '—'}</span>
         </div>
       </div>
     </motion.article>
@@ -133,8 +134,8 @@ export default function Writing() {
           <span className="u-label">/ {String(POSTS.length).padStart(2, '0')} NOTES</span>
         </div>
         <div className="writing-controls" aria-label="Writing carousel controls">
-          <button type="button" className="focus-ring" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Previous article">←</button>
-          <button type="button" className="focus-ring" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === POSTS.length - 1} aria-label="Next article">→</button>
+          <button type="button" className="focus-ring" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Previous article"><InterfaceIcon name="left" size={24} /></button>
+          <button type="button" className="focus-ring" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === POSTS.length - 1} aria-label="Next article"><InterfaceIcon name="right" size={24} /></button>
         </div>
       </div>
 
