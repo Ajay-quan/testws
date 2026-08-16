@@ -11,6 +11,13 @@ export default function Footer() {
           <div className="u-label" style={{ marginTop: 14, opacity: 0.7 }}>
             AI / ML ENGINEER · SOFTWARE ENGINEER · M.S. COMPUTER SCIENCE
           </div>
+          <img
+            className="footer-signature"
+            src="/ajay-signature.png"
+            alt="Ajay Varada’s signature"
+            width="915"
+            height="272"
+          />
         </div>
 
         <div className="footer-links" style={{ gridColumn: 'span 6', display: 'grid', gridTemplateRows: 'repeat(4, 1fr)' }}>
@@ -35,7 +42,13 @@ export default function Footer() {
         <span className="u-label" style={{ opacity: 0.6 }}>© 2026 — AJAY VARADA</span>
         <span className="u-label" style={{ opacity: 0.6 }}>ATLANTA · OPEN TO AI / ML + SOFTWARE ROLES</span>
       </div>
-      <style>{`@media(max-width:640px){.footer-grid{grid-template-columns:1fr!important}.footer-identity,.footer-links{grid-column:1!important}.footer-identity{border-right:none!important;border-bottom:1px solid var(--ink)}footer>div:last-of-type{gap:14px;flex-wrap:wrap}}`}</style>
+      <style>{`
+        .footer-signature{display:block;width:clamp(190px,28vw,340px);height:auto;margin:24px 0 0;opacity:.68;filter:contrast(1.24);mix-blend-mode:multiply;transition:opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+        .footer-identity:hover .footer-signature{opacity:.92;transform:translateX(4px)}
+        html[data-theme='dark'] .footer-signature{filter:invert(1) brightness(1.5) contrast(.9);mix-blend-mode:screen;opacity:.64}
+        @media(max-width:640px){.footer-grid{grid-template-columns:1fr!important}.footer-identity,.footer-links{grid-column:1!important}.footer-identity{border-right:none!important;border-bottom:1px solid var(--ink)}.footer-signature{width:min(72vw,300px);margin-top:20px}footer>div:last-of-type{gap:14px;flex-wrap:wrap}}
+        @media(prefers-reduced-motion:reduce){.footer-signature{transition:none}.footer-identity:hover .footer-signature{transform:none}}
+      `}</style>
     </footer>
   );
 }
