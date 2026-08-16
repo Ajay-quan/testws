@@ -68,18 +68,16 @@ function App({ view = 'home' }) {
   useEffect(() => {
     const saved = window.localStorage.getItem('portfolio-theme');
     const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const next = saved === 'dark' || saved === 'light' ? saved : preferred;
+    const next = saved === 'dark' || saved === 'light' || saved === 'dim' ? saved : preferred;
     setTheme(next);
     document.documentElement.dataset.theme = next;
   }, []);
 
-  const toggleTheme = useCallback(() => {
-    setTheme((current) => {
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.dataset.theme = next;
-      window.localStorage.setItem('portfolio-theme', next);
-      return next;
-    });
+  const changeTheme = useCallback((next) => {
+    if (!['light', 'dark', 'dim'].includes(next)) return;
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    window.localStorage.setItem('portfolio-theme', next);
   }, []);
 
   useEffect(() => {
@@ -112,7 +110,7 @@ function App({ view = 'home' }) {
     <div className="App" style={{ background: 'var(--accent)' }}>
       <a href="#main" className="skip-link">SKIP TO CONTENT</a>
       {!loaded && activeView === 'home' && <Loader onDone={handleLoaded} />}
-      <Header scrollPct={scrollPct} currentPage={activeView} onPageChange={changePage} theme={theme} onThemeToggle={toggleTheme} />
+      <Header scrollPct={scrollPct} currentPage={activeView} onPageChange={changePage} theme={theme} onThemeChange={changeTheme} />
 
       <div className="portfolio-browser-bar surface-accent hairline-b" aria-hidden="true">
         <span className="browser-controls"><i /><i /><i /></span>
