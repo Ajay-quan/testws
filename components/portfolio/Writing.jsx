@@ -134,7 +134,7 @@ export default function Writing() {
           <span className="u-label">04 — INSIGHTS / IDEAS</span>
           <h2 className="font-display">MY TWO <em>CENTS.</em></h2>
         </div>
-        <p className="font-serif-ed">My two cents on ideas I’m passionate about—shaped by the research I do, the things I build, and a desire to share what I learn.</p>
+        <p className="font-serif-ed">A place for the ideas I keep coming back to—drawn from research, hands-on experiments, and lessons worth sharing.</p>
       </div>
 
       <div className="writing-toolbar hairline-b">
