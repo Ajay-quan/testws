@@ -26,7 +26,7 @@ export const PROJECTS = [
   {
     id: 'cv', title: 'VISION CONSOLE', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC', proof: '7 MODULES · REAL-TIME CV',
     premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
-    cover: '/projects/vision-console.png', media: ['/projects/vision-console.png', '/projects/vision-console-stereo.jpg'], side: 1, accent: '#E6B94E', coverScale: 1.14, coverPosition: '60% 47%', visualLabel: 'REAL-TIME TRACKING / CV LAB',
+    cover: '/projects/vision-console-stereo.jpg', media: ['/projects/vision-console-stereo.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E', coverScale: 1.08, coverPosition: '50% 50%', visualLabel: 'STEREO VISION / DEPTH LAB',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
     challenge: 'Bring camera calibration, image restoration, feature extraction, stitching, tracking, stereo measurement, and pose analysis into one coherent browser experience.',
     approach: 'Built a Flask interface around OpenCV pipelines with modular pages, live streams, reusable experiment controls, and recorded demonstrations.',

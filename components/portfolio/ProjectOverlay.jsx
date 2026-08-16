@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import InterfaceIcon from './InterfaceIcon';
 
-const CASE_ACCENT = '#B8D6FF';
+const CASE_ACCENT = 'var(--case-accent)';
 
 export default function ProjectOverlay({ project, onClose }) {
   const ref = useRef(null);
@@ -53,9 +53,9 @@ export default function ProjectOverlay({ project, onClose }) {
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="case-study-panel"
-            style={{ width: 'min(680px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid rgba(184,214,255,.28)', background: '#06152d', color: '#f3f7ff' }}
+            style={{ width: 'min(680px, 100%)', height: '100%', overflowY: 'auto', borderLeft: '1px solid var(--case-line)', background: 'var(--case-bg)', color: 'var(--case-text)' }}
           >
-            <div className="case-study-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'rgba(6,21,45,.9)', zIndex: 2 }}>
+            <div className="case-study-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', position: 'sticky', top: 0, background: 'var(--case-header)', zIndex: 2 }}>
               <span className="u-label" style={{ color: CASE_ACCENT }}>{project.status}</span>
               <button ref={closeRef} data-testid="overlay-close" data-cursor="hover" onClick={() => onClose()} aria-label="Close project" className="focus-ring"
                 style={{ background: 'transparent', border: `1px solid ${CASE_ACCENT}`, color: CASE_ACCENT, width: 38, height: 38 }}>✕</button>
@@ -63,7 +63,7 @@ export default function ProjectOverlay({ project, onClose }) {
 
             {project.media && project.media.length > 0 && (
               <div style={{ padding: '20px 20px 0' }}>
-                <figure className="case-study-figure" style={{ '--project-accent': CASE_ACCENT, margin: 0, position: 'relative', border: `1px solid rgba(184,214,255,.34)`, aspectRatio: '3 / 2', overflow: 'hidden', background: '#06152d' }}>
+                <figure className="case-study-figure" style={{ '--project-accent': CASE_ACCENT, margin: 0, position: 'relative', border: `1px solid var(--case-line)`, aspectRatio: '3 / 2', overflow: 'hidden', background: 'var(--case-bg)' }}>
                   <img src={project.media[0]} alt={`${project.title} interface study`} loading="lazy"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: project.coverPosition, transform: `scale(${1 + ((project.coverScale || 1) - 1) * .55})`, display: 'block' }} />
                   <span className="case-study-tone" aria-hidden="true" />
@@ -72,7 +72,7 @@ export default function ProjectOverlay({ project, onClose }) {
               </div>
             )}
 
-            <div className="case-study-content" style={{ padding: '30px 20px 64px', color: '#f3f7ff' }}>
+            <div className="case-study-content" style={{ padding: '30px 20px 64px', color: 'var(--case-text)' }}>
               <h2 id="ov-title" className="font-display" style={{ margin: 0, fontSize: 'clamp(40px, 8vw, 84px)', lineHeight: 0.86, letterSpacing: '-0.03em' }}>{project.title}</h2>
               <div style={{ display: 'flex', gap: 24, marginTop: 16, flexWrap: 'wrap' }}>
                 <span className="u-label" style={{ opacity: 0.7 }}>ROLE / {project.role}</span>
@@ -84,7 +84,7 @@ export default function ProjectOverlay({ project, onClose }) {
                 <div className="project-metrics" style={{ display: 'grid', gridTemplateColumns: `repeat(${project.metrics.length}, 1fr)`, marginTop: 28, borderTop: `1px solid ${CASE_ACCENT}`, borderBottom: `1px solid ${CASE_ACCENT}` }}>
                   {project.metrics.map(([label, value], index) => (
                     <div key={label} style={{ padding: '15px 10px', borderRight: index < project.metrics.length - 1 ? `1px solid ${CASE_ACCENT}` : 'none' }}>
-                      <div className="u-label" style={{ color: '#dbe9ff', opacity: .72, marginBottom: 7 }}>{label}</div>
+                      <div className="u-label" style={{ color: 'var(--case-muted)', opacity: .78, marginBottom: 7 }}>{label}</div>
                       <div className="font-display" style={{ color: CASE_ACCENT, fontSize: 'clamp(22px,4vw,38px)', lineHeight: .95 }}>{value}</div>
                     </div>
                   ))}
@@ -124,21 +124,24 @@ export default function ProjectOverlay({ project, onClose }) {
               {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label icon-link case-study-repo">VIEW REPOSITORY / GITHUB <InterfaceIcon /></a>}
             </div>
             <style>{`
-              .case-study-header{border-bottom:1px solid rgba(184,214,255,.24);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
-              .case-study-content>h2{color:#fff}.case-study-content>div:nth-of-type(1){color:#dbe9ff}
+              .case-study-panel{--case-bg:#edf2f8;--case-header:rgba(237,242,248,.92);--case-text:#07162d;--case-heading:#031126;--case-muted:#40526c;--case-accent:#315f98;--case-line:rgba(31,71,119,.24);--case-soft:rgba(49,95,152,.07)}
+              html[data-theme='dark'] .case-study-panel{--case-bg:#06152d;--case-header:rgba(6,21,45,.92);--case-text:#f3f7ff;--case-heading:#fff;--case-muted:#c6d6eb;--case-accent:#b8d6ff;--case-line:rgba(184,214,255,.24);--case-soft:rgba(184,214,255,.07)}
+              [data-testid='project-overlay']>.case-study-panel{background:var(--case-bg)!important;color:var(--case-text)!important;border-color:var(--case-line)!important}
+              .case-study-header{border-bottom:1px solid var(--case-line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+              .case-study-content>h2{color:var(--case-heading)}.case-study-content>div:nth-of-type(1){color:var(--case-muted)}
               .case-study-figure>img{filter:saturate(.72) contrast(1.14) brightness(.94)}
               .case-study-tone{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,18,42,.03) 42%,rgba(4,18,42,.82) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 14%,transparent),transparent 45%)}
               .case-study-figure figcaption{position:absolute;left:10px;right:10px;bottom:9px;display:flex;justify-content:space-between;gap:10px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.58)}
               .case-study-figure figcaption span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
-              .case-study-overview{margin-top:34px;padding:22px;background:rgba(184,214,255,.07);border:1px solid rgba(184,214,255,.2);border-radius:18px}
-              .case-study-overview .u-label{color:${CASE_ACCENT};margin-bottom:10px}.case-study-overview p{margin:0;color:#f3f7ff;font-size:19px;line-height:1.48;font-weight:420}
-              .case-study-sections{margin-top:34px;border-top:1px solid rgba(184,214,255,.24)}
-              .case-study-sections section{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;padding:28px 0;border-bottom:1px solid rgba(184,214,255,.2)}
-              .case-study-section-number{color:${CASE_ACCENT};padding-top:4px}.case-study-sections h3{margin:0;color:#fff;font-size:clamp(26px,5vw,38px);line-height:.96;letter-spacing:-.02em}
-              .case-study-summary{margin:13px 0 0;color:#e7effc;font-size:16px;line-height:1.55;font-weight:520}
-              .case-study-sections ul{display:grid;gap:10px;margin:18px 0 0;padding:0;list-style:none}.case-study-sections li{position:relative;padding-left:16px;color:#cbd9ec;font-size:14px;line-height:1.55}.case-study-sections li::before{content:'';position:absolute;left:0;top:.68em;width:5px;height:5px;border-radius:50%;background:${CASE_ACCENT}}.case-study-sections strong{color:#fff;font-weight:700}
-              .case-study-tech{border:1px solid rgba(184,214,255,.36);color:#dbe9ff;padding:7px 11px;border-radius:999px;background:rgba(184,214,255,.06)}
-              .case-study-repo{display:inline-flex;margin-top:36px;border:1px solid ${CASE_ACCENT};color:${CASE_ACCENT};padding:13px 17px;border-radius:999px;text-decoration:none;background:rgba(184,214,255,.07)}
+              .case-study-overview{margin-top:34px;padding:22px;background:var(--case-soft);border:1px solid var(--case-line);border-radius:18px}
+              .case-study-overview .u-label{color:${CASE_ACCENT};margin-bottom:10px}.case-study-overview p{margin:0;color:var(--case-text);font-size:19px;line-height:1.48;font-weight:460}
+              .case-study-sections{margin-top:34px;border-top:1px solid var(--case-line)}
+              .case-study-sections section{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;padding:28px 0;border-bottom:1px solid var(--case-line)}
+              .case-study-section-number{color:${CASE_ACCENT};padding-top:4px}.case-study-sections h3{margin:0;color:var(--case-heading);font-size:clamp(26px,5vw,38px);line-height:.96;letter-spacing:-.02em}
+              .case-study-summary{margin:13px 0 0;color:var(--case-text);font-size:16px;line-height:1.55;font-weight:560}
+              .case-study-sections ul{display:grid;gap:10px;margin:18px 0 0;padding:0;list-style:none}.case-study-sections li{position:relative;padding-left:16px;color:var(--case-muted);font-size:14px;line-height:1.55}.case-study-sections li::before{content:'';position:absolute;left:0;top:.68em;width:5px;height:5px;border-radius:50%;background:${CASE_ACCENT}}.case-study-sections strong{color:var(--case-heading);font-weight:750}
+              .case-study-tech{border:1px solid var(--case-line);color:var(--case-accent);padding:7px 11px;border-radius:999px;background:var(--case-soft)}
+              .case-study-repo{display:inline-flex;margin-top:36px;border:1px solid ${CASE_ACCENT};color:${CASE_ACCENT};padding:13px 17px;border-radius:999px;text-decoration:none;background:var(--case-soft)}
               @media(max-width:520px){
                 [data-testid="project-overlay"]>div{border-left:0!important}
                 [data-testid="project-overlay"]>div>div:first-child{padding:12px 14px!important}
