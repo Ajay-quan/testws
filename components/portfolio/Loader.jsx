@@ -1,14 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePrefersReducedMotion } from './hooks';
-
-const MSGS = ['LOADING IDEAS', 'BREAKING PATTERNS', 'MAKING SIGNALS'];
 
 export default function Loader({ onDone }) {
   const reduced = usePrefersReducedMotion();
   const [pct, setPct] = useState(0);
-  const [line, setLine] = useState(MSGS[0]);
   const [exit, setExit] = useState(false);
-  const rootRef = useRef(null);
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has('fast')) {
@@ -19,27 +15,23 @@ export default function Loader({ onDone }) {
       onDone();
       return;
     }
+    if (window.sessionStorage.getItem('av-signal-seen') === '1') {
+      onDone();
+      return;
+    }
     let p = 0;
-    const returning = window.sessionStorage.getItem('av-signal-seen') === '1';
-    const total = returning ? 360 : 1250;
+    const total = 1450;
     const start = performance.now();
     const timer = setInterval(() => {
       p = Math.min(((performance.now() - start) / total) * 100, 100);
       setPct(Math.floor(p));
-      const base = MSGS[Math.min(MSGS.length - 1, Math.floor((p / 100) * MSGS.length))];
-      const arr = base.split('');
-      for (let i = 0; i < 2; i++) {
-        const idx = Math.floor(Math.random() * arr.length);
-        if (arr[idx] !== ' ') arr[idx] = Math.random() > 0.5 ? '/' : arr[idx];
-      }
-      setLine(arr.join(''));
       if (p >= 100) {
         clearInterval(timer);
         window.sessionStorage.setItem('av-signal-seen', '1');
         setExit(true);
-        setTimeout(onDone, returning ? 180 : 380);
+        setTimeout(onDone, 520);
       }
-    }, 60);
+    }, 24);
     return () => { clearInterval(timer); };
   }, [reduced, onDone]);
 
@@ -47,36 +39,30 @@ export default function Loader({ onDone }) {
 
   return (
     <div
-      ref={rootRef}
       aria-hidden="true"
-      style={{
-        position: 'fixed', inset: 0, zIndex: 300, background: 'var(--inverse-bg)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        clipPath: exit ? 'inset(0 0 100% 0)' : 'inset(0 0 0 0)',
-        transition: 'clip-path 0.38s cubic-bezier(0.77,0,0.18,1)',
-      }}
+      className={`signature-loader ${exit ? 'is-exiting' : ''}`}
     >
-      <div
-        className="font-display"
-        style={{
-          color: 'var(--inverse-fg)', fontSize: 'min(34vw, 40vh)', lineHeight: 0.8,
-          letterSpacing: '-0.06em',
-          transform: `scaleX(${0.5 + (pct / 100) * 0.5})`,
-          transformOrigin: 'center',
-          transition: 'transform 0.1s linear',
-        }}
-      >
-        AV
+      <div className="signature-loader-mark">
+        <img className="signature-loader-ghost" src="/ajay-signature.png" alt="" width="915" height="272" />
+        <div className="signature-loader-reveal" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>
+          <img src="/ajay-signature.png" alt="" width="915" height="272" />
+        </div>
       </div>
-      <div className="font-mono-u" style={{ color: 'var(--inverse-fg)', fontSize: 11, letterSpacing: '0.24em', marginTop: 28, height: 14 }}>
-        {line}
+      <div className="signature-loader-meta">
+        <span className="u-label">AJAY VARADA / PORTFOLIO</span>
+        <span className="u-label">{String(pct).padStart(3, '0')}</span>
       </div>
-      <div style={{ width: 'min(320px, 60vw)', height: 1, background: 'rgba(242,236,227,0.25)', marginTop: 22, position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${pct}%`, background: 'var(--inverse-fg)' }} />
-      </div>
-      <div className="font-mono-u" style={{ color: 'var(--inverse-fg)', fontSize: 10, letterSpacing: '0.2em', marginTop: 12, opacity: 0.7 }}>
-        {String(pct).padStart(3, '0')}% / LOADED
-      </div>
+      <style>{`
+        .signature-loader{position:fixed;inset:0;z-index:300;display:grid;place-content:center;background:var(--accent);color:var(--ink);clip-path:inset(0);transition:clip-path .52s cubic-bezier(.77,0,.18,1)}
+        .signature-loader.is-exiting{clip-path:inset(0 0 100% 0)}
+        .signature-loader-mark{position:relative;width:min(68vw,720px);aspect-ratio:915/272}
+        .signature-loader-mark img{display:block;width:100%;height:100%;object-fit:contain;filter:contrast(1.25)}
+        .signature-loader-ghost{opacity:.1}
+        .signature-loader-reveal{position:absolute;inset:0;overflow:hidden;transition:clip-path .08s linear}
+        .signature-loader-meta{width:min(68vw,720px);display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:12px;border-top:1px solid var(--line);opacity:.58}
+        html[data-theme='dark'] .signature-loader-mark img{filter:invert(1) brightness(1.45) contrast(.9)}
+        @media(max-width:720px){.signature-loader-mark,.signature-loader-meta{width:min(84vw,560px)}.signature-loader-meta{margin-top:14px}.signature-loader-meta .u-label{font-size:7px}}
+      `}</style>
     </div>
   );
 }
