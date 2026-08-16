@@ -16,24 +16,20 @@ export default function Loader({ onDone }) {
       onDone();
       return;
     }
-    if (window.sessionStorage.getItem('av-signal-seen') === '1' && !params.has('preview-loader')) {
-      onDone();
-      return;
-    }
     let p = 0;
-    const total = 1450;
+    let exitTimer;
+    const total = 1750;
     const start = performance.now();
     const timer = setInterval(() => {
       p = Math.min(((performance.now() - start) / total) * 100, 100);
       setPct(Math.floor(p));
       if (p >= 100) {
         clearInterval(timer);
-        window.sessionStorage.setItem('av-signal-seen', '1');
         setExit(true);
-        setTimeout(onDone, 520);
+        exitTimer = setTimeout(onDone, 520);
       }
     }, 24);
-    return () => { clearInterval(timer); };
+    return () => { clearInterval(timer); clearTimeout(exitTimer); };
   }, [reduced, onDone]);
 
   if (reduced) return null;

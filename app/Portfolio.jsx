@@ -72,7 +72,9 @@ function App({ view = 'home' }) {
   useEffect(() => {
     const onPopState = () => {
       const path = window.location.pathname.replace(/^\//, '') || 'home';
-      setActiveView(VIEWS[path] ? path : 'home');
+      const nextView = VIEWS[path] ? path : 'home';
+      if (nextView === 'home') setLoaded(false);
+      setActiveView(nextView);
       window.scrollTo(0, 0);
     };
     window.addEventListener('popstate', onPopState);
@@ -89,6 +91,7 @@ function App({ view = 'home' }) {
     if (!VIEWS[target]) return;
     event?.preventDefault();
     if (target === activeView) return;
+    if (target === 'home') setLoaded(false);
     window.history.pushState({ portfolioView: target }, '', href);
     setOpenProject(null);
     setActiveView(target);

@@ -5,9 +5,9 @@ import InterfaceIcon from './InterfaceIcon';
 const NAV = [
   ['HOME', '/', 'home'],
   ['WORK', '/work', 'work'],
-  ['INSIGHTS', '/writing', 'writing'],
   ['PROFILE', '/profile', 'profile'],
   ['CONTACT', '/contact', 'contact'],
+  ['INSIGHTS', '/writing', 'writing'],
 ];
 
 function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
