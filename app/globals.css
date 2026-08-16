@@ -363,7 +363,6 @@ html[data-theme='light'] .simple-header::after {
   backdrop-filter: blur(10px) saturate(160%);
 }
 
-.writing-controls button,
 [data-testid='overlay-close'] { aspect-ratio: 1; }
 
 .hero-action:hover,
