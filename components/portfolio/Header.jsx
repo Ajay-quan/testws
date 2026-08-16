@@ -103,7 +103,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
         .mobile-menu-toggle,.mobile-nav { display:none; }
         @media(max-width:980px){.simple-header{grid-template-columns:minmax(170px,1fr) minmax(468px,auto) 48px}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}.theme-toggle{width:44px;height:44px;min-width:44px}}
         @media(max-width:900px){
-          .simple-header { top:8px;height:60px;margin:8px 8px 0;width:calc(100% - 16px);grid-template-columns:1fr 48px 48px;padding:5px;gap:4px;border-radius:999px; }
+          .simple-header { top:8px;height:60px;margin:8px 8px 0;width:calc(100% - 16px);grid-template-columns:1fr 48px 48px;padding:5px;gap:4px;border-radius:999px;-webkit-backdrop-filter:none!important;backdrop-filter:none!important; }
           .header-status { padding:0 12px; }
           .header-status span:last-child,.simple-nav { display:none; }
           .theme-toggle { grid-column:2; }
