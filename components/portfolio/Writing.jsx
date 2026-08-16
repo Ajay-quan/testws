@@ -46,15 +46,24 @@ function WritingCard({ post, index, visible, reduced }) {
       </div>
 
       <div className="writing-poster">
-        <motion.img
-          src={post.image}
-          alt={`Article card for “${post.title}” by Ajay Varada`}
-          loading="lazy"
-          width="1080"
-          height="1350"
-          whileHover={published && !reduced ? { scale: 1.018 } : undefined}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcSet={`/writing/${post.id}-390.webp 390w, /writing/${post.id}-780.webp 780w`}
+            sizes="(max-width: 720px) 78vw, (max-width: 1440px) 27vw, 390px"
+          />
+          <motion.img
+            src={post.image}
+            alt={`Article card for “${post.title}” by Ajay Varada`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
+            decoding="async"
+            width="1080"
+            height="1350"
+            whileHover={published && !reduced ? { scale: 1.018 } : undefined}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          />
+        </picture>
         <span className="writing-sheen" aria-hidden="true" />
       </div>
 
@@ -122,10 +131,10 @@ export default function Writing() {
     <section id="writing" ref={sectionRef} data-testid="writing-section" className="writing-section surface-accent hairline-b" style={{ scrollMarginTop: 92 }}>
       <div className="writing-intro hairline-b">
         <div>
-          <span className="u-label">04 — WRITING / FIELD NOTES</span>
-          <h2 className="font-display">THINKING <em>IN PUBLIC.</em></h2>
+          <span className="u-label">04 — FIELD NOTES / INQUIRY</span>
+          <h2 className="font-display">LOOKING <em>CLOSER.</em></h2>
         </div>
-        <p className="font-serif-ed">Ideas, observations, and lessons from building, learning, and experimenting in public.</p>
+        <p className="font-serif-ed">Research notes, technical explorations, and observations from an engineer curious about how complex systems really work.</p>
       </div>
 
       <div className="writing-toolbar hairline-b">
@@ -133,7 +142,7 @@ export default function Writing() {
           <span className="font-display">{String(activeIndex + 1).padStart(2, '0')}</span>
           <span className="u-label">/ {String(POSTS.length).padStart(2, '0')} NOTES</span>
         </div>
-        <div className="writing-controls" aria-label="Writing carousel controls">
+        <div className="writing-controls" aria-label="Field notes carousel controls">
           <button type="button" className="focus-ring" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Previous article"><InterfaceIcon name="left" size={24} /></button>
           <button type="button" className="focus-ring" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === POSTS.length - 1} aria-label="Next article"><InterfaceIcon name="right" size={24} /></button>
         </div>
@@ -143,7 +152,7 @@ export default function Writing() {
         ref={railRef}
         className="writing-rail"
         role="region"
-        aria-label="Ajay Varada’s writing"
+        aria-label="Ajay Varada’s field notes"
         tabIndex={0}
         onScroll={syncIndex}
         onKeyDown={handleKeys}
@@ -180,6 +189,7 @@ export default function Writing() {
         .writing-status i { width:6px; height:6px; display:inline-block; background:var(--red); border-radius:50%; box-shadow:0 0 0 3px rgba(227,67,81,.13); }
         .is-scheduled .writing-status i { background:transparent; border:1px solid var(--ink); box-shadow:none; }
         .writing-poster { position:relative; aspect-ratio:4/5; overflow:hidden; background:var(--ink); }
+        .writing-poster picture { display:block; width:100%; height:100%; }
         .writing-poster img { width:100%; height:100%; object-fit:cover; display:block; }
         .is-scheduled .writing-poster img { filter:saturate(.75) contrast(.94); }
         .writing-sheen { position:absolute; inset:0; pointer-events:none; background:linear-gradient(110deg,transparent 42%,rgba(242,236,227,.22) 50%,transparent 58%); transform:translateX(-120%); }

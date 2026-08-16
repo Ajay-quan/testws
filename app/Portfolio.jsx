@@ -116,7 +116,7 @@ function App({ view = 'home' }) {
 
       <div className="portfolio-browser-bar surface-accent hairline-b" aria-hidden="true">
         <span className="browser-controls"><i /><i /><i /></span>
-        <span className="u-label">AJAY.PORTFOLIO / {activeView.toUpperCase()}</span>
+        <span className="u-label">AJAY.PORTFOLIO / {activeView === 'writing' ? 'FIELD NOTES' : activeView.toUpperCase()}</span>
         <span className="u-label">ACTIVE TAB</span>
       </div>
 

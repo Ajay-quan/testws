@@ -5,7 +5,7 @@ import InterfaceIcon from './InterfaceIcon';
 const NAV = [
   ['HOME', '/', 'home'],
   ['WORK', '/work', 'work'],
-  ['WRITING', '/writing', 'writing'],
+  ['FIELD NOTES', '/writing', 'writing'],
   ['PROFILE', '/profile', 'profile'],
   ['CONTACT', '/contact', 'contact'],
 ];
