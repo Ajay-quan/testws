@@ -125,12 +125,14 @@ export default function ProjectOverlay({ project, onClose }) {
             </div>
             <style>{`
               .case-study-panel{--case-bg:#edf2f8;--case-header:rgba(237,242,248,.92);--case-text:#07162d;--case-heading:#031126;--case-muted:#40526c;--case-accent:#315f98;--case-line:rgba(31,71,119,.24);--case-soft:rgba(49,95,152,.07)}
-              html[data-theme='dark'] .case-study-panel{--case-bg:#06152d;--case-header:rgba(6,21,45,.92);--case-text:#f3f7ff;--case-heading:#fff;--case-muted:#c6d6eb;--case-accent:#b8d6ff;--case-line:rgba(184,214,255,.24);--case-soft:rgba(184,214,255,.07)}
+              html[data-theme='dark'] .case-study-panel{--case-bg:#151210;--case-header:rgba(21,18,16,.92);--case-text:#f1ebe2;--case-heading:#fff9f0;--case-muted:#b8ada1;--case-accent:#d6ad68;--case-line:rgba(216,199,180,.24);--case-soft:rgba(214,173,104,.07)}
+              html[data-theme='dark'] [data-testid='project-overlay']{background:rgba(11,8,6,.78)!important}
               [data-testid='project-overlay']>.case-study-panel{background:var(--case-bg)!important;color:var(--case-text)!important;border-color:var(--case-line)!important}
               .case-study-header{border-bottom:1px solid var(--case-line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
               .case-study-content>h2{color:var(--case-heading)}.case-study-content>div:nth-of-type(1){color:var(--case-muted)}
               .case-study-figure>img{filter:saturate(.72) contrast(1.14) brightness(.94)}
               .case-study-tone{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,18,42,.03) 42%,rgba(4,18,42,.82) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 14%,transparent),transparent 45%)}
+              html[data-theme='dark'] .case-study-tone{background:linear-gradient(180deg,rgba(17,15,14,.03) 42%,rgba(17,15,14,.84) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 10%,transparent),transparent 45%)}
               .case-study-figure figcaption{position:absolute;left:10px;right:10px;bottom:9px;display:flex;justify-content:space-between;gap:10px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.58)}
               .case-study-figure figcaption span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
               .case-study-overview{margin-top:34px;padding:22px;background:var(--case-soft);border:1px solid var(--case-line);border-radius:18px}
