@@ -4,6 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Ajay Varada — AI/ML & Software Engineer",
   description: "Former Micron software engineer building agent memory, hybrid retrieval systems, computer vision, and production ML software.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
