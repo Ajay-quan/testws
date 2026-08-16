@@ -37,7 +37,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
   const pct = String(scrollPct).padStart(3, '0');
 
   return (
-    <header data-testid="site-header" className="surface-accent hairline-b simple-header">
+    <header data-testid="site-header" className={`surface-accent hairline-b simple-header ${scrollPct > 0 ? 'is-scrolled' : ''}`}>
       <div className="header-status">
         <span className="u-label">{pct}% / PORTFOLIO</span>
         <span className="u-label">FORMER MICRON SWE · ATLANTA</span>

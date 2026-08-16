@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './portfolio.css';
 
@@ -46,6 +46,7 @@ function PageIntro({ eyebrow, title, italic, description }) {
 }
 
 function App({ view = 'home' }) {
+  const appRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [openProject, setOpenProject] = useState(null);
@@ -63,6 +64,27 @@ function App({ view = 'home' }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => {
+    const root = appRef.current;
+    const precisePointer = window.matchMedia('(pointer: fine)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!root || !precisePointer || reducedMotion) return undefined;
+
+    let frame;
+    const moveLight = (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        root.style.setProperty('--glass-x', `${event.clientX}px`);
+        root.style.setProperty('--glass-y', `${event.clientY}px`);
+      });
+    };
+    window.addEventListener('pointermove', moveLight, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('pointermove', moveLight);
+    };
   }, []);
 
   useEffect(() => {
@@ -109,7 +131,7 @@ function App({ view = 'home' }) {
   }, [activeView]);
 
   return (
-    <div className="App" style={{ background: 'var(--accent)' }}>
+    <div ref={appRef} className="App" style={{ background: 'var(--accent)' }}>
       <a href="#main" className="skip-link">SKIP TO CONTENT</a>
       {!loaded && activeView === 'home' && <Loader onDone={handleLoaded} />}
       <Header scrollPct={scrollPct} currentPage={activeView} onPageChange={changePage} theme={theme} onThemeToggle={toggleTheme} />

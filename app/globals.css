@@ -22,6 +22,9 @@
   --glass-edge: rgba(255, 255, 255, .7);
   --glass-shadow: 0 18px 50px rgba(17, 9, 8, .12), inset 0 1px 0 rgba(255,255,255,.8);
   --glass-blur: 24px;
+  --glass-x: 50vw;
+  --glass-y: 20vh;
+  --glass-specular: rgba(255, 255, 255, .52);
 }
 
 html[data-theme='dark'] {
@@ -43,6 +46,7 @@ html[data-theme='dark'] {
   --glass-edge: rgba(181, 211, 255, .25);
   --glass-shadow: 0 22px 60px rgba(0, 4, 16, .34), inset 0 1px 0 rgba(214, 230, 255, .2);
   --glass-blur: 26px;
+  --glass-specular: rgba(186, 218, 255, .32);
 }
 
 * {
@@ -67,6 +71,16 @@ body {
   background: transparent !important;
   isolation: isolate;
   position: relative;
+}
+
+.App::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 109;
+  pointer-events: none;
+  background: radial-gradient(360px circle at var(--glass-x) var(--glass-y), rgba(113, 170, 255, .055), transparent 72%);
+  mix-blend-mode: screen;
 }
 
 .App::before {
@@ -164,18 +178,14 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
 .surface-accent {
   background:
     linear-gradient(145deg, rgba(255,255,255,.055), transparent 34%),
-    var(--glass-fill);
+    var(--surface-bg);
   color: var(--ink);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(155%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(155%);
 }
 .surface-ink {
   background:
     linear-gradient(145deg, rgba(255,255,255,.12), transparent 34%),
     var(--glass-fill-strong);
   color: var(--inverse-fg);
-  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(165%);
-  backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(165%);
 }
 
 /* Liquid Glass: navigation, controls, cards and elevated content layers. */
@@ -192,6 +202,29 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
   backdrop-filter: blur(calc(var(--glass-blur) + 10px)) saturate(175%);
 }
 
+.simple-header {
+  transition: box-shadow .35s ease, background-color .35s ease, border-color .28s ease;
+}
+
+.simple-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(2,8,23,.13), transparent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.simple-header.is-scrolled {
+  box-shadow: 0 18px 48px rgba(0, 4, 18, .26), inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.simple-header.is-scrolled::after { opacity: 1; }
+
 .writing-card,
 .compact-cap-cell,
 .fact-grid > div,
@@ -202,11 +235,9 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
 .simple-contact-links {
   background:
     linear-gradient(145deg, rgba(255,255,255,.075), transparent 32%),
-    var(--glass-fill) !important;
+    var(--surface-bg) !important;
   border-color: var(--glass-edge) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.13);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
 }
 
 .writing-card,
@@ -244,9 +275,9 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
   pointer-events: none;
   border-radius: inherit;
   background:
-    radial-gradient(circle at 12% 0%, rgba(255,255,255,.24), transparent 24%),
+    radial-gradient(280px circle at var(--glass-x) var(--glass-y), var(--glass-specular), transparent 56%),
     linear-gradient(115deg, transparent 25%, rgba(255,255,255,.08) 44%, transparent 60%);
-  opacity: .72;
+  opacity: .42;
   transition: opacity .35s ease, transform .55s cubic-bezier(.16,1,.3,1);
 }
 
@@ -267,6 +298,45 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
   -webkit-backdrop-filter: blur(12px) saturate(145%);
   backdrop-filter: blur(12px) saturate(145%);
 }
+
+.simple-nav a,
+.theme-toggle,
+.mobile-menu-toggle,
+.hero-action,
+.writing-controls button,
+.contact-email,
+.footer-links a,
+.footer-links button {
+  position: relative;
+  isolation: isolate;
+}
+
+.simple-nav a::after,
+.theme-toggle::after,
+.mobile-menu-toggle::after,
+.hero-action::after,
+.writing-controls button::after,
+.contact-email::after,
+.footer-links a::after,
+.footer-links button::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(130px circle at var(--glass-x) var(--glass-y), var(--glass-specular), transparent 68%);
+  opacity: .24;
+  transition: opacity .25s ease;
+}
+
+.simple-nav a:hover::after,
+.theme-toggle:hover::after,
+.hero-action:hover::after,
+.writing-controls button:hover::after,
+.contact-email:hover::after,
+.footer-links a:hover::after,
+.footer-links button:hover::after { opacity: .7; }
 
 .simple-nav a:hover,
 .simple-nav a[aria-current],
@@ -296,6 +366,12 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
   .surface-accent,.surface-ink,.simple-header,.portfolio-browser-bar,.mobile-nav,[data-testid='project-overlay']>div { -webkit-backdrop-filter:none!important; backdrop-filter:none!important; }
 }
 
+@media (prefers-contrast: more) {
+  :root { --glass-fill: rgba(242,236,227,.9); --glass-fill-strong: rgba(242,236,227,.98); --glass-edge: rgba(17,9,8,.72); }
+  html[data-theme='dark'] { --glass-fill: rgba(7,25,54,.9); --glass-fill-strong: rgba(9,31,67,.98); --glass-edge: rgba(210,219,234,.72); }
+  .simple-header,.portfolio-browser-bar,.mobile-nav,[data-testid='project-overlay']>div { -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+}
+
 @media (max-width: 980px) {
   :root { --glass-blur: 20px; }
 }
@@ -307,6 +383,7 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
   .theme-toggle{margin:8px 5px;border-radius:13px}
   [data-testid='project-overlay'] > div { border-radius: 24px 24px 0 0; }
   .writing-card::after,#work article > div::after,.project-metrics::after{opacity:.48}
+  .App::after { display:none; }
 }
 
 /* dotted / halftone field */
@@ -333,6 +410,7 @@ html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness
 @media (prefers-reduced-motion: reduce) {
   .rm-hide { display: none !important; }
   body, .surface-accent, .surface-ink, header, footer, button, a { transition: none !important; }
+  .App::after,.writing-card::after,#work article > div::after,.project-metrics::after { display:none!important; }
 }
 
 /* skip link */
