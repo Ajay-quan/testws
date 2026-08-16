@@ -46,9 +46,7 @@ export default function About() {
                   animate={inView ? { y: '0%' } : {}}
                   transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {l.includes('software engineering')
-                    ? <span style={{ borderBottom: '1px solid var(--ink)', paddingBottom: 2 }}>software engineering</span>
-                    : l}
+                  {l}
                 </motion.span>
               </span>
             ))}
