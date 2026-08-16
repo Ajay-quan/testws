@@ -105,6 +105,8 @@ html[data-theme='dark'] .App::before {
     linear-gradient(145deg, #020817 4%, #081a39 48%, #030b1e 100%);
 }
 
+html[data-theme='dark'] .App::after { display: none; }
+
 html[data-theme='dark'] body {
   background-image:
     radial-gradient(circle at 14% 0%, rgba(31, 85, 164, .22), transparent 35%),
