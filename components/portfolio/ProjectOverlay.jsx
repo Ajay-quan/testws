@@ -61,10 +61,11 @@ export default function ProjectOverlay({ project, onClose }) {
 
             {project.media && project.media.length > 0 && (
               <div style={{ padding: '20px 20px 0' }}>
-                <figure style={{ margin: 0, position: 'relative', border: `1px solid ${project.accent}`, aspectRatio: '3 / 2', overflow: 'hidden', background: '#000' }}>
+                <figure className="case-study-figure" style={{ '--project-accent': project.accent, margin: 0, position: 'relative', border: `1px solid ${project.accent}`, aspectRatio: '3 / 2', overflow: 'hidden', background: '#06152d' }}>
                   <img src={project.media[0]} alt={`${project.title} interface study`} loading="lazy"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                  <figcaption className="u-label" style={{ position: 'absolute', bottom: 8, left: 8, color: project.accent, background: 'rgba(17,9,8,0.72)', padding: '4px 8px' }}>FIG.01 / INTERFACE STUDY</figcaption>
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: project.coverPosition, transform: `scale(${1 + ((project.coverScale || 1) - 1) * .55})`, display: 'block' }} />
+                  <span className="case-study-tone" aria-hidden="true" />
+                  <figcaption className="u-label"><span>{project.visualLabel}</span><span>FIG.01 / INTERFACE STUDY</span></figcaption>
                 </figure>
               </div>
             )}
@@ -112,6 +113,10 @@ export default function ProjectOverlay({ project, onClose }) {
               {project.externalLink && <a href={project.externalLink} target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring u-label icon-link" style={{ marginTop: 34, border: `1px solid ${project.accent}`, color: project.accent, padding: '12px 16px', textDecoration: 'none' }}>VIEW REPOSITORY / GITHUB <InterfaceIcon /></a>}
             </div>
             <style>{`
+              .case-study-figure>img{filter:saturate(.72) contrast(1.14) brightness(.94)}
+              .case-study-tone{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,18,42,.03) 42%,rgba(4,18,42,.82) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 14%,transparent),transparent 45%)}
+              .case-study-figure figcaption{position:absolute;left:10px;right:10px;bottom:9px;display:flex;justify-content:space-between;gap:10px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.58)}
+              .case-study-figure figcaption span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
               @media(max-width:520px){
                 [data-testid="project-overlay"]>div{border-left:0!important}
                 [data-testid="project-overlay"]>div>div:first-child{padding:12px 14px!important}

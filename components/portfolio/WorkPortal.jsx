@@ -7,7 +7,7 @@ export const PROJECTS = [
   {
     id: 'aeg', title: 'STATEFUL.AI', role: 'AI SYSTEMS ENGINEER', year: '2025—26', status: 'OPEN SOURCE · INDEPENDENT', proof: '0.9667 RECALL@5 · 135 TESTS',
     premise: 'A self-improving persistent memory layer for long-running LLM agents.',
-    cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351',
+    cover: '/projects/stateful-ai.png', media: ['/projects/stateful-ai.png'], side: -1, accent: '#E34351', coverScale: 1.08, coverPosition: '50% 43%', visualLabel: 'MEMORY SYSTEM / PRODUCT INTERFACE',
     overview: 'An open-source memory system that lets agents store, retrieve, revise, and learn from long-lived context through REST and MCP interfaces.',
     challenge: 'Long-running agents need more than chat history: they need durable recall, contradiction handling, privacy controls, and retrieval that improves through use.',
     approach: 'Combined dense semantic search, BM25 and Reciprocal Rank Fusion with versioned memory lifecycle, reranking, PII redaction, and per-tenant continual learning.',
@@ -20,7 +20,7 @@ export const PROJECTS = [
   {
     id: 'cv', title: 'VISION CONSOLE', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC', proof: '7 MODULES · REAL-TIME CV',
     premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
-    cover: '/projects/vision-console-tracking.jpg', media: ['/projects/vision-console-tracking.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E',
+    cover: '/projects/vision-console-tracking.jpg', media: ['/projects/vision-console-tracking.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E', coverScale: 1.23, coverPosition: '61% 43%', visualLabel: 'REAL-TIME TRACKING / CV LAB',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
     challenge: 'Bring camera calibration, image restoration, feature extraction, stitching, tracking, stereo measurement, and pose analysis into one coherent browser experience.',
     approach: 'Built a Flask interface around OpenCV pipelines with modular pages, live streams, reusable experiment controls, and recorded demonstrations.',
@@ -33,7 +33,7 @@ export const PROJECTS = [
   {
     id: 'rm', title: 'RESEARCHMATCH', role: 'FULL-STACK ENGINEER', year: '2026', status: 'OPEN SOURCE · ACADEMIC', proof: '5-FACTOR MATCHING · 2 ROLES',
     premise: 'A university research-opportunity platform with intelligent applicant matching.',
-    cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8',
+    cover: '/projects/researchmatch.png', media: ['/projects/researchmatch.png'], side: -1, accent: '#5FB6A8', coverScale: 1.32, coverPosition: '50% 50%', visualLabel: 'MATCHING PLATFORM / ROLE ACCESS',
     overview: 'A full-stack application connecting students with faculty research projects through search, applications, and ranked matching.',
     challenge: 'Students struggle to discover relevant faculty work, while faculty need a consistent way to evaluate applicants across skills and interests.',
     approach: 'Built role-based student and faculty journeys around a five-factor SQL matching procedure, secure authentication, and project workflows.',
@@ -92,15 +92,20 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
           <span className="u-label" style={{ opacity: 0.7 }}>{project.status}</span>
         </div>
 
-        <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: 'var(--ink)' }}>
+        <div className="project-visual" style={{ '--project-accent': accent, position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: '#06152d' }}>
           <motion.img
             src={project.cover}
             alt={`${project.title} real project interface`}
             loading="lazy"
-            animate={{ scale: revealed ? 1.035 : 1 }}
+            animate={{ scale: revealed ? project.coverScale * 1.025 : project.coverScale }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: project.coverPosition, display: 'block' }}
           />
+          <div className="project-visual-tone" aria-hidden="true" />
+          <div className="project-visual-meta" aria-hidden="true">
+            <span className="u-label">{project.visualLabel}</span>
+            <span className="u-label">FIG.0{PROJECTS.findIndex((item) => item.id === project.id) + 1}</span>
+          </div>
           <motion.div
             aria-hidden={!revealed}
             initial={false}
@@ -246,6 +251,11 @@ export default function WorkPortal({ onOpen }) {
         </div>
       )}
       <style>{`
+        .project-visual>img{filter:saturate(.72) contrast(1.14) brightness(.96)}
+        .project-visual-tone{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,18,42,.04) 35%,rgba(4,18,42,.82) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 14%,transparent),transparent 42%);box-shadow:inset 0 0 0 1px rgba(197,217,243,.16)}
+        .project-visual-meta{position:absolute;left:12px;right:12px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+        .project-visual-meta span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
+        html[data-theme='dark'] .project-visual>img{filter:saturate(.68) contrast(1.18) brightness(.88)}
         @media(max-width:720px){
           #work { height:270svh!important; }
           #work > div[style*="position: sticky"] { height:100svh!important; }
@@ -258,6 +268,7 @@ export default function WorkPortal({ onOpen }) {
           #work article > div > div:last-child button { min-height:38px; padding:6px 8px!important; flex:0 0 auto; }
           #work article [aria-hidden] p { font-size:16px!important; line-height:1.28!important; }
           #work article [aria-hidden] button { min-height:44px; }
+          .project-visual-meta{left:8px;right:8px;bottom:7px}.project-visual-meta .u-label{font-size:6px!important}
           #work > div > div:last-child .u-label { font-size:8px; }
         }
         @media(max-width:360px){
