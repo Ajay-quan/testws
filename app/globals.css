@@ -47,28 +47,6 @@ html[data-theme='dark'] {
   --glass-specular: rgba(186, 218, 255, .32);
 }
 
-html[data-theme='dim'] {
-  color-scheme: dark;
-  --ink: #d8e2ee;
-  --paper: #152433;
-  --red: #f0a8c8;
-  --accent: #152433;
-  --page-bg: #0c1722;
-  --soft-ink: rgba(216, 226, 238, .68);
-  --line: #426076;
-  --inverse-bg: #224158;
-  --inverse-fg: #eef5fb;
-  --surface-bg: linear-gradient(145deg, #1b3143 0%, #152433 52%, #12293a 100%);
-  --inverse-surface-bg: linear-gradient(135deg, #315a73 0%, #23475f 55%, #1a384d 100%);
-  --grid-line: rgba(150, 190, 214, .16);
-  --glass-fill: rgba(29, 52, 68, .5);
-  --glass-fill-strong: rgba(35, 68, 88, .68);
-  --glass-edge: rgba(190, 224, 242, .28);
-  --glass-shadow: 0 22px 58px rgba(2, 10, 16, .3), inset 0 1px 0 rgba(220, 241, 251, .2);
-  --glass-blur: 26px;
-  --glass-specular: rgba(184, 226, 244, .3);
-}
-
 * {
   box-sizing: border-box;
 }
@@ -115,14 +93,6 @@ html[data-theme='dark'] .App::before {
     linear-gradient(145deg, #020817 4%, #081a39 48%, #030b1e 100%);
 }
 
-html[data-theme='dim'] .App::before {
-  background:
-    radial-gradient(circle at 18% 16%, rgba(78, 151, 177, .34), transparent 28%),
-    radial-gradient(circle at 82% 28%, rgba(180, 81, 139, .18), transparent 28%),
-    radial-gradient(circle at 54% 86%, rgba(54, 127, 153, .28), transparent 31%),
-    linear-gradient(145deg, #09131d 4%, #152b3b 48%, #0c1a26 100%);
-}
-
 html[data-theme='dark'] body {
   background-image:
     radial-gradient(circle at 14% 0%, rgba(31, 85, 164, .22), transparent 35%),
@@ -131,17 +101,11 @@ html[data-theme='dark'] body {
   background-attachment: fixed;
 }
 
-html[data-theme='dim'] body {
-  background-image: linear-gradient(180deg, #0b1721 0%, var(--page-bg) 100%);
-  background-attachment: fixed;
-}
-
 body, .surface-accent, .surface-ink, header, footer, button, a {
   transition: background-color .28s ease, color .28s ease, border-color .28s ease;
 }
 
 html[data-theme='dark'] img { filter: brightness(.88) contrast(1.02) saturate(.86); }
-html[data-theme='dim'] img { filter: brightness(.9) contrast(1.02) saturate(.88); }
 html[data-theme='dark'] .writing-poster img,
 html[data-theme='dark'] [data-testid='project-overlay'] img { filter: brightness(.84) contrast(1.04) saturate(.82); }
 
@@ -379,6 +343,37 @@ html[data-theme='light'] .simple-header::after {
   box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 8px 26px rgba(0,5,22,.22);
 }
 
+/* Shared liquid-control material: icon controls are circular; text controls are capsules. */
+.hero-action,
+.writing-controls button,
+#work button,
+[data-testid='overlay-close'] {
+  border: 0 !important;
+  border-radius: 99em !important;
+  background-color: color-mix(in srgb, var(--glass-fill) 30%, transparent) !important;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--glass-edge) 56%, transparent),
+    inset 1.8px 3px 0 -2px color-mix(in srgb, white 72%, transparent),
+    inset -2px -2px 0 -2px color-mix(in srgb, white 48%, transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, white 30%, transparent),
+    inset -1px 2px 3px -1px rgba(8, 14, 24, .14),
+    inset 0 -5px 2px -4px rgba(8, 14, 24, .09),
+    0 5px 14px rgba(8, 14, 24, .08) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+}
+
+.writing-controls button,
+[data-testid='overlay-close'] { aspect-ratio: 1; }
+
+.hero-action:hover,
+.writing-controls button:not(:disabled):hover,
+#work button:hover,
+[data-testid='overlay-close']:hover {
+  background-color: color-mix(in srgb, var(--glass-fill-strong) 42%, transparent) !important;
+  transform: translateY(-1px) scale(1.02);
+}
+
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .surface-accent,
   .surface-ink,
@@ -397,14 +392,12 @@ html[data-theme='light'] .simple-header::after {
 @media (prefers-reduced-transparency: reduce) {
   :root { --glass-fill: rgba(242,236,227,.96); --glass-fill-strong: rgba(242,236,227,.99); }
   html[data-theme='dark'] { --glass-fill: rgba(7,25,54,.96); --glass-fill-strong: rgba(9,31,67,.99); }
-  html[data-theme='dim'] { --glass-fill: rgba(21,36,51,.96); --glass-fill-strong: rgba(29,55,72,.99); }
   .surface-accent,.surface-ink,.simple-header,.portfolio-browser-bar,.mobile-nav,[data-testid='project-overlay']>div { -webkit-backdrop-filter:none!important; backdrop-filter:none!important; }
 }
 
 @media (prefers-contrast: more) {
   :root { --glass-fill: rgba(242,236,227,.9); --glass-fill-strong: rgba(242,236,227,.98); --glass-edge: rgba(17,9,8,.72); }
   html[data-theme='dark'] { --glass-fill: rgba(7,25,54,.9); --glass-fill-strong: rgba(9,31,67,.98); --glass-edge: rgba(210,219,234,.72); }
-  html[data-theme='dim'] { --glass-fill: rgba(21,36,51,.9); --glass-fill-strong: rgba(29,55,72,.98); --glass-edge: rgba(216,226,238,.7); }
   .simple-header,.portfolio-browser-bar,.mobile-nav,[data-testid='project-overlay']>div { -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
 }
 
