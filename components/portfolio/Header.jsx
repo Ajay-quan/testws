@@ -82,7 +82,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
         .simple-header.is-scrolled { box-shadow:0 22px 58px rgba(83,67,48,.16),inset 0 1px 0 #fff,inset 0 -1px 0 rgba(80,58,34,.08); }
         html[data-theme='dark'] .simple-header.is-scrolled { box-shadow:0 24px 64px rgba(0,5,18,.42),inset 0 1px 0 rgba(221,235,255,.24); }
         .simple-header::before { content:''; position:absolute; inset:1px 10% auto; height:1px; border-radius:999px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.96),transparent); pointer-events:none; }
-        .header-status { padding:0 14px; display:flex; flex-direction:column; justify-content:center; gap:5px; border:0; border-radius:20px; background:rgba(255,255,255,.2); box-shadow:inset 0 1px 0 rgba(255,255,255,.72); }
+        .header-status { padding:0 14px; display:flex; flex-direction:column; justify-content:center; gap:5px; border:0; border-radius:0; background:transparent; box-shadow:none; }
         .header-status span:last-child { opacity:.5; }
         .simple-nav { display:grid; grid-template-columns:repeat(6,minmax(92px,1fr)); align-items:stretch; gap:4px; padding:0; }
         .simple-nav a { display:flex; align-items:center; justify-content:center; padding:0 14px; border:1px solid transparent; border-radius:999px; margin:0!important; overflow:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,color .25s ease,opacity .25s ease,box-shadow .3s ease; }
