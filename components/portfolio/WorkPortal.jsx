@@ -13,6 +13,12 @@ export const PROJECTS = [
     approach: 'Combined dense semantic search, BM25 and Reciprocal Rank Fusion with versioned memory lifecycle, reranking, PII redaction, and per-tenant continual learning.',
     contribution: 'Designed and implemented the layered API-to-adapter architecture, retrieval pipeline, lifecycle services, SDK, CLI, evaluation harnesses, and AWS deployment path.',
     outcome: 'Delivered a zero-infrastructure default with 135 passing tests and a benchmark reaching 0.9667 Recall@5 and 1.0 MRR.',
+    caseStudy: [
+      { title: 'THE ENGINEERING PROBLEM', summary: 'Chat history is not durable agent memory. The system had to preserve useful context across long-running sessions without turning every prior interaction into prompt noise.', points: [['State integrity', 'Represented memory as a versioned lifecycle—create, retrieve, revise, supersede, and delete—rather than an append-only transcript.'], ['Safety boundary', 'Added PII redaction and tenant-aware isolation before memories enter retrieval paths.']] },
+      { title: 'RETRIEVAL ARCHITECTURE', summary: 'The retrieval path combines complementary signals instead of betting on a single vector score.', points: [['Hybrid search', 'Dense semantic retrieval and BM25 lexical retrieval are fused with Reciprocal Rank Fusion, then reranked for final relevance.'], ['Interoperability', 'REST, MCP, SDK, and CLI surfaces share the same service layer so agent integrations do not duplicate memory logic.']] },
+      { title: 'WHAT MADE IT DIFFERENT', summary: 'AegisMem treats memory quality as a system that can improve through use—not a static vector database wrapper.', points: [['Learning loop', 'Per-tenant feedback can refine retrieval behavior while keeping adapter boundaries replaceable.'], ['Zero-infrastructure default', 'A local-first path makes the system immediately testable, while adapters preserve a route to managed vector storage and AWS deployment.']] },
+      { title: 'VALIDATION', summary: 'Evaluation was built into the product rather than added after implementation.', points: [['Quality', 'Benchmark results reached 0.9667 Recall@5 and 1.0 MRR on the project evaluation path.'], ['Reliability', '135 passing tests cover retrieval, lifecycle behavior, interfaces, and supporting services.']] },
+    ],
     metrics: [['RECALL@5', '0.9667'], ['MRR', '1.0'], ['TESTS', '135']],
     tech: ['Python', 'FastAPI', 'LangChain', 'MCP', 'FAISS', 'Vector DB', 'AWS'],
     externalLink: 'https://github.com/Ajay-quan/AegisMem',
@@ -20,12 +26,18 @@ export const PROJECTS = [
   {
     id: 'cv', title: 'VISION CONSOLE', role: 'COMPUTER VISION ENGINEER', year: '2025', status: 'OPEN SOURCE · ACADEMIC', proof: '7 MODULES · REAL-TIME CV',
     premise: 'A browser-based laboratory for real-time vision experiments and analysis.',
-    cover: '/projects/vision-console-tracking.jpg', media: ['/projects/vision-console-tracking.jpg', '/projects/vision-console.png'], side: 1, accent: '#E6B94E', coverScale: 1.23, coverPosition: '61% 43%', visualLabel: 'REAL-TIME TRACKING / CV LAB',
+    cover: '/projects/vision-console.png', media: ['/projects/vision-console.png', '/projects/vision-console-stereo.jpg'], side: 1, accent: '#E6B94E', coverScale: 1.14, coverPosition: '60% 47%', visualLabel: 'REAL-TIME TRACKING / CV LAB',
     overview: 'A seven-module computer-vision control panel combining live camera workflows, classical vision, tracking, segmentation, and visual reports.',
     challenge: 'Bring camera calibration, image restoration, feature extraction, stitching, tracking, stereo measurement, and pose analysis into one coherent browser experience.',
     approach: 'Built a Flask interface around OpenCV pipelines with modular pages, live streams, reusable experiment controls, and recorded demonstrations.',
     contribution: 'Implemented the end-to-end web application, camera workflows, OpenCV modules, dashboard navigation, result views, and real-time demos.',
     outcome: 'Delivered a working visual laboratory with seven interactive modules spanning calibration, restoration, features, tracking, stereo vision, and pose.',
+    caseStudy: [
+      { title: 'THE ENGINEERING PROBLEM', summary: 'Computer-vision coursework often becomes a collection of disconnected scripts. The goal was one usable browser laboratory that could operate cameras, expose parameters, and communicate results consistently.', points: [['Breadth', 'Unified calibration, restoration, feature extraction, stitching, tracking, stereo measurement, and pose analysis in one navigation model.'], ['Runtime state', 'Separated camera and stream lifecycle from module-specific processing so live workflows could be started, changed, and stopped predictably.']] },
+      { title: 'PIPELINE DESIGN', summary: 'Flask coordinates the browser experience while modular Python pipelines own the image-processing work.', points: [['Reusable controls', 'Each module follows a shared input → parameter → processing → result structure instead of inventing a new interaction pattern.'], ['Real-time path', 'OpenCV frames move through selectable tracking modes, including ArUco markers, optical-flow-style markerless tracking, and SAM2 segmentation playback.']] },
+      { title: 'WHAT MADE IT DIFFERENT', summary: 'The project combines classical geometry and modern learned vision behind one coherent control panel.', points: [['Mixed methods', 'OpenCV, MediaPipe, and SAM2 coexist without hiding which algorithm is responsible for each result.'], ['Inspectable output', 'Visual reports and recorded demonstrations make intermediate behavior observable—not just the final prediction.']] },
+      { title: 'DELIVERY', summary: 'The finished application contains seven working modules with shared navigation, result views, live demonstrations, and project-level visual documentation.', points: [['Coverage', 'The system spans camera calibration through real-time tracking and pose analysis.'], ['Ownership', 'Implemented the web interface, vision pipelines, camera workflows, navigation, and demonstration surfaces end to end.']] },
+    ],
     metrics: [['MODULES', '07'], ['MODE', 'REAL-TIME'], ['STACK', 'CV + AI']],
     tech: ['Python', 'Flask', 'OpenCV', 'MediaPipe', 'SAM2', 'NumPy'],
     externalLink: 'https://github.com/Ajay-quan/ComputerVision_Fall2025',
@@ -39,6 +51,12 @@ export const PROJECTS = [
     approach: 'Built role-based student and faculty journeys around a five-factor SQL matching procedure, secure authentication, and project workflows.',
     contribution: 'Implemented the React client, Express API, MySQL schema, JWT authentication, matching logic, dashboards, milestones, and assignment management.',
     outcome: 'Produced a complete multi-role workflow from project discovery and application through ranked review and acceptance.',
+    caseStudy: [
+      { title: 'THE ENGINEERING PROBLEM', summary: 'Research discovery has two different users: students need relevant opportunities, while faculty need structured evidence for reviewing applicants.', points: [['Two-sided workflow', 'Designed separate student and faculty journeys without splitting the product into disconnected applications.'], ['Data consistency', 'Applications, projects, milestones, assignments, and decisions share one relational source of truth.']] },
+      { title: 'MATCHING SYSTEM', summary: 'A five-factor SQL procedure converts applicant and project evidence into a ranked review signal.', points: [['Explainable ranking', 'The matching path is based on explicit database factors rather than an opaque recommendation score.'], ['Workflow integration', 'Ranking sits inside the faculty review flow, alongside applicant context and project state.']] },
+      { title: 'SYSTEM ARCHITECTURE', summary: 'The React client communicates with an Express API backed by MySQL and protected with JWT authentication.', points: [['Role security', 'Authorization separates student and faculty actions at the API boundary, not only in the interface.'], ['End-to-end state', 'The schema supports discovery, application, review, acceptance, milestones, and assignment management.']] },
+      { title: 'DELIVERY', summary: 'The result is a complete multi-role product rather than a standalone matching demo.', points: [['Full-stack ownership', 'Implemented the client, API, authentication, relational schema, matching procedure, dashboards, and management flows.'], ['Product outcome', 'Both users can move from discovery to a recorded decision through one consistent system.']] },
+    ],
     metrics: [['MATCHING', '5-FACTOR'], ['ROLES', '02'], ['FLOW', 'END-TO-END']],
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'JWT', 'Tailwind'],
     externalLink: 'https://github.com/Ajay-quan/DBS_Project',
@@ -180,6 +198,13 @@ export default function WorkPortal({ onOpen }) {
   const gridOpacity = useTransform(scrollYProgress, [0, 0.12, 0.21], [1, 1, 0]);
   const inkOverlay = useTransform(scrollYProgress, [0.11, 0.22], [0, 1]);
   const dotOpacity = useTransform(scrollYProgress, [0.19, 0.28], [0, 0.12]);
+  const exploreOpacity = useTransform(scrollYProgress, [0, 0.09, 0.17], [1, 1, 0]);
+
+  const scrollToProjects = () => {
+    if (!ref.current) return;
+    const sectionTop = window.scrollY + ref.current.getBoundingClientRect().top;
+    window.scrollTo({ top: sectionTop + ref.current.offsetHeight * .23, behavior: reduced ? 'auto' : 'smooth' });
+  };
 
   const capScaleX = useTransform(scrollYProgress, [0, 0.035, 0.18], [1, 1, 22]);
   const capH = useTransform(scrollYProgress, [0, 0.18], ['78vh', '108vh']);
@@ -242,6 +267,17 @@ export default function WorkPortal({ onOpen }) {
             </motion.div>
           </motion.div>
 
+          <motion.button
+            type="button"
+            className="work-scroll-explore focus-ring icon-link u-label"
+            style={{ opacity: exploreOpacity }}
+            onClick={scrollToProjects}
+            data-cursor="hover"
+            aria-label="Scroll to explore selected projects"
+          >
+            SCROLL TO EXPLORE <InterfaceIcon name="down" />
+          </motion.button>
+
           <ProjectWindow project={PROJECTS[0]} scrollYProgress={scrollYProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
           <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
           <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
@@ -256,6 +292,8 @@ export default function WorkPortal({ onOpen }) {
         .project-visual-meta{position:absolute;left:12px;right:12px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.55)}
         .project-visual-meta span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
         html[data-theme='dark'] .project-visual>img{filter:saturate(.68) contrast(1.18) brightness(.88)}
+        .work-scroll-explore{position:absolute;left:50%;bottom:58px;z-index:80;translate:-50% 0;display:flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 20px;border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)!important;border-radius:999px;color:var(--ink);background:color-mix(in srgb,var(--glass-fill-strong) 42%,transparent)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.62),0 10px 28px rgba(4,18,42,.12)!important;-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);white-space:nowrap;cursor:pointer}
+        .work-scroll-explore:hover{transform:translateY(-2px)}
         @media(max-width:720px){
           #work { height:270svh!important; }
           #work > div[style*="position: sticky"] { height:100svh!important; }
@@ -269,6 +307,7 @@ export default function WorkPortal({ onOpen }) {
           #work article [aria-hidden] p { font-size:16px!important; line-height:1.28!important; }
           #work article [aria-hidden] button { min-height:44px; }
           .project-visual-meta{left:8px;right:8px;bottom:7px}.project-visual-meta .u-label{font-size:6px!important}
+          .work-scroll-explore{bottom:48px;min-height:44px;padding:0 16px;font-size:7px}
           #work > div > div:last-child .u-label { font-size:8px; }
         }
         @media(max-width:360px){
