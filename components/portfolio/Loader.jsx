@@ -18,7 +18,7 @@ export default function Loader({ onDone }) {
     }
     let p = 0;
     let exitTimer;
-    const total = 1750;
+    const total = 1650;
     const start = performance.now();
     const timer = setInterval(() => {
       p = Math.min(((performance.now() - start) / total) * 100, 100);
@@ -26,7 +26,7 @@ export default function Loader({ onDone }) {
       if (p >= 100) {
         clearInterval(timer);
         setExit(true);
-        exitTimer = setTimeout(onDone, 520);
+        exitTimer = setTimeout(onDone, 460);
       }
     }, 24);
     return () => { clearInterval(timer); clearTimeout(exitTimer); };
@@ -50,7 +50,7 @@ export default function Loader({ onDone }) {
         <span className="u-label">{String(pct).padStart(3, '0')}</span>
       </div>
       <style>{`
-        .signature-loader{position:fixed;inset:0;z-index:300;display:grid;place-content:center;background:var(--accent);color:var(--ink);clip-path:inset(0);transition:clip-path .52s cubic-bezier(.77,0,.18,1)}
+        .signature-loader{position:fixed;inset:0;z-index:300;display:grid;place-content:center;background:var(--accent);color:var(--ink);clip-path:inset(0);transition:clip-path .46s cubic-bezier(.77,0,.18,1)}
         .signature-loader.is-exiting{clip-path:inset(0 0 100% 0)}
         .signature-loader-mark{position:relative;width:min(68vw,720px);aspect-ratio:915/272}
         .signature-loader-mark img{display:block;width:100%;height:100%;object-fit:contain;filter:contrast(1.25)}
