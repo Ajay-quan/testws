@@ -192,9 +192,6 @@ export default function HeroField({ onOpenWork }) {
             </div>
           </div>
         </div>
-        <div style={{ position: 'absolute', left: 16, bottom: 12, display: 'flex', gap: 20 }}>
-          <span className="u-label" style={{ opacity: 0.6 }}>INTERACTIVE · MOVE / TOUCH</span>
-        </div>
       </div>
       <style>{`
         .hero-identity { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(28px,4vw,52px) clamp(18px,3vw,42px) 52px; pointer-events:none; }
