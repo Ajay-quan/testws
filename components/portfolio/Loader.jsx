@@ -7,7 +7,8 @@ export default function Loader({ onDone }) {
   const [exit, setExit] = useState(false);
 
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).has('fast')) {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('fast')) {
       onDone();
       return;
     }
@@ -15,7 +16,7 @@ export default function Loader({ onDone }) {
       onDone();
       return;
     }
-    if (window.sessionStorage.getItem('av-signal-seen') === '1') {
+    if (window.sessionStorage.getItem('av-signal-seen') === '1' && !params.has('preview-loader')) {
       onDone();
       return;
     }
