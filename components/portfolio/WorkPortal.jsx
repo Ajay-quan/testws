@@ -198,13 +198,6 @@ export default function WorkPortal({ onOpen }) {
   const gridOpacity = useTransform(scrollYProgress, [0, 0.12, 0.21], [1, 1, 0]);
   const inkOverlay = useTransform(scrollYProgress, [0.11, 0.22], [0, 1]);
   const dotOpacity = useTransform(scrollYProgress, [0.19, 0.28], [0, 0.12]);
-  const exploreOpacity = useTransform(scrollYProgress, [0, 0.09, 0.17], [1, 1, 0]);
-
-  const scrollToProjects = () => {
-    if (!ref.current) return;
-    const sectionTop = window.scrollY + ref.current.getBoundingClientRect().top;
-    window.scrollTo({ top: sectionTop + ref.current.offsetHeight * .23, behavior: reduced ? 'auto' : 'smooth' });
-  };
 
   const capScaleX = useTransform(scrollYProgress, [0, 0.035, 0.18], [1, 1, 22]);
   const capH = useTransform(scrollYProgress, [0, 0.18], ['78vh', '108vh']);
@@ -264,19 +257,12 @@ export default function WorkPortal({ onOpen }) {
               <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoX, opacity: echoOpacity, scale: workScale, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
               <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoXNeg, opacity: echoOpacity, scale: workScale, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
               <motion.div className="font-display" style={{ scale: workScale, opacity: workLetterOpacity, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em', position: 'relative' }}>W<br />O<br />R<br />K</motion.div>
+              <motion.div className="work-scroll-prompt" style={{ opacity: workLetterOpacity }}>
+                <span data-text="SCROLL TO EXPLORE">SCROLL TO EXPLORE</span>
+                <InterfaceIcon name="down" />
+              </motion.div>
             </motion.div>
           </motion.div>
-
-          <motion.button
-            type="button"
-            className="work-scroll-explore focus-ring icon-link u-label"
-            style={{ opacity: exploreOpacity }}
-            onClick={scrollToProjects}
-            data-cursor="hover"
-            aria-label="Scroll to explore selected projects"
-          >
-            SCROLL TO EXPLORE <InterfaceIcon name="down" />
-          </motion.button>
 
           <ProjectWindow project={PROJECTS[0]} scrollYProgress={scrollYProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
           <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
@@ -292,8 +278,12 @@ export default function WorkPortal({ onOpen }) {
         .project-visual-meta{position:absolute;left:12px;right:12px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.55)}
         .project-visual-meta span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
         html[data-theme='dark'] .project-visual>img{filter:saturate(.68) contrast(1.18) brightness(.88)}
-        .work-scroll-explore{position:absolute;left:50%;bottom:58px;z-index:80;translate:-50% 0;display:flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 20px;border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)!important;border-radius:999px;color:var(--ink);background:color-mix(in srgb,var(--glass-fill-strong) 42%,transparent)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.62),0 10px 28px rgba(4,18,42,.12)!important;-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);white-space:nowrap;cursor:pointer}
-        .work-scroll-explore:hover{transform:translateY(-2px)}
+        .work-scroll-prompt{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;color:var(--inverse-fg);white-space:nowrap}
+        .work-scroll-prompt span{position:relative;color:rgba(242,236,227,.2);font-family:'IBM Plex Mono',monospace;font-size:clamp(7px,.62vw,10px);font-weight:500;letter-spacing:.17em;line-height:1}
+        .work-scroll-prompt span::after{content:attr(data-text);position:absolute;inset:0;color:var(--inverse-fg);clip-path:inset(0 100% 0 0);animation:work-prompt-fill 2.8s cubic-bezier(.65,0,.25,1) infinite}
+        .work-scroll-prompt .interface-icon{width:12px;height:12px;animation:work-prompt-arrow 1.4s ease-in-out infinite}
+        @keyframes work-prompt-fill{0%,12%{clip-path:inset(0 100% 0 0)}58%,78%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 0 100%)}}
+        @keyframes work-prompt-arrow{0%,100%{transform:translateY(-2px);opacity:.4}50%{transform:translateY(3px);opacity:1}}
         @media(max-width:720px){
           #work { height:270svh!important; }
           #work > div[style*="position: sticky"] { height:100svh!important; }
@@ -307,12 +297,13 @@ export default function WorkPortal({ onOpen }) {
           #work article [aria-hidden] p { font-size:16px!important; line-height:1.28!important; }
           #work article [aria-hidden] button { min-height:44px; }
           .project-visual-meta{left:8px;right:8px;bottom:7px}.project-visual-meta .u-label{font-size:6px!important}
-          .work-scroll-explore{bottom:48px;min-height:44px;padding:0 16px;font-size:7px}
+          .work-scroll-prompt{margin-top:12px}.work-scroll-prompt span{font-size:7px}
           #work > div > div:last-child .u-label { font-size:8px; }
         }
         @media(max-width:360px){
           #work article > div > div:last-child .u-label { display:none; }
         }
+        @media(prefers-reduced-motion:reduce){.work-scroll-prompt span::after{animation:none;clip-path:none}.work-scroll-prompt .interface-icon{animation:none}}
       `}</style>
     </section>
   );

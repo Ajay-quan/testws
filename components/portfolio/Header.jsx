@@ -102,19 +102,20 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
         .theme-toggle:hover { transform:scale(1.06);background:color-mix(in srgb,var(--glass-fill-strong) 34%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--glass-edge) 68%,transparent),inset 2px 3px 0 -2px rgba(255,255,255,.9),inset -2px -2px 0 -2px rgba(255,255,255,.58),inset -1px 2px 3px -1px rgba(10,15,25,.18),0 6px 16px rgba(10,15,25,.1)!important; }
         .mobile-menu-toggle,.mobile-nav { display:none; }
         @media(max-width:980px){.simple-header{grid-template-columns:minmax(170px,1fr) minmax(468px,auto) 48px}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}.theme-toggle{width:44px;height:44px;min-width:44px}}
-        @media(max-width:720px){
+        @media(max-width:900px){
           .simple-header { top:8px;height:60px;margin:8px 8px 0;width:calc(100% - 16px);grid-template-columns:1fr 48px 48px;padding:5px;gap:4px;border-radius:999px; }
           .header-status { padding:0 12px; }
           .header-status span:last-child,.simple-nav { display:none; }
           .theme-toggle { grid-column:2; }
           .mobile-menu-toggle { grid-column:3; align-self:center;justify-self:center;width:44px;height:44px;min-width:44px;aspect-ratio:1;display:flex; align-items:center; justify-content:center; padding:0;background:linear-gradient(150deg,rgba(255,255,255,.27),rgba(255,255,255,.07)); border:0; border-radius:50%; color:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.44),inset 0 1.5px 0 rgba(255,255,255,.92); }
-          .mobile-nav { position:fixed; left:8px; right:8px; top:76px; bottom:8px; z-index:119; background:linear-gradient(145deg,rgba(255,255,255,.76),rgba(241,236,228,.58)); border:1px solid rgba(255,255,255,.88); box-shadow:0 24px 70px rgba(70,54,35,.18),inset 0 1px 0 #fff; -webkit-backdrop-filter:blur(32px) saturate(170%);backdrop-filter:blur(32px) saturate(170%); transform:translateY(-105%); opacity:0; visibility:hidden; transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .2s; padding:18px 14px; display:flex; flex-direction:column; }
-          html[data-theme='dark'] .mobile-nav { background:linear-gradient(145deg,rgba(18,49,91,.86),rgba(5,22,48,.72));border-color:rgba(187,215,255,.26); }
+          #mobile-nav { position:fixed; left:8px; right:8px; top:76px; bottom:8px; z-index:119; overflow-y:auto; overscroll-behavior:contain; background:#f2eee7!important; border:1px solid rgba(75,59,43,.2); box-shadow:0 26px 80px rgba(53,42,31,.26),inset 0 1px 0 rgba(255,255,255,.96); -webkit-backdrop-filter:blur(24px) saturate(120%);backdrop-filter:blur(24px) saturate(120%); transform:translateY(-105%); opacity:0; visibility:hidden; transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .2s; padding:20px 16px max(20px,env(safe-area-inset-bottom)); display:flex; flex-direction:column; isolation:isolate; }
+          html[data-theme='dark'] #mobile-nav { background:#071a38!important;border-color:rgba(187,215,255,.24);box-shadow:0 26px 80px rgba(0,5,18,.5),inset 0 1px 0 rgba(221,235,255,.18); }
           .mobile-nav.is-open { transform:translateY(0); opacity:1; visibility:visible; }
           .mobile-nav-top,.mobile-nav-foot { display:flex; justify-content:space-between; gap:10px; }
-          .mobile-nav-links { margin:auto 0; display:flex; flex-direction:column; gap:4px; }
-          .mobile-nav-links a { width:100%; border-bottom:1px solid color-mix(in srgb,var(--line) 28%,transparent); padding:7px 10px; border-radius:14px; }
-          .mobile-nav-links .font-display { font-size:clamp(38px,13.5vw,58px); line-height:.94; }
+          .mobile-nav-links { margin:auto 0; padding:18px 0; display:flex; flex-direction:column; gap:3px; }
+          .mobile-nav-links a { width:100%; border-bottom:1px solid color-mix(in srgb,var(--line) 42%,transparent); padding:7px 12px; border-radius:16px; }
+          .mobile-nav-links a[aria-current]{background:color-mix(in srgb,var(--ink) 8%,transparent);opacity:1!important}
+          .mobile-nav-links .font-display { font-size:clamp(34px,min(11vw,7.2vh),56px); line-height:.92; }
           .mobile-nav-links .mobile-resume-link { color:var(--ink); text-decoration:none; }
         }
       `}</style>
