@@ -26,7 +26,7 @@ function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
   );
 }
 
-export default function Header({ scrollPct, currentPage = 'home', onPageChange, theme = 'light', onThemeToggle }) {
+export default function Header({ currentPage = 'home', onPageChange, theme = 'light', onThemeToggle }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -34,12 +34,9 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const pct = String(scrollPct).padStart(3, '0');
-
   return (
-    <header data-testid="site-header" className={`surface-accent hairline-b simple-header ${scrollPct > 0 ? 'is-scrolled' : ''}`}>
+    <header data-testid="site-header" className="surface-accent hairline-b simple-header">
       <div className="header-status">
-        <span className="u-label">{pct}% / PORTFOLIO</span>
         <span className="u-label">FORMER MICRON SWE · ATLANTA</span>
       </div>
       <nav aria-label="Primary" className="simple-nav">
@@ -54,7 +51,7 @@ export default function Header({ scrollPct, currentPage = 'home', onPageChange, 
       </button>
 
       <div id="mobile-nav" className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
-        <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span><span>{pct}%</span></div>
+        <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
           {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} mobile onNavigate={(target, href, event) => { setMenuOpen(false); onPageChange?.(target, href, event); }} />)}
           <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display icon-link">RÉSUMÉ <InterfaceIcon size={22} /></span></a>

@@ -47,23 +47,10 @@ function PageIntro({ eyebrow, title, italic, description }) {
 
 function App({ view = 'home' }) {
   const [loaded, setLoaded] = useState(false);
-  const [scrollPct, setScrollPct] = useState(0);
   const [openProject, setOpenProject] = useState(null);
   const [activeView, setActiveView] = useState(view);
   const [theme, setTheme] = useState('light');
   const handleLoaded = useCallback(() => setLoaded(true), []);
-
-  useEffect(() => {
-    let raf;
-    const tick = () => {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = h > 0 ? Math.min(100, Math.round((window.scrollY / h) * 100)) : 0;
-      setScrollPct(pct);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
 
   useEffect(() => {
     const saved = window.localStorage.getItem('portfolio-theme');
@@ -112,12 +99,11 @@ function App({ view = 'home' }) {
     <div className="App" style={{ background: 'var(--accent)' }}>
       <a href="#main" className="skip-link">SKIP TO CONTENT</a>
       {!loaded && activeView === 'home' && <Loader onDone={handleLoaded} />}
-      <Header scrollPct={scrollPct} currentPage={activeView} onPageChange={changePage} theme={theme} onThemeToggle={toggleTheme} />
+      <Header currentPage={activeView} onPageChange={changePage} theme={theme} onThemeToggle={toggleTheme} />
 
       <div className="portfolio-browser-bar surface-accent hairline-b" aria-hidden="true">
         <span className="browser-controls"><i /><i /><i /></span>
         <span className="u-label">AJAY.PORTFOLIO / {activeView === 'writing' ? 'INSIGHTS' : activeView.toUpperCase()}</span>
-        <span className="u-label">ACTIVE TAB</span>
       </div>
 
       <AnimatePresence mode="wait" initial={false}>
@@ -138,12 +124,11 @@ function App({ view = 'home' }) {
       </AnimatePresence>
 
       <style>{`
-        .portfolio-browser-bar{height:34px;display:grid;grid-template-columns:110px 1fr auto;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:2}
+        .portfolio-browser-bar{height:34px;display:grid;grid-template-columns:110px 1fr;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:2}
         .portfolio-browser-bar>span:nth-child(2){text-align:center;opacity:.62}
-        .portfolio-browser-bar>span:last-child{opacity:.4}
         .browser-controls{display:flex;gap:6px}.browser-controls i{width:7px;height:7px;border:1px solid var(--line);border-radius:50%}.browser-controls i:first-child{background:var(--red);border-color:var(--red)}
         .portfolio-panel{min-height:calc(100svh - 110px)}
-        @media(max-width:720px){.portfolio-browser-bar{height:30px;grid-template-columns:auto 1fr;padding:0 12px}.portfolio-browser-bar>span:nth-child(2){text-align:right;font-size:7px}.portfolio-browser-bar>span:last-child{display:none}.browser-controls i{width:6px;height:6px}.portfolio-panel{min-height:calc(100svh - 94px)}}
+        @media(max-width:720px){.portfolio-browser-bar{height:30px;grid-template-columns:auto 1fr;padding:0 12px}.portfolio-browser-bar>span:nth-child(2){text-align:right;font-size:7px}.browser-controls i{width:6px;height:6px}.portfolio-panel{min-height:calc(100svh - 94px)}}
         @media(prefers-reduced-motion:reduce){.portfolio-panel{transform:none!important}}
       `}</style>
 
