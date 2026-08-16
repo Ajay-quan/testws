@@ -32,7 +32,7 @@ test("server-renders Ajay's portfolio and primary navigation", async () => {
   assert.match(html, /Ajay Varada/);
   assert.match(html, /ABOUT/);
   assert.match(html, /WORK/);
-  assert.match(html, /FIELD NOTES/);
+  assert.match(html, /INSIGHTS/);
   assert.match(html, /CONTACT/);
   assert.match(html, /ENGINEERS USED MY NLP PLATFORM/);
   assert.doesNotMatch(html, /12\.9716|77\.5946|33\.7490|84\.3880/);

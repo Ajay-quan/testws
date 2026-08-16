@@ -41,7 +41,7 @@ function WritingCard({ post, index, visible, reduced }) {
       transition={{ duration: 0.72, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="writing-card-top hairline-b">
-        <span className="u-label">NOTE / {post.index}</span>
+        <span className="u-label">POST / {post.index}</span>
         <span className="u-label writing-status"><i aria-hidden="true" />{post.status}</span>
       </div>
 
@@ -131,18 +131,18 @@ export default function Writing() {
     <section id="writing" ref={sectionRef} data-testid="writing-section" className="writing-section surface-accent hairline-b" style={{ scrollMarginTop: 92 }}>
       <div className="writing-intro hairline-b">
         <div>
-          <span className="u-label">04 — FIELD NOTES / INQUIRY</span>
-          <h2 className="font-display">LOOKING <em>CLOSER.</em></h2>
+          <span className="u-label">04 — INSIGHTS / IDEAS</span>
+          <h2 className="font-display">MY TWO <em>CENTS.</em></h2>
         </div>
-        <p className="font-serif-ed">Research notes, technical explorations, and observations from an engineer curious about how complex systems really work.</p>
+        <p className="font-serif-ed">My two cents on ideas I’m passionate about—shaped by the research I do, the things I build, and a desire to share what I learn.</p>
       </div>
 
       <div className="writing-toolbar hairline-b">
         <div className="writing-count" aria-live="polite">
           <span className="font-display">{String(activeIndex + 1).padStart(2, '0')}</span>
-          <span className="u-label">/ {String(POSTS.length).padStart(2, '0')} NOTES</span>
+          <span className="u-label">/ {String(POSTS.length).padStart(2, '0')} POSTS</span>
         </div>
-        <div className="writing-controls" aria-label="Field notes carousel controls">
+        <div className="writing-controls" aria-label="Insights carousel controls">
           <button type="button" className="focus-ring" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Previous article"><InterfaceIcon name="left" size={24} /></button>
           <button type="button" className="focus-ring" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === POSTS.length - 1} aria-label="Next article"><InterfaceIcon name="right" size={24} /></button>
         </div>
@@ -152,7 +152,7 @@ export default function Writing() {
         ref={railRef}
         className="writing-rail"
         role="region"
-        aria-label="Ajay Varada’s field notes"
+        aria-label="Ajay Varada’s insights"
         tabIndex={0}
         onScroll={syncIndex}
         onKeyDown={handleKeys}
