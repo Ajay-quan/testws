@@ -149,9 +149,6 @@ function App({ view = 'home' }) {
 
       <Footer />
 
-      {/* framed page border overlay */}
-      <div aria-hidden="true" style={{ position: 'fixed', inset: 7, border: '1px solid var(--line)', pointerEvents: 'none', zIndex: 110, mixBlendMode: 'normal' }} />
-
       <ProjectOverlay project={openProject} onClose={closeProject} />
     </div>
   );
