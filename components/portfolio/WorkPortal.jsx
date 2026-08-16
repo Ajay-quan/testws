@@ -278,8 +278,8 @@ export default function WorkPortal({ onOpen }) {
         .project-visual-meta{position:absolute;left:12px;right:12px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.55)}
         .project-visual-meta span:first-child{color:color-mix(in srgb,var(--project-accent) 72%,#eef4ff)}
         html[data-theme='dark'] .project-visual>img{filter:saturate(.68) contrast(1.18) brightness(.88)}
-        html[data-theme='dark'] .project-visual{background:#181513!important}
-        html[data-theme='dark'] .project-visual-tone{background:linear-gradient(180deg,rgba(17,15,14,.04) 35%,rgba(17,15,14,.84) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 10%,transparent),transparent 42%)}
+        html[data-theme='dark'] .project-visual{background:#191b1e!important}
+        html[data-theme='dark'] .project-visual-tone{background:linear-gradient(180deg,rgba(17,18,20,.04) 35%,rgba(17,18,20,.84) 100%),linear-gradient(125deg,color-mix(in srgb,var(--project-accent) 9%,transparent),transparent 42%)}
         .work-scroll-prompt{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;color:var(--inverse-fg);white-space:nowrap}
         .work-scroll-prompt span{position:relative;color:rgba(242,236,227,.2);font-family:'IBM Plex Mono',monospace;font-size:clamp(7px,.62vw,10px);font-weight:500;letter-spacing:.17em;line-height:1}
         .work-scroll-prompt span::after{content:attr(data-text);position:absolute;inset:0;color:var(--inverse-fg);clip-path:inset(0 100% 0 0);animation:work-prompt-fill 2.8s cubic-bezier(.65,0,.25,1) infinite}
