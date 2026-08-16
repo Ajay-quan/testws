@@ -252,17 +252,15 @@ html:not([data-theme='dark']) .simple-header::after {
 .mobile-nav { border-radius: 26px; }
 [data-testid='project-overlay'] > div { border-radius: 28px 0 0 28px; overflow: hidden; }
 
-.simple-nav a:hover,
-.simple-nav a[aria-current] {
-  border-radius: 14px;
-  margin: 8px 4px;
-  border: 1px solid var(--glass-edge);
-}
-
 .theme-toggle {
   border-radius: 14px;
   margin: 9px 6px;
   border: 1px solid var(--glass-edge) !important;
+}
+
+.simple-nav a.focus-ring:focus-visible {
+  outline: none;
+  outline-offset: 0;
 }
 
 .writing-card::after,
@@ -379,7 +377,7 @@ html:not([data-theme='dark']) .simple-header::after {
 @media (max-width: 720px) {
   :root { --glass-blur: 14px; }
   html[data-theme='dark'] body { background-attachment: scroll; }
-  .simple-nav a:hover,.simple-nav a[aria-current]{margin:0;border-radius:0;border-left:0;border-right:0}
+  .simple-nav a:hover,.simple-nav a[aria-current]{margin:0}
   .theme-toggle{margin:8px 5px;border-radius:13px}
   [data-testid='project-overlay'] > div { border-radius: 24px 24px 0 0; }
   .writing-card::after,#work article > div::after,.project-metrics::after{opacity:.48}
