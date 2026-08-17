@@ -46,7 +46,7 @@ test("serves focused work, writing, profile, and contact routes", async () => {
   ]);
   for (const response of [work, writing, profile, contact]) assert.equal(response.status, 200);
   assert.match(await work.text(), /STATEFUL\.AI[\s\S]*VISION CONSOLE[\s\S]*RESEARCHMATCH/);
-  assert.match(await writing.text(), /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\.[\s\S]*Multi-Agent Systems Work Best When Agents Know Less/);
+  assert.match(await writing.text(), /AI’s Defining Bottleneck Isn’t Intelligence\. It’s Memory\.[\s\S]*Multi-Agent Systems Work Best When Agents Know Less[\s\S]*Adaptive Agents: Why Correcting AI Is Not the Same as Teaching It/);
   assert.match(await profile.text(), /EXPERIENCE[\s\S]*MICRON TECHNOLOGY[\s\S]*CAPABILITIES/);
   assert.match(await contact.text(), /LET’S[\s\S]*BUILD[\s\S]*mailto:/);
 });

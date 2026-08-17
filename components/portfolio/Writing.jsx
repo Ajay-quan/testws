@@ -28,6 +28,13 @@ export const POSTS = [
     image: '/writing/context-engineering-delete.jpeg',
     status: 'SCHEDULED',
   },
+  {
+    id: 'adaptive-agents',
+    index: '004',
+    title: 'Adaptive Agents: Why Correcting AI Is Not the Same as Teaching It',
+    image: '/writing/adaptive-agents.jpeg',
+    status: 'SCHEDULED',
+  },
 ];
 
 function WritingCard({ post, index, visible, reduced }) {
