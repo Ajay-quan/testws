@@ -26,14 +26,16 @@ export const POSTS = [
     index: '003',
     title: 'The Best Context-Engineering Move Is Knowing What to Delete',
     image: '/writing/context-engineering-delete.jpeg',
-    status: 'SCHEDULED',
+    href: 'https://substack.com/@ajayvarada/note/p-211037095?r=7lkpa&utm_source=notes-share-action&utm_medium=web',
+    status: 'PUBLISHED',
   },
   {
     id: 'adaptive-agents',
     index: '004',
     title: 'Adaptive Agents: Why Correcting AI Is Not the Same as Teaching It',
     image: '/writing/adaptive-agents.jpeg',
-    status: 'SCHEDULED',
+    href: 'https://substack.com/@ajayvarada/note/p-211506665?r=7lkpa&utm_source=notes-share-action&utm_medium=web',
+    status: 'PUBLISHED',
   },
 ];
 
