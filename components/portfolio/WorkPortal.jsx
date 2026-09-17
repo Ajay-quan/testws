@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useIsCompact, usePrefersReducedMotion } from './hooks';
 import InterfaceIcon from './InterfaceIcon';
+import { useSkiper16Stack } from '../ui/skiper-ui/skiper16';
 
 export const PROJECTS = [
   {
@@ -63,7 +64,7 @@ export const PROJECTS = [
   },
 ];
 
-function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compact, mx, my }) {
+function ProjectWindow({ project, index, scrollYProgress, range, onOpen, reduced, compact, mx, my }) {
   const [revealed, setRevealed] = useState(false);
   const [r0, r1] = range;
   const mid = (r0 + r1) / 2;
@@ -73,10 +74,8 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
 
   const p1 = r0 + (r1 - r0) * .24;
   const p2 = r0 + (r1 - r0) * .7;
-  const y = useTransform(scrollYProgress, [r0, p1, p2, r1], [compact ? '30vh' : '38vh', '0vh', '0vh', compact ? '-36vh' : '-46vh']);
-  const scale = useTransform(scrollYProgress, [r0, p1, p2, r1], [compact ? 0.84 : 0.7, 1, 1, compact ? 1.04 : 1.08]);
-  const opacity = useTransform(scrollYProgress, [r0, r0 + 0.018, r1 - 0.045, r1], [0, 1, 1, 0]);
-  const x = useTransform(scrollYProgress, [r0, p1, p2, r1], [`${side * (compact ? 1 : 4)}vw`, '0vw', '0vw', `${side * (compact ? -1 : -2)}vw`]);
+  const { y, scale, opacity, filter } = useSkiper16Stack(scrollYProgress, { index, count: PROJECTS.length, compact });
+  const x = useTransform(scrollYProgress, [r0, p1, p2, r1], [`${side * (compact ? 1 : 4)}vw`, '0vw', '0vw', `${side * (compact ? -0.5 : -1)}vw`]);
   const zIndex = useTransform(scale, (s) => Math.round(s * 100));
 
   // dominance = how close to the viewer this window is (1 near center)
@@ -90,7 +89,7 @@ function ProjectWindow({ project, scrollYProgress, range, onOpen, reduced, compa
       data-testid={`project-${project.id}`}
       style={reduced ? { position: 'relative', margin: '0 auto 40px', maxWidth: 760, width: '90%' } : {
         position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%',
-        y, x, scale, opacity, rotate: rot, zIndex, rotateX: rotX, rotateY: rotY,
+        y, x, scale, opacity, filter, rotate: rot, zIndex, rotateX: rotX, rotateY: rotY,
         transformPerspective: 900, width: compact ? '92vw' : 'min(720px, 86vw)', willChange: 'transform',
       }}
     >
@@ -238,7 +237,7 @@ export default function WorkPortal({ onOpen }) {
         <div className="surface-ink" style={{ padding: '60px 18px' }}>
           <h2 className="font-display" style={{ fontSize: 'clamp(60px,18vw,240px)', color: 'var(--accent)', margin: '0 0 40px', letterSpacing: '-0.05em' }}>WORK</h2>
           {PROJECTS.map((p) => (
-            <ProjectWindow key={p.id} project={p} scrollYProgress={scrollYProgress} range={[0, 1]} onOpen={onOpen} reduced compact={compact} mx={mx} my={my} />
+            <ProjectWindow key={p.id} project={p} index={PROJECTS.indexOf(p)} scrollYProgress={scrollYProgress} range={[0, 1]} onOpen={onOpen} reduced compact={compact} mx={mx} my={my} />
           ))}
         </div>
       ) : (
@@ -271,9 +270,9 @@ export default function WorkPortal({ onOpen }) {
             </motion.div>
           </motion.div>
 
-          <ProjectWindow project={PROJECTS[0]} scrollYProgress={smoothProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
-          <ProjectWindow project={PROJECTS[1]} scrollYProgress={smoothProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
-          <ProjectWindow project={PROJECTS[2]} scrollYProgress={smoothProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[0]} index={0} scrollYProgress={smoothProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[1]} index={1} scrollYProgress={smoothProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[2]} index={2} scrollYProgress={smoothProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
 
           <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — SELECTED WORK · 3 PROJECTS</span></div>
           <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label icon-link" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL <InterfaceIcon name="down" /></span></div>
