@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useIsCompact, usePrefersReducedMotion } from './hooks';
 import InterfaceIcon from './InterfaceIcon';
 import { useSkiper16Stack } from '../ui/skiper-ui/skiper16';
+import { Skiper80Showcase } from '../ui/skiper-ui/skiper80';
 
 export const PROJECTS = [
   {
@@ -181,7 +182,7 @@ function DoorOutline({ scrollYProgress, r0, r1, baseW, h }) {
   );
 }
 
-export default function WorkPortal({ onOpen }) {
+function LegacyWorkTunnel({ onOpen }) {
   const reduced = usePrefersReducedMotion();
   const compact = useIsCompact();
   const ref = useRef(null);
@@ -315,4 +316,8 @@ export default function WorkPortal({ onOpen }) {
       `}</style>
     </section>
   );
+}
+
+export default function WorkPortal({ onOpen }) {
+  return <Skiper80Showcase projects={PROJECTS} onOpen={onOpen} />;
 }
