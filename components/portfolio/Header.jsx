@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import InterfaceIcon from './InterfaceIcon';
 import { TextRoll } from '../ui/skiper-ui/skiper58';
+import { SkiperThemeGlyph } from '../ui/skiper-ui/skiper4';
 
 const NAV = [
   ['HOME', '/', 'home'],
@@ -51,7 +52,7 @@ export default function Header({ currentPage = 'home', onPageChange, theme = 'li
         <motion.a href="/AjayVarada_Resume.pdf" aria-label="Résumé" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring" initial="initial" whileHover="hovered" whileFocus="hovered" whileTap="hovered"><span className="u-label icon-link"><TextRoll center>RÉSUMÉ</TextRoll> <InterfaceIcon /></span></motion.a>
       </nav>
       <button data-testid="theme-toggle" className="theme-toggle focus-ring" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
-        {theme === 'dark' ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
+        <SkiperThemeGlyph isDark={theme === 'dark'} className="theme-toggle-glyph" />
       </button>
       <button data-testid="mobile-menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen((value) => !value)} className="mobile-menu-toggle focus-ring">
         {menuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
@@ -108,6 +109,7 @@ export default function Header({ currentPage = 'home', onPageChange, theme = 'li
         html[data-theme='dark'] .simple-nav .header-resume { background:linear-gradient(155deg,rgba(255,255,255,.12),rgba(212,168,94,.055));color:var(--ink)!important;box-shadow:inset 0 0 0 1px rgba(224,226,229,.22),inset 0 1.5px 0 rgba(255,255,255,.24),inset 0 -1px 0 rgba(0,0,0,.3),0 7px 18px rgba(0,0,0,.18)!important; }
         html[data-theme='dark'] .simple-nav .header-resume:hover { background:linear-gradient(155deg,rgba(255,255,255,.17),rgba(212,168,94,.09));color:var(--ink)!important; }
         .theme-toggle { display:grid;place-items:center;align-self:center;justify-self:center;width:52px;height:52px;min-width:52px;aspect-ratio:1;padding:0;border:0!important;border-radius:50%!important;margin:0!important;color:var(--ink);background:color-mix(in srgb,var(--glass-fill) 24%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--glass-edge) 58%,transparent),inset 2px 3px 0 -2px rgba(255,255,255,.82),inset -2px -2px 0 -2px rgba(255,255,255,.5),inset -1px 2px 3px -1px rgba(10,15,25,.16),inset 0 -5px 2px -4px rgba(10,15,25,.1),0 5px 14px rgba(10,15,25,.08);-webkit-backdrop-filter:blur(10px) saturate(160%);backdrop-filter:blur(10px) saturate(160%);transition:transform 220ms cubic-bezier(.5,0,0,1),background-color 300ms ease,box-shadow 300ms ease; }
+        .theme-toggle-glyph { width:21px; height:21px; display:block; }
         .theme-toggle:hover { transform:scale(1.06);background:color-mix(in srgb,var(--glass-fill-strong) 34%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--glass-edge) 68%,transparent),inset 2px 3px 0 -2px rgba(255,255,255,.9),inset -2px -2px 0 -2px rgba(255,255,255,.58),inset -1px 2px 3px -1px rgba(10,15,25,.18),0 6px 16px rgba(10,15,25,.1)!important; }
         .mobile-menu-toggle,.mobile-nav { display:none; }
         @media(max-width:980px){.simple-header{grid-template-columns:minmax(170px,1fr) minmax(468px,auto) 48px}.simple-nav{grid-template-columns:repeat(6,minmax(78px,1fr))}.simple-nav a{padding:0 7px}.simple-nav .u-label{font-size:8px}.theme-toggle{width:44px;height:44px;min-width:44px}}
