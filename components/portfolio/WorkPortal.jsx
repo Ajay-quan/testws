@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useIsCompact, usePrefersReducedMotion } from './hooks';
 import InterfaceIcon from './InterfaceIcon';
 
@@ -177,6 +177,7 @@ function DoorOutline({ scrollYProgress, r0, r1, baseW, h }) {
     <motion.div aria-hidden="true" style={{
       position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%',
       width: baseW, height: h, scaleX: sx, opacity: op, border: '1px solid var(--ink)', borderRadius: 200,
+      willChange: 'transform, opacity', backfaceVisibility: 'hidden',
     }} />
   );
 }
@@ -186,6 +187,12 @@ export default function WorkPortal({ onOpen }) {
   const compact = useIsCompact();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 130,
+    damping: 28,
+    mass: 0.22,
+    restDelta: 0.0005,
+  });
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -195,34 +202,34 @@ export default function WorkPortal({ onOpen }) {
     my.set((e.clientY - r.top) / r.height - 0.5);
   };
 
-  const gridOpacity = useTransform(scrollYProgress, [0, 0.12, 0.21], [1, 1, 0]);
-  const inkOverlay = useTransform(scrollYProgress, [0.11, 0.22], [0, 1]);
-  const dotOpacity = useTransform(scrollYProgress, [0.19, 0.28], [0, 0.12]);
+  const gridOpacity = useTransform(smoothProgress, [0, 0.12, 0.21], [1, 1, 0]);
+  const inkOverlay = useTransform(smoothProgress, [0.11, 0.22], [0, 1]);
+  const dotOpacity = useTransform(smoothProgress, [0.19, 0.28], [0, 0.12]);
 
-  const capScaleX = useTransform(scrollYProgress, [0, 0.035, 0.18], [1, 1, 22]);
-  const capH = useTransform(scrollYProgress, [0, 0.18], ['78vh', '108vh']);
-  const capRadius = useTransform(scrollYProgress, [0.035, 0.18], [200, 0]);
-  const capOpacity = useTransform(scrollYProgress, [0.17, 0.22], [1, 0]);
+  const capScaleX = useTransform(smoothProgress, [0, 0.035, 0.18], [1, 1, 22]);
+  const capH = useTransform(smoothProgress, [0, 0.18], ['78vh', '108vh']);
+  const capRadius = useTransform(smoothProgress, [0.035, 0.18], [200, 0]);
+  const capOpacity = useTransform(smoothProgress, [0.17, 0.22], [1, 0]);
   const letterCounter = useTransform(capScaleX, (v) => 1 / v);
-  const workScale = useTransform(scrollYProgress, [0, 0.035, 0.17], [1, 1.08, 1.55]);
-  const workLetterOpacity = useTransform(scrollYProgress, [0.16, 0.21], [1, 0]);
-  const echoX = useTransform(scrollYProgress, [0.035, 0.18], [0, 42]);
+  const workScale = useTransform(smoothProgress, [0, 0.035, 0.17], [1, 1.08, 1.55]);
+  const workLetterOpacity = useTransform(smoothProgress, [0.16, 0.21], [1, 0]);
+  const echoX = useTransform(smoothProgress, [0.035, 0.18], [0, 42]);
   const echoXNeg = useTransform(echoX, (v) => -v);
-  const echoOpacity = useTransform(scrollYProgress, [0.035, 0.1, 0.18], [0, 0.32, 0]);
+  const echoOpacity = useTransform(smoothProgress, [0.035, 0.1, 0.18], [0, 0.32, 0]);
 
-  const py0 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[0].depth, -180 * BG[0].depth]);
-  const py1 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[1].depth, -180 * BG[1].depth]);
-  const py2 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[2].depth, -180 * BG[2].depth]);
-  const py3 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[3].depth, -180 * BG[3].depth]);
-  const py4 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[4].depth, -180 * BG[4].depth]);
-  const py5 = useTransform(scrollYProgress, [0.27, 1], [140 * BG[5].depth, -180 * BG[5].depth]);
+  const py0 = useTransform(smoothProgress, [0.27, 1], [140 * BG[0].depth, -180 * BG[0].depth]);
+  const py1 = useTransform(smoothProgress, [0.27, 1], [140 * BG[1].depth, -180 * BG[1].depth]);
+  const py2 = useTransform(smoothProgress, [0.27, 1], [140 * BG[2].depth, -180 * BG[2].depth]);
+  const py3 = useTransform(smoothProgress, [0.27, 1], [140 * BG[3].depth, -180 * BG[3].depth]);
+  const py4 = useTransform(smoothProgress, [0.27, 1], [140 * BG[4].depth, -180 * BG[4].depth]);
+  const py5 = useTransform(smoothProgress, [0.27, 1], [140 * BG[5].depth, -180 * BG[5].depth]);
   const py = [py0, py1, py2, py3, py4, py5];
 
   // per-project stage tint (peaks while that project is dominant)
   const ranges = [[0.2, 0.47], [0.4, 0.69], [0.62, 0.92]];
-  const tint0 = useTransform(scrollYProgress, [ranges[0][0], (ranges[0][0] + ranges[0][1]) / 2, ranges[0][1]], [0, 0.09, 0]);
-  const tint1 = useTransform(scrollYProgress, [ranges[1][0], (ranges[1][0] + ranges[1][1]) / 2, ranges[1][1]], [0, 0.09, 0]);
-  const tint2 = useTransform(scrollYProgress, [ranges[2][0], (ranges[2][0] + ranges[2][1]) / 2, ranges[2][1]], [0, 0.09, 0]);
+  const tint0 = useTransform(smoothProgress, [ranges[0][0], (ranges[0][0] + ranges[0][1]) / 2, ranges[0][1]], [0, 0.09, 0]);
+  const tint1 = useTransform(smoothProgress, [ranges[1][0], (ranges[1][0] + ranges[1][1]) / 2, ranges[1][1]], [0, 0.09, 0]);
+  const tint2 = useTransform(smoothProgress, [ranges[2][0], (ranges[2][0] + ranges[2][1]) / 2, ranges[2][1]], [0, 0.09, 0]);
   const tints = [tint0, tint1, tint2];
 
   return (
@@ -235,7 +242,7 @@ export default function WorkPortal({ onOpen }) {
           ))}
         </div>
       ) : (
-        <div onMouseMove={onStageMove} style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: 'var(--accent)' }}>
+        <div onMouseMove={compact ? undefined : onStageMove} style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: 'var(--accent)', contain: 'layout paint style', transform: 'translateZ(0)' }}>
           <motion.div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'var(--inverse-bg)', opacity: inkOverlay }} />
           {/* per-project signal tints */}
           {PROJECTS.map((p, i) => (
@@ -248,11 +255,11 @@ export default function WorkPortal({ onOpen }) {
             {BG.map((b, i) => <BgLetter key={i} {...b} y={py[i]} />)}
           </div>
 
-          <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.18} baseW={240} h="86vh" />
-          <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.165} baseW={300} h="92vh" />
-          <DoorOutline scrollYProgress={scrollYProgress} r0={0.035} r1={0.15} baseW={360} h="98vh" />
+          <DoorOutline scrollYProgress={smoothProgress} r0={0.035} r1={0.18} baseW={240} h="86vh" />
+          <DoorOutline scrollYProgress={smoothProgress} r0={0.035} r1={0.165} baseW={300} h="92vh" />
+          <DoorOutline scrollYProgress={smoothProgress} r0={0.035} r1={0.15} baseW={360} h="98vh" />
 
-          <motion.div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%', width: 200, height: capH, scaleX: capScaleX, opacity: capOpacity, borderRadius: capRadius, background: 'var(--inverse-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          <motion.div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: '50%', translateX: '-50%', translateY: '-50%', width: 200, height: capH, scaleX: capScaleX, opacity: capOpacity, borderRadius: capRadius, background: 'var(--inverse-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}>
             <motion.div style={{ scaleX: letterCounter, position: 'relative' }}>
               <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoX, opacity: echoOpacity, scale: workScale, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
               <motion.div className="font-display" style={{ position: 'absolute', inset: 0, x: echoXNeg, opacity: echoOpacity, scale: workScale, color: 'var(--inverse-fg)', fontSize: 'min(14vh, 20vw)', lineHeight: 0.84, textAlign: 'center', letterSpacing: '-0.04em' }}>W<br />O<br />R<br />K</motion.div>
@@ -264,9 +271,9 @@ export default function WorkPortal({ onOpen }) {
             </motion.div>
           </motion.div>
 
-          <ProjectWindow project={PROJECTS[0]} scrollYProgress={scrollYProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
-          <ProjectWindow project={PROJECTS[1]} scrollYProgress={scrollYProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
-          <ProjectWindow project={PROJECTS[2]} scrollYProgress={scrollYProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[0]} scrollYProgress={smoothProgress} range={ranges[0]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[1]} scrollYProgress={smoothProgress} range={ranges[1]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
+          <ProjectWindow project={PROJECTS[2]} scrollYProgress={smoothProgress} range={ranges[2]} onOpen={onOpen} compact={compact} mx={mx} my={my} />
 
           <div style={{ position: 'absolute', bottom: 14, left: 18 }}><span className="u-label" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>03 — SELECTED WORK · 3 PROJECTS</span></div>
           <div style={{ position: 'absolute', bottom: 14, right: 18 }}><span className="u-label icon-link" style={{ color: 'var(--accent)', opacity: 0.6, mixBlendMode: 'difference' }}>SCROLL <InterfaceIcon name="down" /></span></div>
