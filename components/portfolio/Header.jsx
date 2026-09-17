@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import InterfaceIcon from './InterfaceIcon';
+import { TextRoll } from '../ui/skiper-ui/skiper58';
 
 const NAV = [
   ['HOME', '/', 'home'],
@@ -12,17 +14,22 @@ const NAV = [
 
 function NavLink({ label, href, target, active, onNavigate, mobile = false }) {
   return (
-    <a
+    <motion.a
       href={href}
+      aria-label={label}
       data-cursor="hover"
       data-testid={`nav-${target}`}
       className="focus-ring"
       aria-current={active ? 'location' : undefined}
       onClick={(event) => onNavigate?.(target, href, event)}
+      initial="initial"
+      whileHover="hovered"
+      whileFocus="hovered"
+      whileTap="hovered"
       style={{ textDecoration: 'none', color: 'var(--ink)', opacity: active ? 1 : 0.62 }}
     >
-      <span className={mobile ? 'font-display' : 'u-label'}>{label}</span>
-    </a>
+      <TextRoll center className={mobile ? 'font-display' : 'u-label'}>{label}</TextRoll>
+    </motion.a>
   );
 }
 
@@ -41,7 +48,7 @@ export default function Header({ currentPage = 'home', onPageChange, theme = 'li
       </div>
       <nav aria-label="Primary" className="simple-nav">
         {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} onNavigate={onPageChange} />)}
-        <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring"><span className="u-label icon-link">RÉSUMÉ <InterfaceIcon /></span></a>
+        <motion.a href="/AjayVarada_Resume.pdf" aria-label="Résumé" target="_blank" rel="noreferrer" data-testid="header-resume" data-cursor="hover" className="header-resume focus-ring" initial="initial" whileHover="hovered" whileFocus="hovered" whileTap="hovered"><span className="u-label icon-link"><TextRoll center>RÉSUMÉ</TextRoll> <InterfaceIcon /></span></motion.a>
       </nav>
       <button data-testid="theme-toggle" className="theme-toggle focus-ring" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
         {theme === 'dark' ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
@@ -54,7 +61,7 @@ export default function Header({ currentPage = 'home', onPageChange, theme = 'li
         <div className="u-label mobile-nav-top"><span>INDEX / 01—06</span></div>
         <nav aria-label="Mobile primary" className="mobile-nav-links">
           {NAV.map(([label, href, id]) => <NavLink key={id} label={label} href={href} target={id} active={currentPage === id} mobile onNavigate={(target, href, event) => { setMenuOpen(false); onPageChange?.(target, href, event); }} />)}
-          <a href="/AjayVarada_Resume.pdf" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link"><span className="font-display icon-link">RÉSUMÉ <InterfaceIcon size={22} /></span></a>
+          <motion.a href="/AjayVarada_Resume.pdf" aria-label="Résumé" target="_blank" rel="noreferrer" data-cursor="hover" className="focus-ring mobile-resume-link" initial="initial" whileHover="hovered" whileFocus="hovered" whileTap="hovered"><span className="font-display icon-link"><TextRoll center>RÉSUMÉ</TextRoll> <InterfaceIcon size={22} /></span></motion.a>
         </nav>
         <div className="mobile-nav-foot u-label">AJAY VARADA · AI / ML ENGINEER</div>
       </div>
@@ -81,6 +88,10 @@ export default function Header({ currentPage = 'home', onPageChange, theme = 'li
         .header-status { padding:0 14px; display:flex; flex-direction:column; justify-content:center; gap:5px; border:0; border-radius:0; background:transparent; box-shadow:none; }
         .header-status span:last-child { opacity:.5; }
         .simple-nav { display:grid; grid-template-columns:repeat(6,minmax(92px,1fr)); align-items:stretch; gap:4px; padding:0; }
+        .skiper58-roll { position:relative; display:block; overflow:hidden; line-height:1; }
+        .skiper58-layer { display:block; white-space:nowrap; }
+        .skiper58-layer-copy { position:absolute; inset:0; }
+        .skiper58-letter { display:inline-block; }
         .simple-nav a { display:flex; align-items:center; justify-content:center; padding:0 14px; border:0!important; border-radius:999px!important; margin:0!important; overflow:hidden; background:rgba(255,255,255,.035); box-shadow:inset 0 1px 0 rgba(255,255,255,.12); transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,color .25s ease,opacity .25s ease,box-shadow .3s ease; }
         .simple-nav a:hover,.simple-nav a[aria-current] {
           background:linear-gradient(155deg,rgba(255,255,255,.32),rgba(255,255,255,.08)); color:var(--ink)!important; opacity:1!important;
