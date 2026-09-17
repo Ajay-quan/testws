@@ -37,6 +37,14 @@ export const POSTS = [
     href: 'https://substack.com/@ajayvarada/note/p-211506665?r=7lkpa&utm_source=notes-share-action&utm_medium=web',
     status: 'PUBLISHED',
   },
+  {
+    id: 'executable-skills',
+    index: '005',
+    title: 'From Retrieved Documents to Executable Skills',
+    image: '/writing/executable-skills.jpeg',
+    href: 'https://ajayvarada.substack.com/p/from-retrieved-documents-to-executable',
+    status: 'PUBLISHED',
+  },
 ];
 
 function WritingCard({ post, index, visible, reduced }) {
